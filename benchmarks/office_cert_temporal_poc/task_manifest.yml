@@ -1,0 +1,89 @@
+version: 1
+defaults:
+  output_dir: outputs
+  run_dir: run
+  solver_workspace_root: runs/workspaces
+
+tasks:
+  - id: cs1_excel_a
+    enabled: true
+    suite: computer_skills_1
+    source_id: cbtnara_cs1_excel_a
+    title: "컴퓨터활용능력 1급 엑셀 A형 예제"
+    artifact_type: xlsm
+    app_target: "Microsoft Excel"
+    solver_profile: spreadsheet
+    success_note: "Produce a completed workbook in outputs/ based on the problem PDF and source workbook."
+    gold_policy: "Gold answer workbook is withheld from the Codex solver workspace."
+
+  - id: cs1_excel_b
+    enabled: true
+    suite: computer_skills_1
+    source_id: cbtnara_cs1_excel_b
+    title: "컴퓨터활용능력 1급 엑셀 B형 예제"
+    artifact_type: xlsm
+    app_target: "Microsoft Excel"
+    solver_profile: spreadsheet
+    success_note: "Produce a completed workbook in outputs/ based on the problem PDF and source workbook."
+    gold_policy: "Gold answer workbook is withheld from the Codex solver workspace."
+
+  - id: itq_latest_excel
+    enabled: true
+    suite: itq
+    source_id: kpc_itq_latest
+    discovered_item: hangul_excel
+    title: "ITQ latest 한글엑셀"
+    artifact_type: xlsx
+    app_target: "Excel-compatible spreadsheet"
+    solver_profile: spreadsheet
+    success_note: "Solve the Excel task using only files copied into the solver workspace."
+    gold_policy: "Answer/model files from the KPC package are withheld."
+
+  - id: itq_latest_powerpoint
+    enabled: true
+    suite: itq
+    source_id: kpc_itq_latest
+    discovered_item: hangul_powerpoint
+    title: "ITQ latest 한글파워포인트"
+    artifact_type: pptx
+    app_target: "PowerPoint"
+    solver_profile: slides
+    success_note: "Produce an editable PowerPoint-compatible output and rendered previews where possible."
+    gold_policy: "Answer/model files from the KPC package are withheld."
+
+  - id: itq_latest_word_docx
+    enabled: true
+    suite: itq
+    source_id: kpc_itq_latest
+    discovered_item: hwp_word
+    title: "ITQ latest 아래한글 package, MS Word path"
+    artifact_type: docx
+    app_target: "Microsoft Word"
+    solver_profile: doc
+    success_note: "Prefer MS Word/DOCX files inside the package for the DOCX path."
+    gold_policy: "Answer/model files from the KPC package are withheld."
+
+  - id: itq_latest_hwp
+    enabled: true
+    suite: itq
+    source_id: kpc_itq_latest
+    discovered_item: hwp_word
+    title: "ITQ latest 아래한글 native HWP path"
+    artifact_type: hwp
+    app_target: "Hancom HWP"
+    solver_profile: hwp_mcp
+    required_mcp: hwp
+    success_note: "Use repo-local hwp-mcp on Windows with Hancom HWP installed."
+    gold_policy: "Answer/model files from the KPC package are withheld."
+
+  - id: mos_excel_associate_2019
+    enabled: false
+    suite: mos
+    source_id: microsoft_mos_office_2019
+    discovered_item: excel_associate_2019
+    title: "MOS Excel Associate 2019 official prep package"
+    artifact_type: xlsx
+    app_target: "Microsoft Excel"
+    solver_profile: spreadsheet
+    blocked_by_default: "Large official Microsoft package; download only with --include-large and valid access."
+    gold_policy: "Course solution files must be withheld from solver workspaces."

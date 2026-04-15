@@ -1,0 +1,90 @@
+version: 1
+generated_for: "CUIF office certification temporal benchmark PoC"
+last_reviewed: "2026-04-15"
+
+sources:
+  - id: cbtnara_cs1_excel_a
+    suite: computer_skills_1
+    source_policy: free_third_party
+    publisher: "CertExam Hub / cbtnara"
+    title: "컴퓨터활용능력 1급 엑셀 A형 예제"
+    landing_page: "https://cbtnara.com/pages/cs1-practical"
+    license_note: "Free public practice material from a third-party page; keep source attribution and do not assume official redistribution rights."
+    download_method: static_files
+    files:
+      - role: problem
+        filename: "1급 엑셀 A형.pdf"
+        url: "https://cbtnara.com/assets/certificate/computer-skills-1/ex/1급-엑셀-예제/1급-엑셀-A형/1급 엑셀 A형.pdf"
+      - role: input
+        filename: "1급 A형 소스.xlsm"
+        url: "https://cbtnara.com/assets/certificate/computer-skills-1/ex/1급-엑셀-예제/1급-엑셀-A형/1급 A형 소스.xlsm"
+      - role: support
+        filename: "출석부관리.csv"
+        url: "https://cbtnara.com/assets/certificate/computer-skills-1/ex/1급-엑셀-예제/1급-엑셀-A형/출석부관리.csv"
+      - role: gold
+        filename: "1급 A형 정답.xlsm"
+        url: "https://cbtnara.com/assets/certificate/computer-skills-1/ex/1급-엑셀-예제/1급-엑셀-A형/1급 A형 정답.xlsm"
+
+  - id: cbtnara_cs1_excel_b
+    suite: computer_skills_1
+    source_policy: free_third_party
+    publisher: "CertExam Hub / cbtnara"
+    title: "컴퓨터활용능력 1급 엑셀 B형 예제"
+    landing_page: "https://cbtnara.com/pages/cs1-practical"
+    license_note: "Free public practice material from a third-party page; keep source attribution and do not assume official redistribution rights."
+    download_method: static_files
+    files:
+      - role: problem
+        filename: "1급 엑셀 B형.pdf"
+        url: "https://cbtnara.com/assets/certificate/computer-skills-1/ex/1급-엑셀-예제/1급-엑셀-B형/1급 엑셀 B형.pdf"
+      - role: input
+        filename: "1급 B형 소스.xlsm"
+        url: "https://cbtnara.com/assets/certificate/computer-skills-1/ex/1급-엑셀-예제/1급-엑셀-B형/1급 B형 소스.xlsm"
+      - role: support
+        filename: "생활기상정보.accdb"
+        url: "https://cbtnara.com/assets/certificate/computer-skills-1/ex/1급-엑셀-예제/1급-엑셀-B형/생활기상정보.accdb"
+      - role: gold
+        filename: "1급 B형 정답.xlsm"
+        url: "https://cbtnara.com/assets/certificate/computer-skills-1/ex/1급-엑셀-예제/1급-엑셀-B형/1급 B형 정답.xlsm"
+
+  - id: kpc_itq_latest
+    suite: itq
+    source_policy: official_public_recent_only
+    publisher: "Korea Productivity Center"
+    title: "KPC ITQ latest public regular-session office materials"
+    landing_page: "https://license.kpc.or.kr/nasec/cmm/board/kpcBoard.do?bbsId=BBSMSTR_000000000107"
+    license_note: "KPC states ITQ/GTQ/ERP expose only recent six regular sessions. KPC copyright warning says materials cannot be used outside education and may not be redistributed without authorization."
+    download_method: kpc_board_latest
+    board:
+      bbs_attrb_code: "BBSA03"
+      bbs_id: "BBSMSTR_000000000107"
+      list_url: "https://license.kpc.or.kr/nasec/cmm/board/boardBoardList.do"
+      detail_url: "https://license.kpc.or.kr/nasec/cmm/board/boardBoardDetail.do"
+      download_url: "https://license.kpc.or.kr/nasec/cmm/board/readDownloadFile.do"
+    latest_items:
+      hangul_excel:
+        title_contains: "한글엑셀"
+      hangul_powerpoint:
+        title_contains: "한글파워포인트"
+      hwp_word:
+        title_contains: "아래한글(MS워드 포함)"
+
+  - id: microsoft_mos_office_2019
+    suite: mos
+    source_policy: official_public_or_authorized
+    publisher: "Microsoft Learn"
+    title: "Microsoft Office 2019 certification preparation materials"
+    landing_page: "https://learn.microsoft.com/en-us/training/educator-center/instructor-materials/microsoft-office-2019-certification-preparation-materials"
+    license_note: "Official Microsoft Learn certification preparation materials. Some tenants may require authorization; files are large and skipped by default."
+    download_method: microsoft_learn_links
+    metadata_only_default: true
+    include_large_default: false
+    products:
+      - key: word_associate_2019
+        heading: "Microsoft Word Associate 2019"
+      - key: excel_associate_2019
+        heading: "Microsoft Excel Associate 2019"
+      - key: excel_expert_2019
+        heading: "Microsoft Excel Expert 2019"
+      - key: powerpoint_2019
+        heading: "Microsoft PowerPoint 2019"
