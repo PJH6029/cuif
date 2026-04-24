@@ -8,13 +8,5 @@ output/
 __pycache__/
 *.py[cod]
 
-decks/
-
-# Office certification temporal benchmark PoC local state
-benchmarks/office_cert_temporal_poc/cache/
-benchmarks/office_cert_temporal_poc/runs/
-benchmarks/office_cert_temporal_poc/tmp/
-benchmarks/office_cert_temporal_poc/.tools/
-benchmarks/office_cert_temporal_poc/.venv/
-
 .omx
+mlxp_reservation_info.md
