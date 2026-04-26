@@ -26,12 +26,23 @@ def blocked_result(spec: CheckSpec, turn: TurnSpec, blocked_by: list[str]) -> Ch
     )
 
 
-def evaluate_manifest(manifest: Manifest, workspace: RunWorkspace, *, skip_judges: bool = False, judge_base_url: str | None = None, judge_model: str | None = None, judge_api_key_env: str = "OPENAI_API_KEY", refresh_judge_cache: bool = False) -> list[CheckResult]:
+def evaluate_manifest(
+    manifest: Manifest,
+    workspace: RunWorkspace,
+    *,
+    skip_judges: bool = False,
+    judge_base_url: str | None = None,
+    judge_model: str | None = None,
+    judge_api_key_env: str = "OPENAI_API_KEY",
+    judge_image_url_base: str | None = None,
+    refresh_judge_cache: bool = False,
+) -> list[CheckResult]:
     context = {
         "skip_judges": skip_judges,
         "judge_base_url": judge_base_url,
         "judge_model": judge_model,
         "judge_api_key_env": judge_api_key_env,
+        "judge_image_url_base": judge_image_url_base,
         "refresh_judge_cache": refresh_judge_cache,
     }
     results: list[CheckResult] = []

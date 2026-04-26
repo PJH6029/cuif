@@ -28,6 +28,6 @@ The smoke run creates:
 - Deterministic PPTX checks for file existence, slide count, text, normalized bbox regions, style, and preservation diffs.
 - Dependency-aware partial-credit aggregation by check, turn, and final score.
 - Optional rendered review fallback and static human review UI.
-- Optional OpenAI-compatible judge checks with skip/cache behavior.
+- Optional OpenAI-compatible LLM/VLM judge checks with skip/cache behavior. VLM checks render PPTX artifacts to PNG previews and send those images through `/chat/completions` image content when live judges are enabled; `--judge-image-url-base` supports `openai-oauth` deployments that require HTTP(S) image URLs.
 
 See `poc/README.md` for task authoring and adapter details.

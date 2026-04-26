@@ -143,6 +143,15 @@ turns:
         params:
           prompt: "Check whether the final deck describes the CUIF PoC dashboard."
           rubric: "Pass if the deck visibly contains the title CUIF PoC Dashboard and preserves the protected slide context."
+      - id: optional_vlm_layout_judge
+        evaluator: vlm_layout_rubric
+        artifact: run.outputs.final.result
+        points: 0
+        optional: true
+        diagnostic: true
+        params:
+          prompt: "Inspect the rendered final deck image for the CUIF PoC dashboard."
+          rubric: "Pass if the PNG preview shows the CUIF PoC Dashboard title in a top banner-like region with dashboard panels below."
 review:
   comparison_targets:
     - label: Seed deck

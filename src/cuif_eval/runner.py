@@ -18,7 +18,7 @@ def default_run_dir(task_id: str, adapter: str) -> Path:
     return Path("output") / "runs" / f"{task_id}_{adapter}_{stamp}"
 
 
-def run_task(task_dir: str | Path, *, adapter_name: str = "mock", out: str | Path | None = None, invocation_mode: str = "per_turn", skip_judges: bool = False, judge_base_url: str | None = None, judge_model: str | None = None, judge_api_key_env: str = "OPENAI_API_KEY", refresh_judge_cache: bool = False, adapter_config: dict[str, Any] | None = None) -> dict[str, Any]:
+def run_task(task_dir: str | Path, *, adapter_name: str = "mock", out: str | Path | None = None, invocation_mode: str = "per_turn", skip_judges: bool = False, judge_base_url: str | None = None, judge_model: str | None = None, judge_api_key_env: str = "OPENAI_API_KEY", judge_image_url_base: str | None = None, refresh_judge_cache: bool = False, adapter_config: dict[str, Any] | None = None) -> dict[str, Any]:
     task_dir = validate_task_dir(task_dir)
     manifest = load_manifest(task_dir / "manifest.yaml", skip_judges=skip_judges)
     run_dir = Path(out).resolve() if out is not None else default_run_dir(manifest.id, adapter_name).resolve()
@@ -38,19 +38,19 @@ def run_task(task_dir: str | Path, *, adapter_name: str = "mock", out: str | Pat
         "workspace": workspace.as_dict(),
         "started_at": datetime.now(timezone.utc).isoformat(),
         "adapter_result": adapter_result.to_json(),
-        "judge": {"skip_judges": skip_judges, "base_url": judge_base_url, "model": judge_model, "api_key_env": judge_api_key_env},
+        "judge": {"skip_judges": skip_judges, "base_url": judge_base_url, "model": judge_model, "api_key_env": judge_api_key_env, "image_url_base": judge_image_url_base},
     }
     write_run_metadata(workspace, metadata)
     results: list[CheckResult] = []
     report_paths: dict[str, Path] = {}
     if adapter_name != "manual":
-        results = evaluate_manifest(manifest, workspace, skip_judges=skip_judges, judge_base_url=judge_base_url, judge_model=judge_model, judge_api_key_env=judge_api_key_env, refresh_judge_cache=refresh_judge_cache)
+        results = evaluate_manifest(manifest, workspace, skip_judges=skip_judges, judge_base_url=judge_base_url, judge_model=judge_model, judge_api_key_env=judge_api_key_env, judge_image_url_base=judge_image_url_base, refresh_judge_cache=refresh_judge_cache)
         (workspace.run_dir / "evaluation_results.json").write_text(json.dumps([r.to_json() for r in results], indent=2, sort_keys=True), encoding="utf-8")
         report_paths = write_reports(manifest, workspace, results)
     return {"manifest": manifest, "workspace": workspace, "adapter_result": adapter_result, "results": results, "report_paths": report_paths}
 
 
-def evaluate_run(task_dir: str | Path, run_dir: str | Path, *, skip_judges: bool = False, judge_base_url: str | None = None, judge_model: str | None = None, judge_api_key_env: str = "OPENAI_API_KEY", refresh_judge_cache: bool = False) -> dict[str, Any]:
+def evaluate_run(task_dir: str | Path, run_dir: str | Path, *, skip_judges: bool = False, judge_base_url: str | None = None, judge_model: str | None = None, judge_api_key_env: str = "OPENAI_API_KEY", judge_image_url_base: str | None = None, refresh_judge_cache: bool = False) -> dict[str, Any]:
     task_dir = validate_task_dir(task_dir)
     manifest = load_manifest(task_dir / "manifest.yaml", skip_judges=skip_judges)
     run_dir = Path(run_dir).resolve()
@@ -70,7 +70,7 @@ def evaluate_run(task_dir: str | Path, run_dir: str | Path, *, skip_judges: bool
     metadata = read_run_metadata(run_dir)
     if not metadata:
         write_run_metadata(workspace, {"task_id": manifest.id, "task_dir": str(task_dir), "manifest_path": str(manifest.path), "adapter_status": "unknown"})
-    results = evaluate_manifest(manifest, workspace, skip_judges=skip_judges, judge_base_url=judge_base_url, judge_model=judge_model, judge_api_key_env=judge_api_key_env, refresh_judge_cache=refresh_judge_cache)
+    results = evaluate_manifest(manifest, workspace, skip_judges=skip_judges, judge_base_url=judge_base_url, judge_model=judge_model, judge_api_key_env=judge_api_key_env, judge_image_url_base=judge_image_url_base, refresh_judge_cache=refresh_judge_cache)
     (workspace.run_dir / "evaluation_results.json").write_text(json.dumps([r.to_json() for r in results], indent=2, sort_keys=True), encoding="utf-8")
     report_paths = write_reports(manifest, workspace, results)
     return {"manifest": manifest, "workspace": workspace, "results": results, "report_paths": report_paths}

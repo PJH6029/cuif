@@ -27,7 +27,7 @@ The mock adapter copies `mock_outputs/<turn>/result.pptx` into the isolated run 
 - `command`: prepares per-turn instruction files and documented environment variables (`CUIF_TASK_DIR`, `CUIF_WORK_DIR`, `CUIF_OUTPUT_DIR`, `CUIF_TURN_ID`, `CUIF_INSTRUCTION_FILE`) for future GUI/open-tool agents. `CUIF_TASK_DIR` points at the copied run-local `task/` directory, not the source package. Pass `--command '<template>'` to execute a command; omit it to prepare the workspace only.
 - `manual`: writes instructions for a human or pure-GUI workflow without claiming evaluation completed.
 
-## Optional live judges
+## Optional live LLM/VLM judges
 
 Default verification uses `--skip-judges` and performs no network calls. For an OpenAI-compatible local endpoint, launch:
 
@@ -36,4 +36,18 @@ npx openai-oauth
 uv run cuif-eval run --task poc/tasks/toy_pptx_layout --adapter mock --out output/runs/toy_pptx_layout_judge --judge-base-url http://127.0.0.1:<port>/v1 --judge-model <model>
 ```
 
-Judge responses are cached in the run workspace under `judge_cache/` using a key that includes model, endpoint, prompt/rubric, artifact references, and artifact digests.
+Judge responses are cached in the run workspace under `judge_cache/` using a key that includes model, endpoint, prompt/rubric, artifact references, artifact digests, rendered image paths, and rendered image digests.
+
+`llm_text_rubric` sends a text-only `/chat/completions` request with a structured PPTX text/layout summary. `vlm_layout_rubric` first renders the target PPTX to PNG preview assets with LibreOffice/`soffice`; when at least one PNG is produced, it sends those PNGs as `image_url` content blocks to the same OpenAI-compatible endpoint. If rendering is unavailable, optional VLM checks are skipped and required VLM checks are blocked with renderer evidence.
+
+Most OpenAI-compatible servers accept base64 `data:` image URLs. `openai-oauth` 1.0.2 requires `http`/`https` image URLs, so expose the run directory through a public/static file URL when doing a true live VLM pass and pass the run-local URL root:
+
+```bash
+uv run cuif-eval run \
+  --task poc/tasks/toy_pptx_layout \
+  --adapter mock \
+  --out output/runs/toy_pptx_layout_judge \
+  --judge-base-url http://127.0.0.1:<port>/v1 \
+  --judge-model <model> \
+  --judge-image-url-base https://<public-host>/toy_pptx_layout_judge
+```

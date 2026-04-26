@@ -26,6 +26,7 @@ def build_parser() -> argparse.ArgumentParser:
     run.add_argument("--judge-base-url")
     run.add_argument("--judge-model")
     run.add_argument("--judge-api-key-env", default="OPENAI_API_KEY")
+    run.add_argument("--judge-image-url-base", help="public URL base for run-local PNG previews when using openai-oauth VLM judges")
     run.add_argument("--refresh-judge-cache", action="store_true")
     run.add_argument("--mock-outputs-dir", default="mock_outputs", help="fixture directory for mock adapter, relative to task")
     run.add_argument("--command", dest="command_template", help="command template for the command adapter; may use CUIF_* env var names as format keys")
@@ -37,6 +38,7 @@ def build_parser() -> argparse.ArgumentParser:
     evaluate.add_argument("--judge-base-url")
     evaluate.add_argument("--judge-model")
     evaluate.add_argument("--judge-api-key-env", default="OPENAI_API_KEY")
+    evaluate.add_argument("--judge-image-url-base", help="public URL base for run-local PNG previews when using openai-oauth VLM judges")
     evaluate.add_argument("--refresh-judge-cache", action="store_true")
 
     report = sub.add_parser("report", help="print existing report summary")
@@ -61,6 +63,7 @@ def main(argv: list[str] | None = None) -> int:
                 judge_base_url=args.judge_base_url,
                 judge_model=args.judge_model,
                 judge_api_key_env=args.judge_api_key_env,
+                judge_image_url_base=args.judge_image_url_base,
                 refresh_judge_cache=args.refresh_judge_cache,
                 adapter_config={"mock_outputs_dir": args.mock_outputs_dir, "command": args.command_template},
             )
@@ -79,6 +82,7 @@ def main(argv: list[str] | None = None) -> int:
                 judge_base_url=args.judge_base_url,
                 judge_model=args.judge_model,
                 judge_api_key_env=args.judge_api_key_env,
+                judge_image_url_base=args.judge_image_url_base,
                 refresh_judge_cache=args.refresh_judge_cache,
             )
             summary = aggregate_results(result["results"])
