@@ -10,3 +10,7 @@ __pycache__/
 
 .omx
 mlxp_reservation_info.md
+.venv/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540">
+  <rect width="960" height="540" fill="#f7fbff"/>
+  <rect x="60" y="35" width="840" height="95" rx="10" fill="#d9eaf7" stroke="#1f4e79" stroke-width="3"/>
+  <text x="90" y="95" font-family="Arial" font-size="42" fill="#1f4e79">CUIF PoC Dashboard</text>
+  <rect x="60" y="165" width="380" height="240" rx="12" fill="#ffffff" stroke="#ccd5e0"/>
+  <rect x="520" y="165" width="380" height="240" rx="12" fill="#ffffff" stroke="#ccd5e0"/>
+  <text x="90" y="220" font-family="Arial" font-size="24" fill="#172033">Partial-credit office evaluation</text>
+  <text x="550" y="220" font-family="Arial" font-size="24" fill="#172033">Preservation checks</text>
+</svg>

@@ -1,0 +1,155 @@
+manifest_version: "0.1"
+id: toy_pptx_layout
+title: Toy PPTX layout smoke task
+primary_artifact_family: pptx
+artifact_families: [pptx]
+tracks: [open_tool, gui]
+scoring:
+  policy: sum_points
+judge:
+  api_key_env: OPENAI_API_KEY
+artifacts:
+  package:
+    seed:
+      path: artifacts/seed.pptx
+      type: pptx
+      role: seed
+    sketch:
+      path: artifacts/inputs/sketch.svg
+      type: image
+      role: instruction_input
+    gold_turn1:
+      path: artifacts/gold/turn1.pptx
+      type: pptx
+      role: gold
+    gold_final:
+      path: artifacts/gold/final.pptx
+      type: pptx
+      role: gold
+  expected_outputs:
+    turn1:
+      result:
+        path: result.pptx
+        type: pptx
+    final:
+      result:
+        path: result.pptx
+        type: pptx
+turns:
+  - id: turn1
+    instruction: >-
+      Create a two-slide dashboard from the seed deck. On slide 1 place the title
+      "CUIF PoC Dashboard" near the top and add the subtitle "Partial-credit office evaluation".
+      Preserve slide 2 exactly because it contains protected benchmark context.
+    expected_output: result
+    checks:
+      - id: turn1_file_exists
+        evaluator: file_exists
+        artifact: run.outputs.turn1.result
+        points: 1
+      - id: turn1_slide_count
+        evaluator: pptx_slide_count
+        artifact: run.outputs.turn1.result
+        points: 1
+        depends_on: [turn1_file_exists]
+        params: {count: 2}
+      - id: title_present
+        evaluator: pptx_text_contains
+        artifact: run.outputs.turn1.result
+        points: 2
+        depends_on: [turn1_file_exists]
+        params: {text: "CUIF PoC Dashboard"}
+      - id: subtitle_present
+        evaluator: pptx_text_contains
+        artifact: run.outputs.turn1.result
+        points: 1
+        depends_on: [turn1_file_exists]
+        params: {text: "Partial-credit office evaluation"}
+      - id: title_region
+        evaluator: pptx_bbox_region
+        artifact: run.outputs.turn1.result
+        points: 2
+        depends_on: [title_present]
+        params:
+          selector: {slide: 1, text_contains: "CUIF PoC Dashboard"}
+          region: {slide: 1, x_min: 0.05, y_min: 0.05, x_max: 0.95, y_max: 0.25}
+          tolerance: 0.02
+      - id: turn1_rendered_review
+        evaluator: rendered_layout_review
+        artifact: run.outputs.turn1.result
+        points: 0
+        optional: true
+        diagnostic: true
+        params:
+          note: Optional rendered smoke check; deterministic tests accept fallback/skip when LibreOffice is absent.
+  - id: final
+    instruction: >-
+      Apply the CUIF brand style to the slide 1 title: blue #1F4E79, bold, 34 pt.
+      Keep the turn 1 layout and preserve the protected slide 2 content.
+    expected_output: result
+    checks:
+      - id: final_file_exists
+        evaluator: file_exists
+        artifact: run.outputs.final.result
+        points: 1
+      - id: final_slide_count
+        evaluator: pptx_slide_count
+        artifact: run.outputs.final.result
+        points: 1
+        depends_on: [final_file_exists]
+        params: {count: 2}
+      - id: final_title_present
+        evaluator: pptx_text_contains
+        artifact: run.outputs.final.result
+        points: 2
+        depends_on: [final_file_exists]
+        params: {text: "CUIF PoC Dashboard"}
+      - id: brand_title_style
+        evaluator: pptx_style_check
+        artifact: run.outputs.final.result
+        points: 3
+        depends_on: [final_title_present]
+        params:
+          selector: {slide: 1, text_contains: "CUIF PoC Dashboard"}
+          font_color: "#1F4E79"
+          font_size_pt: 34
+          font_size_tolerance: 0.25
+          bold: true
+      - id: slide2_preserved
+        evaluator: pptx_preservation_diff
+        artifact: run.outputs.final.result
+        points: 3
+        depends_on: [final_slide_count]
+        params:
+          reference: run.outputs.turn1.result
+          compare: exact_slide_text
+          slides: [2]
+          protected_texts: ["Do not edit: CUIF benchmark invariant"]
+      - id: title_layout_preserved
+        evaluator: pptx_preservation_diff
+        artifact: run.outputs.final.result
+        points: 2
+        depends_on: [brand_title_style]
+        params:
+          reference: run.outputs.turn1.result
+          selector: {slide: 1, text_contains: "CUIF PoC Dashboard"}
+          tolerance: 0.02
+      - id: optional_llm_summary_judge
+        evaluator: llm_text_rubric
+        artifact: run.outputs.final.result
+        points: 0
+        optional: true
+        diagnostic: true
+        params:
+          prompt: "Check whether the final deck describes the CUIF PoC dashboard."
+          rubric: "Pass if the deck visibly contains the title CUIF PoC Dashboard and preserves the protected slide context."
+review:
+  comparison_targets:
+    - label: Seed deck
+      artifact: package.seed
+    - label: Turn 1 output
+      artifact: run.outputs.turn1.result
+    - label: Final output
+      artifact: run.outputs.final.result
+    - label: Gold final
+      artifact: package.gold_final
