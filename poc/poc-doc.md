@@ -95,6 +95,13 @@ Evaluator types:
 
 **Goal:** revise an existing deck based on visual annotations while preserving non-target content.
 
+Implemented PoC package:
+
+- `poc/tasks/incident_response_annotated_deck`
+- Scenario: revise a Nimbus reliability operations seed deck from an annotated slide screenshot.
+- Turn 1 tests targeted layout repair on slide 2 plus preservation of non-target slides.
+- Final turn tests incremental styling, caption/owner additions, turn-1 layout preservation, and collateral-damage checks.
+
 Inputs:
 
 - seed PPTX;

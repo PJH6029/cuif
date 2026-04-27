@@ -1,0 +1,4 @@
+Scenario: executive reliability operations review.
+Only slide 2 should be edited. Slides 1, 3, and 4 contain benchmark/provenance text and must be preserved.
+The annotated screenshot marks three intended layout repairs: align the metric tiles across the top row, expand the Incident trend panel into the left-middle region, and move the SEV-2 queue risk callout to the lower-right.
+The final turn adds executive handoff details without moving the turn-1 chart or damaging protected slides.

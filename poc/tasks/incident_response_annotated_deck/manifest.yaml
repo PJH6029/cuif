@@ -1,0 +1,309 @@
+manifest_version: "0.1"
+id: incident_response_annotated_deck
+title: Nimbus incident response annotated edit deck
+primary_artifact_family: pptx
+artifact_families: [pptx]
+tracks: [open_tool, gui]
+scoring:
+  policy: sum_points
+judge:
+  api_key_env: OPENAI_API_KEY
+artifacts:
+  package:
+    seed:
+      path: artifacts/seed.pptx
+      type: pptx
+      role: seed
+    annotated_screenshot:
+      path: artifacts/inputs/annotated_slide2_screenshot.svg
+      type: svg
+      role: instruction_input
+    seed_slide2_screenshot:
+      path: artifacts/inputs/slide2_seed_screenshot.png
+      type: png
+      role: source_input
+    revision_notes:
+      path: artifacts/inputs/revision_notes.txt
+      type: txt
+      role: source_input
+    gold_turn1:
+      path: artifacts/gold/turn1.pptx
+      type: pptx
+      role: gold
+    gold_final:
+      path: artifacts/gold/final.pptx
+      type: pptx
+      role: gold
+  expected_outputs:
+    turn1:
+      result:
+        path: result.pptx
+        type: pptx
+    final:
+      result:
+        path: result.pptx
+        type: pptx
+turns:
+  - id: turn1
+    instruction: >-
+      Using the seed deck, revision_notes.txt, and annotated_slide2_screenshot.svg,
+      revise only slide 2 of the Nimbus reliability deck. Follow the handwritten
+      annotations on the screenshot: align the metric tiles "MTTA 8 min",
+      "Backlog 42", and "Coverage 92%" across the top row; expand the
+      "Incident trend" panel into the large left-middle region; and move the
+      "SEV-2 queue risk" callout into the lower-right region while keeping the
+      exact lines "Escalation owner missing" and "Annotate hotfix owner by
+      Friday". Preserve slides 1, 3, and 4 exactly because they contain
+      benchmark context and invariants.
+    expected_output: result
+    checks:
+      - id: nimbus_t1_file_exists
+        evaluator: file_exists
+        artifact: run.outputs.turn1.result
+        points: 1
+      - id: nimbus_t1_slide_count
+        evaluator: pptx_slide_count
+        artifact: run.outputs.turn1.result
+        points: 1
+        depends_on: [nimbus_t1_file_exists]
+        params: {count: 4}
+      - id: nimbus_t1_target_slide_texts
+        evaluator: pptx_text_contains
+        artifact: run.outputs.turn1.result
+        points: 5
+        depends_on: [nimbus_t1_file_exists]
+        params:
+          texts:
+            - "Reliability Operations Review"
+            - "MTTA 8 min"
+            - "Backlog 42"
+            - "Coverage 92%"
+            - "Incident trend"
+            - "SEV-2 queue risk"
+            - "Escalation owner missing"
+            - "Annotate hotfix owner by Friday"
+      - id: nimbus_t1_mtta_top_row
+        evaluator: pptx_bbox_region
+        artifact: run.outputs.turn1.result
+        points: 2
+        depends_on: [nimbus_t1_target_slide_texts]
+        params:
+          selector: {slide: 2, text_contains: "MTTA 8 min"}
+          region: {slide: 2, x_min: 0.04, y_min: 0.14, x_max: 0.34, y_max: 0.32}
+          tolerance: 0.03
+      - id: nimbus_t1_backlog_top_row
+        evaluator: pptx_bbox_region
+        artifact: run.outputs.turn1.result
+        points: 2
+        depends_on: [nimbus_t1_target_slide_texts]
+        params:
+          selector: {slide: 2, text_contains: "Backlog 42"}
+          region: {slide: 2, x_min: 0.34, y_min: 0.14, x_max: 0.66, y_max: 0.32}
+          tolerance: 0.03
+      - id: nimbus_t1_coverage_top_row
+        evaluator: pptx_bbox_region
+        artifact: run.outputs.turn1.result
+        points: 2
+        depends_on: [nimbus_t1_target_slide_texts]
+        params:
+          selector: {slide: 2, text_contains: "Coverage 92%"}
+          region: {slide: 2, x_min: 0.64, y_min: 0.14, x_max: 0.97, y_max: 0.32}
+          tolerance: 0.03
+      - id: nimbus_t1_incident_panel_region
+        evaluator: pptx_bbox_region
+        artifact: run.outputs.turn1.result
+        points: 3
+        depends_on: [nimbus_t1_target_slide_texts]
+        params:
+          selector: {slide: 2, text_contains: "Incident trend"}
+          region: {slide: 2, x_min: 0.04, y_min: 0.30, x_max: 0.66, y_max: 0.78}
+          tolerance: 0.03
+      - id: nimbus_t1_risk_lower_right
+        evaluator: pptx_bbox_region
+        artifact: run.outputs.turn1.result
+        points: 3
+        depends_on: [nimbus_t1_target_slide_texts]
+        params:
+          selector: {slide: 2, text_contains: "SEV-2 queue risk"}
+          region: {slide: 2, x_min: 0.64, y_min: 0.61, x_max: 0.97, y_max: 0.95}
+          tolerance: 0.03
+      - id: nimbus_t1_slide1_preserved
+        evaluator: pptx_preservation_diff
+        artifact: run.outputs.turn1.result
+        points: 3
+        depends_on: [nimbus_t1_slide_count]
+        params:
+          reference: package.seed
+          compare: exact_slide_text
+          slides: [1]
+          protected_texts: ["Do not edit: Nimbus context invariant"]
+      - id: nimbus_t1_slide3_preserved
+        evaluator: pptx_preservation_diff
+        artifact: run.outputs.turn1.result
+        points: 3
+        depends_on: [nimbus_t1_slide_count]
+        params:
+          reference: package.seed
+          compare: exact_slide_text
+          slides: [3]
+          protected_texts: ["Do not edit: runbook appendix invariant"]
+      - id: nimbus_t1_slide4_preserved
+        evaluator: pptx_preservation_diff
+        artifact: run.outputs.turn1.result
+        points: 3
+        depends_on: [nimbus_t1_slide_count]
+        params:
+          reference: package.seed
+          compare: exact_slide_text
+          slides: [4]
+          protected_texts: ["Do not edit: incident response benchmark invariant"]
+      - id: nimbus_t1_rendered_review
+        evaluator: rendered_layout_review
+        artifact: run.outputs.turn1.result
+        points: 0
+        optional: true
+        diagnostic: true
+        params:
+          note: Optional rendered review for the annotated screenshot edit on slide 2.
+  - id: final
+    instruction: >-
+      Revise the turn 1 deck for executive handoff. On slide 2, style the title
+      "Reliability Operations Review" as CUIF blue #1F4E79, bold, and 32 pt.
+      Keep the three metric tiles aligned across the top row and keep the
+      "Incident trend" panel in the large left-middle region. Add the caption
+      "Caption: queue risk is concentrated in SEV-2 ownership gaps." directly
+      below the Incident trend panel. Add a right-side owner list with the exact
+      header "Action owners" and the exact entries "SRE: Priya", "Support:
+      Marcus", and "Comms: Lina". Keep the "SEV-2 queue risk" callout in the
+      lower-right region. Preserve slides 1, 3, and 4 exactly from turn 1.
+    expected_output: result
+    checks:
+      - id: nimbus_final_file_exists
+        evaluator: file_exists
+        artifact: run.outputs.final.result
+        points: 1
+      - id: nimbus_final_slide_count
+        evaluator: pptx_slide_count
+        artifact: run.outputs.final.result
+        points: 1
+        depends_on: [nimbus_final_file_exists]
+        params: {count: 4}
+      - id: nimbus_final_title_style
+        evaluator: pptx_style_check
+        artifact: run.outputs.final.result
+        points: 4
+        depends_on: [nimbus_final_file_exists]
+        params:
+          selector: {slide: 2, text_contains: "Reliability Operations Review"}
+          font_color: "#1F4E79"
+          font_size_pt: 32
+          font_size_tolerance: 0.25
+          bold: true
+      - id: nimbus_final_handoff_texts
+        evaluator: pptx_text_contains
+        artifact: run.outputs.final.result
+        points: 5
+        depends_on: [nimbus_final_file_exists]
+        params:
+          texts:
+            - "Reliability Operations Review"
+            - "Caption: queue risk is concentrated in SEV-2 ownership gaps."
+            - "Action owners"
+            - "SRE: Priya"
+            - "Support: Marcus"
+            - "Comms: Lina"
+            - "SEV-2 queue risk"
+            - "Annotate hotfix owner by Friday"
+      - id: nimbus_final_caption_region
+        evaluator: pptx_bbox_region
+        artifact: run.outputs.final.result
+        points: 2
+        depends_on: [nimbus_final_handoff_texts]
+        params:
+          selector: {slide: 2, text_contains: "Caption: queue risk is concentrated in SEV-2 ownership gaps."}
+          region: {slide: 2, x_min: 0.05, y_min: 0.72, x_max: 0.64, y_max: 0.86}
+          tolerance: 0.03
+      - id: nimbus_final_action_owners_region
+        evaluator: pptx_bbox_region
+        artifact: run.outputs.final.result
+        points: 2
+        depends_on: [nimbus_final_handoff_texts]
+        params:
+          selector: {slide: 2, text_contains: "Action owners"}
+          region: {slide: 2, x_min: 0.65, y_min: 0.32, x_max: 0.97, y_max: 0.62}
+          tolerance: 0.03
+      - id: nimbus_final_risk_lower_right
+        evaluator: pptx_bbox_region
+        artifact: run.outputs.final.result
+        points: 2
+        depends_on: [nimbus_final_handoff_texts]
+        params:
+          selector: {slide: 2, text_contains: "SEV-2 queue risk"}
+          region: {slide: 2, x_min: 0.64, y_min: 0.61, x_max: 0.97, y_max: 0.95}
+          tolerance: 0.03
+      - id: nimbus_final_incident_panel_preserved
+        evaluator: pptx_preservation_diff
+        artifact: run.outputs.final.result
+        points: 3
+        depends_on: [nimbus_final_slide_count]
+        params:
+          reference: run.outputs.turn1.result
+          selector: {slide: 2, text_contains: "Incident trend"}
+          tolerance: 0.03
+      - id: nimbus_final_mtta_layout_preserved
+        evaluator: pptx_preservation_diff
+        artifact: run.outputs.final.result
+        points: 2
+        depends_on: [nimbus_final_slide_count]
+        params:
+          reference: run.outputs.turn1.result
+          selector: {slide: 2, text_contains: "MTTA 8 min"}
+          tolerance: 0.03
+      - id: nimbus_final_slide1_preserved
+        evaluator: pptx_preservation_diff
+        artifact: run.outputs.final.result
+        points: 3
+        depends_on: [nimbus_final_slide_count]
+        params:
+          reference: run.outputs.turn1.result
+          compare: exact_slide_text
+          slides: [1]
+          protected_texts: ["Do not edit: Nimbus context invariant"]
+      - id: nimbus_final_slide3_preserved
+        evaluator: pptx_preservation_diff
+        artifact: run.outputs.final.result
+        points: 3
+        depends_on: [nimbus_final_slide_count]
+        params:
+          reference: run.outputs.turn1.result
+          compare: exact_slide_text
+          slides: [3]
+          protected_texts: ["Do not edit: runbook appendix invariant"]
+      - id: nimbus_final_slide4_preserved
+        evaluator: pptx_preservation_diff
+        artifact: run.outputs.final.result
+        points: 3
+        depends_on: [nimbus_final_slide_count]
+        params:
+          reference: run.outputs.turn1.result
+          compare: exact_slide_text
+          slides: [4]
+          protected_texts: ["Do not edit: incident response benchmark invariant"]
+      - id: nimbus_optional_llm_handoff_judge
+        evaluator: llm_text_rubric
+        artifact: run.outputs.final.result
+        points: 0
+        optional: true
+        diagnostic: true
+        params:
+          prompt: "Check whether the final deck communicates a practical incident-response handoff from the annotated screenshot edit."
+          rubric: "Pass if slide 2 keeps the annotated layout repairs, adds the requested caption and owners, and preserves the protected non-target slides."
+      - id: nimbus_optional_vlm_layout_judge
+        evaluator: vlm_layout_rubric
+        artifact: run.outputs.final.result
+        points: 0
+        optional: true
+        diagnostic: true
+        params:
+          prompt: "Inspect the rendered final Nimbus deck."
+          rubric: "Pass if slide 2 has three aligned top metric tiles, a dominant left-middle incident trend panel, a caption below it, a right-side owner list, and the risk callout in the lower-right without obvious overlap."
