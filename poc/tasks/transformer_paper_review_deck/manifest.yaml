@@ -1,0 +1,394 @@
+manifest_version: "0.1"
+id: transformer_paper_review_deck
+title: Transformer paper review deck from PDF
+primary_artifact_family: pptx
+artifact_families: [pptx, pdf]
+tracks: [open_tool, gui]
+scoring:
+  policy: sum_points
+judge:
+  api_key_env: OPENAI_API_KEY
+artifacts:
+  package:
+    seed:
+      path: artifacts/seed.pptx
+      type: pptx
+      role: seed
+    paper_pdf:
+      path: artifacts/inputs/attention_is_all_you_need.pdf
+      type: pdf
+      role: source_input
+    paper_source_notes:
+      path: artifacts/inputs/paper_source_notes.txt
+      type: txt
+      role: source_input
+    annotated_slide2_layout:
+      path: artifacts/inputs/annotated_slide2_layout.png
+      type: png
+      role: instruction_input
+    seminar_style_reference:
+      path: artifacts/inputs/seminar_style_reference.svg
+      type: svg
+      role: style_input
+    reference_figure1:
+      path: artifacts/inputs/figure1_transformer_architecture.png
+      type: png
+      role: source_reference
+    reference_figure2:
+      path: artifacts/inputs/figure2_attention_mechanisms.png
+      type: png
+      role: source_reference
+    reference_formula_image:
+      path: artifacts/inputs/attention_formula_crop.png
+      type: png
+      role: source_reference
+    gold_turn1:
+      path: artifacts/gold/turn1.pptx
+      type: pptx
+      role: gold
+    gold_turn2:
+      path: artifacts/gold/turn2.pptx
+      type: pptx
+      role: gold
+    gold_final:
+      path: artifacts/gold/final.pptx
+      type: pptx
+      role: gold
+  expected_outputs:
+    turn1:
+      result:
+        path: result.pptx
+        type: pptx
+    turn2:
+      result:
+        path: result.pptx
+        type: pptx
+    final:
+      result:
+        path: result.pptx
+        type: pptx
+turns:
+  - id: turn1
+    instruction: >-
+      Using the seed deck, attention_is_all_you_need.pdf, paper_source_notes.txt,
+      annotated_slide2_layout.png, and seminar_style_reference.svg, create a
+      five-slide academic paper review deck for the reading group. Slide 1
+      should introduce the paper with the exact title "Attention Is All You
+      Need", the subtitle "Reading group review: Transformer architecture", and
+      the source line "Vaswani et al. | arXiv:1706.03762 | NeurIPS 2017". Slide
+      2 should embed/crop Figure 1 from the PDF and include the exact caption
+      "Source figure: Transformer architecture (Figure 1)". Slide 3 should
+      embed/crop the attention mechanism figure from the PDF, include the exact
+      heading "Scaled dot-product attention", and include the exact formula
+      string "Attention(Q, K, V) = softmax(QK^T / sqrt(d_k))V" plus the exact
+      sentence "Why it matters: attention replaces recurrence for sequence
+      transduction". Slide 4 should contain the exact strings "Paper verdict",
+      "Strength: parallelizable sequence modeling", and "Question: what breaks
+      when context grows?". Preserve slide 5 exactly because it contains the
+      sentinel "Do not edit: Transformer seminar logistics invariant".
+    expected_output: result
+    checks:
+      - id: transformer_t1_file_exists
+        evaluator: file_exists
+        artifact: run.outputs.turn1.result
+        points: 1
+      - id: transformer_t1_slide_count
+        evaluator: pptx_slide_count
+        artifact: run.outputs.turn1.result
+        points: 1
+        depends_on: [transformer_t1_file_exists]
+        params: {count: 5}
+      - id: transformer_t1_core_texts
+        evaluator: pptx_text_contains
+        artifact: run.outputs.turn1.result
+        points: 4
+        depends_on: [transformer_t1_file_exists]
+        params:
+          texts:
+            - "Attention Is All You Need"
+            - "Reading group review: Transformer architecture"
+            - "Vaswani et al. | arXiv:1706.03762 | NeurIPS 2017"
+            - "The Transformer replaces recurrence with attention for sequence transduction."
+      - id: transformer_t1_figure1_embedded
+        evaluator: pptx_image_match
+        artifact: run.outputs.turn1.result
+        points: 4
+        depends_on: [transformer_t1_file_exists]
+        params:
+          source: package.reference_figure1
+          selector: {slide: 2, name: "transformer_architecture_figure"}
+          min_similarity: 0.92
+          region: {slide: 2, x_min: 0.04, y_min: 0.12, x_max: 0.48, y_max: 0.92}
+          tolerance: 0.03
+      - id: transformer_t1_figure1_caption
+        evaluator: pptx_text_contains
+        artifact: run.outputs.turn1.result
+        points: 2
+        depends_on: [transformer_t1_file_exists]
+        params: {text: "Source figure: Transformer architecture (Figure 1)"}
+      - id: transformer_t1_figure2_embedded
+        evaluator: pptx_image_match
+        artifact: run.outputs.turn1.result
+        points: 3
+        depends_on: [transformer_t1_file_exists]
+        params:
+          source: package.reference_figure2
+          selector: {slide: 3, name: "attention_mechanism_figure"}
+          min_similarity: 0.92
+          region: {slide: 3, x_min: 0.04, y_min: 0.15, x_max: 0.55, y_max: 0.72}
+          tolerance: 0.03
+      - id: transformer_t1_formula_image_embedded
+        evaluator: pptx_image_match
+        artifact: run.outputs.turn1.result
+        points: 2
+        depends_on: [transformer_t1_file_exists]
+        params:
+          source: package.reference_formula_image
+          selector: {slide: 3, name: "attention_formula_image"}
+          min_similarity: 0.92
+          region: {slide: 3, x_min: 0.50, y_min: 0.42, x_max: 0.93, y_max: 0.62}
+          tolerance: 0.03
+      - id: transformer_t1_formula_text
+        evaluator: pptx_formula_present
+        artifact: run.outputs.turn1.result
+        points: 3
+        depends_on: [transformer_t1_file_exists]
+        params:
+          formula: "Attention(Q,K,V)=softmax(QK^T/sqrt(d_k))V"
+          selector: {slide: 3, name: "attention_formula_text"}
+          region: {slide: 3, x_min: 0.50, y_min: 0.35, x_max: 0.93, y_max: 0.50}
+          tolerance: 0.03
+      - id: transformer_t1_verdict_texts
+        evaluator: pptx_text_contains
+        artifact: run.outputs.turn1.result
+        points: 3
+        depends_on: [transformer_t1_file_exists]
+        params:
+          texts:
+            - "Paper verdict"
+            - "Strength: parallelizable sequence modeling"
+            - "Question: what breaks when context grows?"
+      - id: transformer_t1_protected_slide_preserved
+        evaluator: pptx_preservation_diff
+        artifact: run.outputs.turn1.result
+        points: 4
+        depends_on: [transformer_t1_slide_count]
+        params:
+          reference: package.seed
+          compare: exact_slide_text
+          slides: [5]
+          protected_texts: ["Do not edit: Transformer seminar logistics invariant"]
+      - id: transformer_t1_rendered_review
+        evaluator: rendered_layout_review
+        artifact: run.outputs.turn1.result
+        points: 0
+        optional: true
+        diagnostic: true
+        params:
+          note: Rendered review for PDF-derived paper review deck after turn 1.
+  - id: turn2
+    instruction: >-
+      Revise only slide 2 using annotated_slide2_layout.png. Enlarge the Figure
+      1 crop so it sits in the large left-side figure region, keep the caption
+      directly below the figure, and add a right rail with the exact callout
+      headings "Encoder stack", "Decoder stack", and "Multi-head attention
+      bridge". Do not alter slide 3: keep the Figure 2 crop and the formula
+      "Attention(Q, K, V) = softmax(QK^T / sqrt(d_k))V" exactly as created in
+      turn 1. Preserve slide 5 exactly.
+    expected_output: result
+    checks:
+      - id: transformer_t2_file_exists
+        evaluator: file_exists
+        artifact: run.outputs.turn2.result
+        points: 1
+      - id: transformer_t2_slide_count
+        evaluator: pptx_slide_count
+        artifact: run.outputs.turn2.result
+        points: 1
+        depends_on: [transformer_t2_file_exists]
+        params: {count: 5}
+      - id: transformer_t2_figure1_large_left
+        evaluator: pptx_image_match
+        artifact: run.outputs.turn2.result
+        points: 4
+        depends_on: [transformer_t2_file_exists]
+        params:
+          source: package.reference_figure1
+          selector: {slide: 2, name: "transformer_architecture_figure"}
+          min_similarity: 0.92
+          region: {slide: 2, x_min: 0.04, y_min: 0.10, x_max: 0.50, y_max: 0.94}
+          tolerance: 0.03
+      - id: transformer_t2_right_rail_texts
+        evaluator: pptx_text_contains
+        artifact: run.outputs.turn2.result
+        points: 5
+        depends_on: [transformer_t2_file_exists]
+        params:
+          texts:
+            - "Encoder stack"
+            - "Decoder stack"
+            - "Multi-head attention bridge"
+            - "Turn 2 layout follows annotated screenshot"
+      - id: transformer_t2_encoder_region
+        evaluator: pptx_bbox_region
+        artifact: run.outputs.turn2.result
+        points: 2
+        depends_on: [transformer_t2_right_rail_texts]
+        params:
+          selector: {slide: 2, text_contains: "Encoder stack"}
+          region: {slide: 2, x_min: 0.50, y_min: 0.14, x_max: 0.95, y_max: 0.38}
+          tolerance: 0.03
+      - id: transformer_t2_decoder_region
+        evaluator: pptx_bbox_region
+        artifact: run.outputs.turn2.result
+        points: 2
+        depends_on: [transformer_t2_right_rail_texts]
+        params:
+          selector: {slide: 2, text_contains: "Decoder stack"}
+          region: {slide: 2, x_min: 0.50, y_min: 0.34, x_max: 0.95, y_max: 0.58}
+          tolerance: 0.03
+      - id: transformer_t2_bridge_region
+        evaluator: pptx_bbox_region
+        artifact: run.outputs.turn2.result
+        points: 2
+        depends_on: [transformer_t2_right_rail_texts]
+        params:
+          selector: {slide: 2, text_contains: "Multi-head attention bridge"}
+          region: {slide: 2, x_min: 0.50, y_min: 0.54, x_max: 0.95, y_max: 0.80}
+          tolerance: 0.03
+      - id: transformer_t2_formula_preserved
+        evaluator: pptx_formula_present
+        artifact: run.outputs.turn2.result
+        points: 3
+        depends_on: [transformer_t2_file_exists]
+        params:
+          formula: "Attention(Q,K,V)=softmax(QK^T/sqrt(d_k))V"
+          selector: {slide: 3, name: "attention_formula_text"}
+          region: {slide: 3, x_min: 0.50, y_min: 0.35, x_max: 0.93, y_max: 0.50}
+          tolerance: 0.03
+      - id: transformer_t2_slide5_preserved
+        evaluator: pptx_preservation_diff
+        artifact: run.outputs.turn2.result
+        points: 4
+        depends_on: [transformer_t2_slide_count]
+        params:
+          reference: run.outputs.turn1.result
+          compare: exact_slide_text
+          slides: [5]
+          protected_texts: ["Do not edit: Transformer seminar logistics invariant"]
+      - id: transformer_t2_rendered_review
+        evaluator: rendered_layout_review
+        artifact: run.outputs.turn2.result
+        points: 0
+        optional: true
+        diagnostic: true
+        params:
+          note: Rendered review for annotated slide 2 paper-figure revision.
+  - id: final
+    instruction: >-
+      Finalize the deck for the lab seminar. Apply the seminar style to the
+      slide 1 title "Attention Is All You Need": CUIF blue #1F4E79, bold, and
+      34 pt. Keep slide 2's enlarged Figure 1 layout and right rail from turn
+      2. Keep slide 3's attention mechanism figure and formula exactly. On
+      slide 4, add the exact final footer statement "Lab verdict:
+      foundational, but evaluation now needs multimodal office tasks." Preserve
+      slide 5 exactly.
+    expected_output: result
+    checks:
+      - id: transformer_final_file_exists
+        evaluator: file_exists
+        artifact: run.outputs.final.result
+        points: 1
+      - id: transformer_final_slide_count
+        evaluator: pptx_slide_count
+        artifact: run.outputs.final.result
+        points: 1
+        depends_on: [transformer_final_file_exists]
+        params: {count: 5}
+      - id: transformer_final_title_style
+        evaluator: pptx_style_check
+        artifact: run.outputs.final.result
+        points: 4
+        depends_on: [transformer_final_file_exists]
+        params:
+          selector: {slide: 1, text_contains: "Attention Is All You Need"}
+          font_color: "#1F4E79"
+          font_size_pt: 34
+          font_size_tolerance: 0.25
+          bold: true
+      - id: transformer_final_lab_verdict
+        evaluator: pptx_text_contains
+        artifact: run.outputs.final.result
+        points: 3
+        depends_on: [transformer_final_file_exists]
+        params:
+          text: "Lab verdict: foundational, but evaluation now needs multimodal office tasks."
+      - id: transformer_final_figure1_preserved
+        evaluator: pptx_image_match
+        artifact: run.outputs.final.result
+        points: 4
+        depends_on: [transformer_final_file_exists]
+        params:
+          source: package.reference_figure1
+          selector: {slide: 2, name: "transformer_architecture_figure"}
+          min_similarity: 0.92
+          region: {slide: 2, x_min: 0.04, y_min: 0.10, x_max: 0.50, y_max: 0.94}
+          tolerance: 0.03
+      - id: transformer_final_figure2_preserved
+        evaluator: pptx_image_match
+        artifact: run.outputs.final.result
+        points: 3
+        depends_on: [transformer_final_file_exists]
+        params:
+          source: package.reference_figure2
+          selector: {slide: 3, name: "attention_mechanism_figure"}
+          min_similarity: 0.92
+          region: {slide: 3, x_min: 0.04, y_min: 0.15, x_max: 0.55, y_max: 0.72}
+          tolerance: 0.03
+      - id: transformer_final_formula_text_preserved
+        evaluator: pptx_formula_present
+        artifact: run.outputs.final.result
+        points: 3
+        depends_on: [transformer_final_file_exists]
+        params:
+          formula: "Attention(Q,K,V)=softmax(QK^T/sqrt(d_k))V"
+          selector: {slide: 3, name: "attention_formula_text"}
+          region: {slide: 3, x_min: 0.50, y_min: 0.35, x_max: 0.93, y_max: 0.50}
+          tolerance: 0.03
+      - id: transformer_final_formula_image_preserved
+        evaluator: pptx_image_match
+        artifact: run.outputs.final.result
+        points: 2
+        depends_on: [transformer_final_file_exists]
+        params:
+          source: package.reference_formula_image
+          selector: {slide: 3, name: "attention_formula_image"}
+          min_similarity: 0.92
+          region: {slide: 3, x_min: 0.50, y_min: 0.42, x_max: 0.93, y_max: 0.62}
+          tolerance: 0.03
+      - id: transformer_final_slide5_preserved
+        evaluator: pptx_preservation_diff
+        artifact: run.outputs.final.result
+        points: 4
+        depends_on: [transformer_final_slide_count]
+        params:
+          reference: run.outputs.turn2.result
+          compare: exact_slide_text
+          slides: [5]
+          protected_texts: ["Do not edit: Transformer seminar logistics invariant"]
+      - id: transformer_final_vlm_figure_formula_judge
+        evaluator: vlm_layout_rubric
+        artifact: run.outputs.final.result
+        points: 0
+        optional: true
+        diagnostic: true
+        params:
+          prompt: >-
+            Inspect the rendered final PPTX previews for the Transformer paper
+            review deck, especially slides 2 and 3.
+          rubric: >-
+            Return pass if slide 2 visibly contains the Transformer architecture
+            figure from the paper with a clear right-side annotation rail, and
+            slide 3 visibly contains the attention mechanism figure plus the
+            scaled dot-product attention formula. Fail if those visuals are
+            absent, unreadable, or obviously replaced by unrelated content.

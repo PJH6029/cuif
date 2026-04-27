@@ -121,7 +121,7 @@ def load_manifest(path: str | Path, *, skip_judges: bool = False, validate_files
             errors.append(f"package artifact {name} must be a mapping")
             continue
         rel = _safe_relative_path(spec.get("path"), field=f"artifacts.package.{name}.path", errors=errors)
-        if spec.get("type") not in {"pptx", "docx", "xlsx", "image", "svg", "png", "json", "txt"}:
+        if spec.get("type") not in {"pptx", "docx", "xlsx", "pdf", "image", "svg", "png", "json", "txt"}:
             errors.append(f"artifacts.package.{name}.type is unsupported or missing: {spec.get('type')}")
         if rel is not None:
             posix = rel.as_posix()

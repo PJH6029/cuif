@@ -341,7 +341,7 @@ turns:
 
 If a task has no sketch, remove the `sketch` artifact entry instead of pointing it at a missing file.
 
-Supported package/output artifact `type` values today are `pptx`, `docx`, `xlsx`, `image`, `svg`, `png`, `json`, and `txt`. If you include DOCX/XLSX as context, keep PPTX as the evaluated output unless new deterministic checks are added.
+Supported package artifact `type` values today are `pptx`, `docx`, `xlsx`, `pdf`, `image`, `svg`, `png`, `json`, and `txt`; output artifact `type` values are `pptx`, `docx`, `xlsx`, `image`, `json`, and `txt`. If you include DOCX/XLSX/PDF as context, keep PPTX as the evaluated output unless new deterministic checks are added.
 
 ## Step 6: Pick deterministic checks
 

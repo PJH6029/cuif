@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <rect width="1280" height="720" fill="#faf8f2"/>
+  <rect x="64" y="52" width="96" height="566" fill="#1f4e79"/>
+  <text x="210" y="130" font-family="Arial" font-size="44" font-weight="700" fill="#1f4e79">SNUPI seminar style</text>
+  <text x="210" y="188" font-family="Arial" font-size="24" fill="#56667a">Warm paper background, CUIF blue title, quiet source footers, and editable figure captions.</text>
+  <rect x="210" y="270" width="420" height="110" rx="8" fill="#ffffff" stroke="#dae1e8" stroke-width="4"/>
+  <text x="244" y="334" font-family="Arial" font-size="26" font-weight="700" fill="#172033">Evidence object</text>
+  <rect x="690" y="270" width="360" height="110" rx="8" fill="#e5f7f0" stroke="#dae1e8" stroke-width="4"/>
+  <text x="724" y="334" font-family="Arial" font-size="26" font-weight="700" fill="#172033">Discussion prompt</text>
+  <text x="210" y="520" font-family="Arial" font-size="20" fill="#56667a">Final turn: style slide 1 title as #1F4E79, bold, 34 pt.</text>
+</svg>

@@ -130,6 +130,35 @@ Evaluator types:
 - rendered visual comparison;
 - exact/semantic text check.
 
+### Mixed Task. Paper PDF to review deck with annotated revision
+
+**Goal:** combine Task 1's visual layout-following paper-review creation with Task 2's annotated screenshot revision and preservation checks.
+
+Implemented PoC package:
+
+- `poc/tasks/transformer_paper_review_deck`
+- Scenario: create and revise a SNUPI reading-group review deck for *Attention Is All You Need* from the source paper PDF.
+- Turn 1 tests PDF-to-PPTX creation, paper figure extraction/embedding, formula inclusion, and protected logistics-slide preservation.
+- Turn 2 tests annotated slide-2 layout repair, enlarged Figure 1 placement, right-rail callouts, and formula/slide preservation.
+- Final turn tests seminar styling, prior-turn figure/formula preservation, final critique text, and a live VLM rubric over rendered slide previews.
+
+Inputs:
+
+- seed seminar PPTX template;
+- source paper PDF;
+- extracted reference crops for paper figures/formula;
+- annotated screenshot for the slide-2 layout revision;
+- seminar style reference.
+
+Evaluated properties:
+
+- required review text present;
+- embedded paper figures visually match PDF reference crops;
+- attention formula appears as editable text and as a PDF-derived formula crop;
+- annotated screenshot layout is followed;
+- protected non-target slide is preserved;
+- VLM judge verifies figure/formula visibility on rendered previews.
+
 ### Task 3. XLSX/PDF/source-data to PPT chart slide (stretch)
 
 **Goal:** create or update a slide using external source data.
