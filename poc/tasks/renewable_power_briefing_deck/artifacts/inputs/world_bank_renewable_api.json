@@ -1,0 +1,4241 @@
+{
+  "download_error": null,
+  "fallback_used": false,
+  "payload": [
+    {
+      "lastupdated": "2026-04-08",
+      "page": 1,
+      "pages": 1,
+      "per_page": 20000,
+      "sourceid": "2",
+      "total": 264
+    },
+    [
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "2025",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "2024",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "2023",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "2022",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "2021",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 28.427997926748
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "2020",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 28.111907967469
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "2019",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 26.8897023697607
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "2018",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 25.8127409492271
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "2017",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 25.0386725537724
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "2016",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 25.0520357144816
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "2015",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 23.8649488788885
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "2014",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 22.0557011175979
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "2013",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 20.1334892653115
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "2012",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 20.0980373624987
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "2011",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 16.836073329416
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "2010",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 18.7929868229344
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "2009",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 17.8108790138305
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "2008",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 17.6408195697663
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "2007",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 15.2657979334449
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "2006",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 15.5566024437238
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "2005",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 16.1592699120884
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "2004",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 16.2232487195383
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "2003",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 15.0371010412115
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "2002",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 17.6186164128829
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "2001",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 18.9581214478014
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "2000",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 16.6391375029689
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "1999",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 16.6814659250101
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "1998",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 18.0611563169165
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "1997",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 17.5124660177764
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "1996",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 17.5522106198623
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "1995",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 19.2141393015674
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "1994",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 18.0884357039359
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "1993",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 18.1252601684878
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "1992",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 17.5846836703706
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "1991",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 18.4711307876776
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "1990",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 20.4079398906752
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "1989",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "1988",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "1987",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "1986",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "1985",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "1984",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "1983",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "1982",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "1981",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "1980",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "1979",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "1978",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "1977",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "1976",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "1975",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "1974",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "1973",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "1972",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "1971",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "1970",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "1969",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "1968",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "1967",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "1966",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "1965",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "1964",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "1963",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "1962",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "1961",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "CN",
+          "value": "China"
+        },
+        "countryiso3code": "CHN",
+        "date": "1960",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "2025",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "2024",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "2023",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "2022",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "2021",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 39.8305665158005
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "2020",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 44.8396245103934
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "2019",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 40.577541904412
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "2018",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 35.6372215317549
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "2017",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 34.0095116739047
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "2016",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 30.0192636163635
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "2015",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 30.0329009777745
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "2014",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 26.8208650442971
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "2013",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 24.7569676577929
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "2012",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 23.7360619053531
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "2011",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 21.1830252657297
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "2010",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 17.6238311852413
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "2009",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 17.0317317412975
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "2008",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 15.6434365062903
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "2007",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 15.0125048335391
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "2006",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 12.3838878699732
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "2005",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 11.2629470690756
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "2004",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 10.3016006303503
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "2003",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 8.41124256470187
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "2002",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 8.38887051853266
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "2001",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 7.23304331811066
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "2000",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 6.88673698232395
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "1999",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 5.16214272874348
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "1998",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 4.47561346026999
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "1997",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 4.18127690126443
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "1996",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 4.7807595629596
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "1995",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 4.82649771815278
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "1994",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 4.42833925466778
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "1993",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 3.89909477156473
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "1992",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 3.67183284648445
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "1991",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 3.14639181371077
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "1990",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 3.47135987200349
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "1989",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "1988",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "1987",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "1986",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "1985",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "1984",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "1983",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "1982",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "1981",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "1980",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "1979",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "1978",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "1977",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "1976",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "1975",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "1974",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "1973",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "1972",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "1971",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "1970",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "1969",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "1968",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "1967",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "1966",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "1965",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "1964",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "1963",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "1962",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "1961",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "DE",
+          "value": "Germany"
+        },
+        "countryiso3code": "DEU",
+        "date": "1960",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "2025",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "2024",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "2023",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "2022",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "2021",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 19.131292447169
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "2020",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 19.7557474948152
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "2019",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 16.8275232132522
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "2018",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 15.0102597827208
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "2017",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 14.1593786090421
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "2016",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 13.5971725653557
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "2015",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 14.8948527456761
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "2014",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 15.8631842012333
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "2013",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 15.2987635527139
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "2012",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 16.2449871875852
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "2011",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 15.306114125047
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "2010",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 14.9419430950586
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "2009",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 15.3504789989236
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "2008",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 17.1072579022733
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "2007",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 16.8958319059597
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "2006",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 15.9724580053981
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "2005",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 14.3659113976406
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "2004",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 12.8708458297682
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "2003",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 11.5191856915079
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "2002",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 12.8005809834912
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "2001",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 13.6197629481384
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "2000",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 14.0401258332442
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "1999",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 15.5192560358564
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "1998",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 16.9261287505985
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "1997",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 16.2470060008757
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "1996",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 15.9921062813213
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "1995",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 17.4889447464526
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "1994",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 21.5045147370769
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "1993",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 19.8011385156651
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "1992",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 21.0259677041328
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "1991",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 23.0664204187271
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "1990",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 24.7652606487719
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "1989",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "1988",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "1987",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "1986",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "1985",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "1984",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "1983",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "1982",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "1981",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "1980",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "1979",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "1978",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "1977",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "1976",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "1975",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "1974",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "1973",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "1972",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "1971",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "1970",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "1969",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "1968",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "1967",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "1966",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "1965",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "1964",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "1963",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "1962",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "1961",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "IN",
+          "value": "India"
+        },
+        "countryiso3code": "IND",
+        "date": "1960",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "2025",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "2024",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "2023",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "2022",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "2021",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 20.2733089261925
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "2020",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 19.9166987281584
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "2019",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 17.938273721697
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "2018",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 17.1628863424875
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "2017",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 17.2854220343839
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "2016",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 15.2594449655463
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "2015",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 13.6328082889697
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "2014",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 13.3792940741702
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "2013",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 13.0285802128985
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "2012",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 12.4129621083936
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "2011",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 12.686393699636
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "2010",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 10.6143983117236
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "2009",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 10.7806308892929
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "2008",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 9.5301997751508
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "2007",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 8.91391202574991
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "2006",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 9.78948021905534
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "2005",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 9.12092303221335
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "2004",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 9.21619811557572
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "2003",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 9.4946204631135
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "2002",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 9.20382511502992
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "2001",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 7.42248933913917
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "2000",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 8.81261648193646
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "1999",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 9.0136338048984
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "1998",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 9.54340294411497
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "1997",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 10.9020998840369
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "1996",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 11.5002575453723
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "1995",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 10.7295021878142
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "1994",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 9.68660706188543
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "1993",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 10.4235946624141
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "1992",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 9.85430746900209
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "1991",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 10.6886172706848
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "1990",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": 11.4720248205676
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "1989",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "1988",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "1987",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "1986",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "1985",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "1984",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "1983",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "1982",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "1981",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "1980",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "1979",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "1978",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "1977",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "1976",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "1975",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "1974",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "1973",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "1972",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "1971",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "1970",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "1969",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "1968",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "1967",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "1966",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "1965",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "1964",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "1963",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "1962",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "1961",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      },
+      {
+        "country": {
+          "id": "US",
+          "value": "United States"
+        },
+        "countryiso3code": "USA",
+        "date": "1960",
+        "decimal": 2,
+        "indicator": {
+          "id": "EG.ELC.RNEW.ZS",
+          "value": "Renewable electricity output (% of total electricity output)"
+        },
+        "obs_status": "",
+        "unit": "",
+        "value": null
+      }
+    ]
+  ],
+  "source_url": "https://api.worldbank.org/v2/country/USA;DEU;CHN;IND/indicator/EG.ELC.RNEW.ZS?format=json&per_page=20000"
+}

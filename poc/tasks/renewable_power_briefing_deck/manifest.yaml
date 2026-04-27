@@ -1,0 +1,394 @@
+manifest_version: "0.1"
+id: renewable_power_briefing_deck
+title: Renewable power briefing from source workbook
+primary_artifact_family: pptx
+artifact_families: [pptx, xlsx]
+tracks: [open_tool, gui]
+scoring:
+  policy: sum_points
+judge:
+  api_key_env: OPENAI_API_KEY
+artifacts:
+  package:
+    seed:
+      path: artifacts/seed.pptx
+      type: pptx
+      role: seed
+    source_data:
+      path: artifacts/inputs/source_data.xlsx
+      type: xlsx
+      role: source_input
+    source_notes:
+      path: artifacts/inputs/source_notes.txt
+      type: txt
+      role: source_input
+    source_csv:
+      path: artifacts/inputs/source_data.csv
+      type: txt
+      role: source_input
+    raw_world_bank_json:
+      path: artifacts/inputs/world_bank_renewable_api.json
+      type: json
+      role: source_input
+    layout_reference:
+      path: artifacts/inputs/layout_reference.svg
+      type: svg
+      role: instruction_input
+    style_reference:
+      path: artifacts/inputs/style_reference.svg
+      type: svg
+      role: style_input
+    gold_turn1:
+      path: artifacts/gold/turn1.pptx
+      type: pptx
+      role: gold
+    gold_turn2:
+      path: artifacts/gold/turn2.pptx
+      type: pptx
+      role: gold
+    gold_final:
+      path: artifacts/gold/final.pptx
+      type: pptx
+      role: gold
+  expected_outputs:
+    turn1:
+      result:
+        path: result.pptx
+        type: pptx
+    turn2:
+      result:
+        path: result.pptx
+        type: pptx
+    final:
+      result:
+        path: result.pptx
+        type: pptx
+turns:
+  - id: turn1
+    instruction: >-
+      Using the seed deck, source_data.xlsx, source_notes.txt, and
+      layout_reference.svg, create a four-slide renewable-electricity briefing.
+      Slide 1 should follow the layout reference: add the title "Renewable
+      Electricity Snapshot" near the top, the subtitle "2015 vs 2021 selected
+      peers", and a native clustered column chart named
+      "renewable_share_clustered_chart" using the workbook values for Germany,
+      India, United States, and China. The chart must compare the series "2015"
+      and "2021" with the rounded values in source_data.xlsx. Add the chart
+      caption "Renewable share of electricity output (%)". Slide 2 should be a
+      workbook audit containing the exact strings "Workbook audit", "Source
+      data: renewable electricity output share", "Germany 30.0 39.8 +9.8 pts",
+      "India 14.9 19.1 +4.2 pts", "United States 13.6 20.3 +6.6 pts", and
+      "China 23.9 28.4 +4.6 pts". Slide 3 should explain that the metric is
+      electricity-output share, not economy-wide energy use. Preserve slide 4
+      exactly because it contains the sentinel "Do not edit: renewable briefing
+      invariant".
+    expected_output: result
+    checks:
+      - id: renewable_t1_file_exists
+        evaluator: file_exists
+        artifact: run.outputs.turn1.result
+        points: 1
+      - id: renewable_t1_slide_count
+        evaluator: pptx_slide_count
+        artifact: run.outputs.turn1.result
+        points: 1
+        depends_on: [renewable_t1_file_exists]
+        params: {count: 4}
+      - id: renewable_t1_core_texts
+        evaluator: pptx_text_contains
+        artifact: run.outputs.turn1.result
+        points: 3
+        depends_on: [renewable_t1_file_exists]
+        params:
+          texts:
+            - "Renewable Electricity Snapshot"
+            - "2015 vs 2021 selected peers"
+            - "Renewable share of electricity output (%)"
+            - "World Bank WDI EG.ELC.RNEW.ZS"
+      - id: renewable_t1_chart_data
+        evaluator: pptx_chart_data
+        artifact: run.outputs.turn1.result
+        points: 5
+        depends_on: [renewable_t1_file_exists]
+        params:
+          selector: {slide: 1, name: "renewable_share_clustered_chart"}
+          chart_type: "COLUMN_CLUSTERED"
+          categories: ["Germany", "India", "United States", "China"]
+          series:
+            - {name: "2015", values: [30.0, 14.9, 13.6, 23.9]}
+            - {name: "2021", values: [39.8, 19.1, 20.3, 28.4]}
+          value_tolerance: 0.15
+      - id: renewable_t1_title_region
+        evaluator: pptx_bbox_region
+        artifact: run.outputs.turn1.result
+        points: 2
+        depends_on: [renewable_t1_core_texts]
+        params:
+          selector: {slide: 1, text_contains: "Renewable Electricity Snapshot"}
+          region: {slide: 1, x_min: 0.04, y_min: 0.03, x_max: 0.72, y_max: 0.18}
+          tolerance: 0.02
+      - id: renewable_t1_chart_region
+        evaluator: pptx_bbox_region
+        artifact: run.outputs.turn1.result
+        points: 2
+        depends_on: [renewable_t1_chart_data]
+        params:
+          selector: {slide: 1, name: "renewable_share_clustered_chart"}
+          region: {slide: 1, x_min: 0.05, y_min: 0.20, x_max: 0.90, y_max: 0.84}
+          tolerance: 0.03
+      - id: renewable_t1_audit_values
+        evaluator: pptx_text_contains
+        artifact: run.outputs.turn1.result
+        points: 4
+        depends_on: [renewable_t1_file_exists]
+        params:
+          texts:
+            - "Workbook audit"
+            - "Source data: renewable electricity output share"
+            - "Germany 30.0 39.8 +9.8 pts"
+            - "India 14.9 19.1 +4.2 pts"
+            - "United States 13.6 20.3 +6.6 pts"
+            - "China 23.9 28.4 +4.6 pts"
+      - id: renewable_t1_guardrail_text
+        evaluator: pptx_text_contains
+        artifact: run.outputs.turn1.result
+        points: 2
+        depends_on: [renewable_t1_file_exists]
+        params:
+          text: "The metric is renewable electricity share of total electricity output."
+      - id: renewable_t1_protected_slide_preserved
+        evaluator: pptx_preservation_diff
+        artifact: run.outputs.turn1.result
+        points: 3
+        depends_on: [renewable_t1_slide_count]
+        params:
+          reference: package.seed
+          compare: exact_slide_text
+          slides: [4]
+          protected_texts: ["Do not edit: renewable briefing invariant"]
+      - id: renewable_t1_rendered_review
+        evaluator: rendered_layout_review
+        artifact: run.outputs.turn1.result
+        points: 0
+        optional: true
+        diagnostic: true
+        params:
+          note: Optional rendered review for chart placement against layout_reference.svg.
+  - id: turn2
+    instruction: >-
+      Revise the turn 1 deck by adding a one-sentence insight directly below
+      the chart on slide 1: "Insight: Germany leads at 39.8% in 2021; the U.S.
+      closes part of the gap with a +6.6 pt gain." Add the footnote "Source:
+      World Bank WDI EG.ELC.RNEW.ZS; latest non-null year in workbook is
+      2021." Keep the native chart data and slide 2 workbook audit exactly as
+      they were after turn 1, and preserve slide 4 exactly.
+    expected_output: result
+    checks:
+      - id: renewable_t2_file_exists
+        evaluator: file_exists
+        artifact: run.outputs.turn2.result
+        points: 1
+      - id: renewable_t2_slide_count
+        evaluator: pptx_slide_count
+        artifact: run.outputs.turn2.result
+        points: 1
+        depends_on: [renewable_t2_file_exists]
+        params: {count: 4}
+      - id: renewable_t2_chart_data_preserved
+        evaluator: pptx_chart_data
+        artifact: run.outputs.turn2.result
+        points: 4
+        depends_on: [renewable_t2_file_exists]
+        params:
+          selector: {slide: 1, name: "renewable_share_clustered_chart"}
+          chart_type: "COLUMN_CLUSTERED"
+          categories: ["Germany", "India", "United States", "China"]
+          series:
+            - {name: "2015", values: [30.0, 14.9, 13.6, 23.9]}
+            - {name: "2021", values: [39.8, 19.1, 20.3, 28.4]}
+          value_tolerance: 0.15
+      - id: renewable_t2_insight_present
+        evaluator: pptx_text_contains
+        artifact: run.outputs.turn2.result
+        points: 3
+        depends_on: [renewable_t2_file_exists]
+        params:
+          text: "Insight: Germany leads at 39.8% in 2021; the U.S. closes part of the gap with a +6.6 pt gain."
+      - id: renewable_t2_insight_region
+        evaluator: pptx_bbox_region
+        artifact: run.outputs.turn2.result
+        points: 2
+        depends_on: [renewable_t2_insight_present]
+        params:
+          selector: {slide: 1, text_contains: "Insight: Germany leads at 39.8%"}
+          region: {slide: 1, x_min: 0.05, y_min: 0.78, x_max: 0.90, y_max: 0.92}
+          tolerance: 0.03
+      - id: renewable_t2_footnote_present
+        evaluator: pptx_text_contains
+        artifact: run.outputs.turn2.result
+        points: 2
+        depends_on: [renewable_t2_file_exists]
+        params:
+          text: "Source: World Bank WDI EG.ELC.RNEW.ZS; latest non-null year in workbook is 2021."
+      - id: renewable_t2_slide2_preserved
+        evaluator: pptx_preservation_diff
+        artifact: run.outputs.turn2.result
+        points: 3
+        depends_on: [renewable_t2_slide_count]
+        params:
+          reference: run.outputs.turn1.result
+          compare: exact_slide_text
+          slides: [2]
+          protected_texts:
+            - "Workbook audit"
+            - "Germany 30.0 39.8 +9.8 pts"
+            - "United States 13.6 20.3 +6.6 pts"
+      - id: renewable_t2_slide4_preserved
+        evaluator: pptx_preservation_diff
+        artifact: run.outputs.turn2.result
+        points: 3
+        depends_on: [renewable_t2_slide_count]
+        params:
+          reference: run.outputs.turn1.result
+          compare: exact_slide_text
+          slides: [4]
+          protected_texts: ["Do not edit: renewable briefing invariant"]
+      - id: renewable_t2_rendered_review
+        evaluator: rendered_layout_review
+        artifact: run.outputs.turn2.result
+        points: 0
+        optional: true
+        diagnostic: true
+        params:
+          note: Optional rendered review for insight placement and chart preservation.
+  - id: final
+    instruction: >-
+      Finalize the deck using style_reference.svg. On slide 1, apply the CUIF
+      title style to "Renewable Electricity Snapshot": blue #1F4E79, bold, 34
+      pt. Keep the source chart data unchanged, move/size the chart into the
+      left chart region, and add a top-right badge with "Data cut: 2015 vs
+      2021". Add a right-side observations rail containing exactly "Leader:
+      Germany 39.8%", "Fastest gain: Germany +9.8 pts", and "Watch item: U.S.
+      20.3%". Keep the turn 2 insight sentence and source footnote. Preserve
+      slide 2 exactly from turn 2 and preserve slide 4 exactly.
+    expected_output: result
+    checks:
+      - id: renewable_final_file_exists
+        evaluator: file_exists
+        artifact: run.outputs.final.result
+        points: 1
+      - id: renewable_final_slide_count
+        evaluator: pptx_slide_count
+        artifact: run.outputs.final.result
+        points: 1
+        depends_on: [renewable_final_file_exists]
+        params: {count: 4}
+      - id: renewable_final_title_present
+        evaluator: pptx_text_contains
+        artifact: run.outputs.final.result
+        points: 1
+        depends_on: [renewable_final_file_exists]
+        params: {text: "Renewable Electricity Snapshot"}
+      - id: renewable_final_title_style
+        evaluator: pptx_style_check
+        artifact: run.outputs.final.result
+        points: 4
+        depends_on: [renewable_final_title_present]
+        params:
+          selector: {slide: 1, text_contains: "Renewable Electricity Snapshot"}
+          font_color: "#1F4E79"
+          font_size_pt: 34
+          font_size_tolerance: 0.25
+          bold: true
+      - id: renewable_final_chart_data_preserved
+        evaluator: pptx_chart_data
+        artifact: run.outputs.final.result
+        points: 4
+        depends_on: [renewable_final_file_exists]
+        params:
+          selector: {slide: 1, name: "renewable_share_clustered_chart"}
+          chart_type: "COLUMN_CLUSTERED"
+          categories: ["Germany", "India", "United States", "China"]
+          series:
+            - {name: "2015", values: [30.0, 14.9, 13.6, 23.9]}
+            - {name: "2021", values: [39.8, 19.1, 20.3, 28.4]}
+          value_tolerance: 0.15
+      - id: renewable_final_chart_left_region
+        evaluator: pptx_bbox_region
+        artifact: run.outputs.final.result
+        points: 2
+        depends_on: [renewable_final_chart_data_preserved]
+        params:
+          selector: {slide: 1, name: "renewable_share_clustered_chart"}
+          region: {slide: 1, x_min: 0.04, y_min: 0.18, x_max: 0.70, y_max: 0.86}
+          tolerance: 0.03
+      - id: renewable_final_observation_texts
+        evaluator: pptx_text_contains
+        artifact: run.outputs.final.result
+        points: 4
+        depends_on: [renewable_final_file_exists]
+        params:
+          texts:
+            - "Data cut: 2015 vs 2021"
+            - "Leader: Germany 39.8%"
+            - "Fastest gain: Germany +9.8 pts"
+            - "Watch item: U.S. 20.3%"
+      - id: renewable_final_badge_region
+        evaluator: pptx_bbox_region
+        artifact: run.outputs.final.result
+        points: 2
+        depends_on: [renewable_final_observation_texts]
+        params:
+          selector: {slide: 1, text_contains: "Data cut: 2015 vs 2021"}
+          region: {slide: 1, x_min: 0.72, y_min: 0.04, x_max: 0.96, y_max: 0.16}
+          tolerance: 0.03
+      - id: renewable_final_insight_preserved
+        evaluator: pptx_text_contains
+        artifact: run.outputs.final.result
+        points: 2
+        depends_on: [renewable_final_file_exists]
+        params:
+          texts:
+            - "Insight: Germany leads at 39.8% in 2021; the U.S. closes part of the gap with a +6.6 pt gain."
+            - "Source: World Bank WDI EG.ELC.RNEW.ZS; latest non-null year in workbook is 2021."
+      - id: renewable_final_slide2_preserved
+        evaluator: pptx_preservation_diff
+        artifact: run.outputs.final.result
+        points: 3
+        depends_on: [renewable_final_slide_count]
+        params:
+          reference: run.outputs.turn2.result
+          compare: exact_slide_text
+          slides: [2]
+          protected_texts:
+            - "Workbook audit"
+            - "Germany 30.0 39.8 +9.8 pts"
+            - "China 23.9 28.4 +4.6 pts"
+      - id: renewable_final_slide4_preserved
+        evaluator: pptx_preservation_diff
+        artifact: run.outputs.final.result
+        points: 3
+        depends_on: [renewable_final_slide_count]
+        params:
+          reference: run.outputs.turn2.result
+          compare: exact_slide_text
+          slides: [4]
+          protected_texts: ["Do not edit: renewable briefing invariant"]
+      - id: optional_llm_renewable_insight_judge
+        evaluator: llm_text_rubric
+        artifact: run.outputs.final.result
+        points: 0
+        optional: true
+        diagnostic: true
+        params:
+          prompt: "Check whether the final deck insight follows from the renewable electricity values in the slide text/chart."
+          rubric: "Pass if the deck correctly says Germany leads at 39.8% in 2021, Germany has the largest gain at +9.8 points, and the U.S. value is 20.3% without overclaiming beyond electricity-output share."
+      - id: optional_vlm_renewable_layout_judge
+        evaluator: vlm_layout_rubric
+        artifact: run.outputs.final.result
+        points: 0
+        optional: true
+        diagnostic: true
+        params:
+          prompt: "Inspect the rendered final renewable electricity deck."
+          rubric: "Pass if slide 1 has a readable chart on the left, a clear observations rail on the right, a top-right badge, and no obvious overlap or collateral damage."

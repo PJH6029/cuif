@@ -5,7 +5,7 @@ from typing import Any
 
 from ..artifacts import resolve_artifact_ref
 from ..pptx.diff import text_preservation_diff
-from ..pptx.extract import contains_text, find_shapes, slide_count
+from ..pptx.extract import contains_text, find_charts, find_shapes, slide_count
 from ..pptx.render import render_pptx_previews
 from ..types import CheckResult, CheckSpec, Manifest, TurnSpec
 from .core import make_result
@@ -124,6 +124,71 @@ def pptx_style_check(spec: CheckSpec, turn: TurnSpec, manifest: Manifest, worksp
             failures.append(f"bold expected {expected_bold}, got {bolds}")
     ok = not failures
     return make_result(spec, turn, "pass" if ok else "fail", earned=spec.points, evidence={"selector": spec.params.get("selector", {}), "actual": actual, "failures": failures}, message="Style check passed" if ok else "; ".join(failures))
+
+
+def _values_match(actual: list[Any], expected: list[Any], tolerance: float) -> tuple[bool, list[str]]:
+    failures: list[str] = []
+    if len(actual) != len(expected):
+        return False, [f"value count expected {len(expected)}, got {len(actual)}"]
+    for idx, (actual_value, expected_value) in enumerate(zip(actual, expected, strict=True)):
+        if isinstance(expected_value, (int, float)):
+            try:
+                actual_float = float(actual_value)
+            except (TypeError, ValueError):
+                failures.append(f"value {idx} expected numeric {expected_value}, got {actual_value!r}")
+                continue
+            if abs(actual_float - float(expected_value)) > tolerance:
+                failures.append(f"value {idx} expected {expected_value}±{tolerance}, got {actual_float}")
+        elif actual_value != expected_value:
+            failures.append(f"value {idx} expected {expected_value!r}, got {actual_value!r}")
+    return not failures, failures
+
+
+def pptx_chart_data(spec: CheckSpec, turn: TurnSpec, manifest: Manifest, workspace, context: dict[str, Any]) -> CheckResult:
+    path = resolve_artifact_ref(manifest, workspace, spec.artifact)
+    if miss := _missing(path, spec, turn):
+        return miss
+    selector = spec.params.get("selector", {})
+    charts = find_charts(path, selector)
+    if not charts:
+        return make_result(spec, turn, "fail", evidence={"selector": selector}, message=f"No PPTX chart matched selector {selector}")
+
+    chart = charts[0]
+    tolerance = float(spec.params.get("value_tolerance", spec.params.get("tolerance", 0.0)))
+    failures: list[str] = []
+
+    expected_type = spec.params.get("chart_type")
+    if expected_type is not None and chart.chart_type != str(expected_type):
+        failures.append(f"chart_type expected {expected_type}, got {chart.chart_type}")
+
+    expected_categories = spec.params.get("categories")
+    if expected_categories is not None and chart.categories != [str(category) for category in expected_categories]:
+        failures.append(f"categories expected {expected_categories}, got {chart.categories}")
+
+    actual_series = {series.name: series.values for series in chart.series}
+    for expected_series in spec.params.get("series", []):
+        name = str(expected_series.get("name", ""))
+        if name not in actual_series:
+            failures.append(f"series {name!r} missing")
+            continue
+        ok, value_failures = _values_match(actual_series[name], list(expected_series.get("values", [])), tolerance)
+        if not ok:
+            failures.extend(f"series {name}: {failure}" for failure in value_failures)
+
+    evidence = {
+        "selector": selector,
+        "chart": {
+            "slide": chart.slide,
+            "shape_name": chart.shape_name,
+            "chart_type": chart.chart_type,
+            "categories": chart.categories,
+            "series": [{"name": series.name, "values": series.values} for series in chart.series],
+            "bbox": {"x": chart.x, "y": chart.y, "x_max": chart.x_max, "y_max": chart.y_max},
+        },
+        "failures": failures,
+        "value_tolerance": tolerance,
+    }
+    return make_result(spec, turn, "pass" if not failures else "fail", earned=spec.points, evidence=evidence, message="Chart data check passed" if not failures else "; ".join(failures))
 
 
 def pptx_preservation_diff(spec: CheckSpec, turn: TurnSpec, manifest: Manifest, workspace, context: dict[str, Any]) -> CheckResult:

@@ -35,6 +35,33 @@ class ShapeInfo:
         return self.y + self.h
 
 
+@dataclass(frozen=True)
+class ChartSeriesInfo:
+    name: str
+    values: list[float | str | None]
+
+
+@dataclass(frozen=True)
+class ChartInfo:
+    slide: int
+    shape_name: str
+    chart_type: str
+    x: float
+    y: float
+    w: float
+    h: float
+    categories: list[str]
+    series: list[ChartSeriesInfo]
+
+    @property
+    def x_max(self) -> float:
+        return self.x + self.w
+
+    @property
+    def y_max(self) -> float:
+        return self.y + self.h
+
+
 def slide_count(path: str | Path) -> int:
     return len(Presentation(str(path)).slides)
 
@@ -98,6 +125,60 @@ def extract_shapes(path: str | Path) -> list[ShapeInfo]:
     return shapes
 
 
+def _chart_categories(chart: Any) -> list[str]:
+    for plot in chart.plots:
+        try:
+            categories = plot.categories
+        except Exception:
+            continue
+        return [str(getattr(category, "label", category)) for category in categories]
+    return []
+
+
+def _chart_values(series: Any) -> list[float | str | None]:
+    values: list[float | str | None] = []
+    for value in series.values:
+        if value is None:
+            values.append(None)
+            continue
+        try:
+            values.append(float(value))
+        except (TypeError, ValueError):
+            values.append(str(value))
+    return values
+
+
+def extract_charts(path: str | Path) -> list[ChartInfo]:
+    prs = Presentation(str(path))
+    width = float(prs.slide_width)
+    height = float(prs.slide_height)
+    charts: list[ChartInfo] = []
+    for sidx, slide in enumerate(prs.slides, start=1):
+        for shape in slide.shapes:
+            if not getattr(shape, "has_chart", False):
+                continue
+            chart = shape.chart
+            try:
+                left, top, sw, sh = float(shape.left), float(shape.top), float(shape.width), float(shape.height)
+            except Exception:
+                left = top = sw = sh = 0.0
+            chart_type = getattr(getattr(chart, "chart_type", None), "name", None) or str(getattr(chart, "chart_type", ""))
+            charts.append(
+                ChartInfo(
+                    slide=sidx,
+                    shape_name=getattr(shape, "name", ""),
+                    chart_type=str(chart_type),
+                    x=left / width if width else 0.0,
+                    y=top / height if height else 0.0,
+                    w=sw / width if width else 0.0,
+                    h=sh / height if height else 0.0,
+                    categories=_chart_categories(chart),
+                    series=[ChartSeriesInfo(name=str(series.name), values=_chart_values(series)) for series in chart.series],
+                )
+            )
+    return charts
+
+
 def extract_text_by_slide(path: str | Path) -> dict[int, list[str]]:
     text: dict[int, list[str]] = {}
     for shape in extract_shapes(path):
@@ -131,8 +212,27 @@ def find_shapes(path: str | Path, selector: dict[str, Any] | None = None) -> lis
     return result
 
 
+def find_charts(path: str | Path, selector: dict[str, Any] | None = None) -> list[ChartInfo]:
+    selector = selector or {}
+    charts = extract_charts(path)
+    slide = selector.get("slide")
+    name = selector.get("name")
+    chart_type = selector.get("chart_type")
+    result: list[ChartInfo] = []
+    for chart in charts:
+        if slide is not None and chart.slide != int(slide):
+            continue
+        if name is not None and str(name) != chart.shape_name:
+            continue
+        if chart_type is not None and str(chart_type) != chart.chart_type:
+            continue
+        result.append(chart)
+    return result
+
+
 def summarize_pptx(path: str | Path) -> dict[str, Any]:
     shapes = extract_shapes(path)
+    charts = extract_charts(path)
     return {
         "path": str(path),
         "slide_count": slide_count(path),
@@ -141,4 +241,5 @@ def summarize_pptx(path: str | Path) -> dict[str, Any]:
             for slide, texts in sorted(extract_text_by_slide(path).items())
         ],
         "shape_count": len(shapes),
+        "chart_count": len(charts),
     }

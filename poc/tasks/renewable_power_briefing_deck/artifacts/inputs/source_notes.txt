@@ -1,0 +1,16 @@
+Source data for renewable_power_briefing_deck
+
+Indicator: Renewable electricity output (% of total electricity output)
+World Bank code: EG.ELC.RNEW.ZS
+API: https://api.worldbank.org/v2/country/USA;DEU;CHN;IND/indicator/EG.ELC.RNEW.ZS?format=json&per_page=20000
+Metadata: https://databank.worldbank.org/metadataglossary/world-development-indicators/series/EG.ELC.RNEW.ZS
+Accessed: 2026-04-27
+Selected years: 2015 and 2021
+Note: 2021 is the latest non-null year used for this PoC task extract.
+Fallback used during generation: False
+
+Required rounded values:
+- Germany: 2015=30.0, 2021=39.8, change=9.8 pts
+- India: 2015=14.9, 2021=19.1, change=4.2 pts
+- United States: 2015=13.6, 2021=20.3, change=6.6 pts
+- China: 2015=23.9, 2021=28.4, change=4.6 pts
