@@ -4,6 +4,7 @@ import html
 import json
 import shutil
 import subprocess
+import tempfile
 from pathlib import Path
 from typing import Any
 
@@ -31,10 +32,15 @@ def _run(command: list[str], *, timeout: int = 60) -> subprocess.CompletedProces
     )
 
 
-def _render_pdf_pages(renderer: str, pdftoppm: str, pptx_path: Path, target_dir: Path) -> tuple[list[str], dict[str, str]]:
-    pdf_result = _run([renderer, "--headless", "--convert-to", "pdf", "--outdir", str(target_dir), str(pptx_path)])
+def _libreoffice_command(renderer: str, profile_dir: Path, args: list[str]) -> list[str]:
+    profile_uri = profile_dir.resolve().as_uri()
+    return [renderer, f"-env:UserInstallation={profile_uri}", "--headless", *args]
+
+
+def _render_pdf_pages(renderer: str, profile_dir: Path, pdftoppm: str, pptx_path: Path, target_dir: Path) -> tuple[list[str], dict[str, str]]:
+    pdf_result = _run(_libreoffice_command(renderer, profile_dir, ["--convert-to", "pdf", "--outdir", str(target_dir), str(pptx_path)]))
     pdfs = sorted(target_dir.glob("*.pdf"))
-    evidence = {"stdout": _trim(pdf_result.stdout), "stderr": _trim(pdf_result.stderr)}
+    evidence = {"stdout": _trim(pdf_result.stdout), "stderr": _trim(pdf_result.stderr), "libreoffice_profile": "isolated_temp"}
     if pdf_result.returncode != 0 or not pdfs:
         return [], evidence
     prefix = target_dir / "slide"
@@ -45,9 +51,9 @@ def _render_pdf_pages(renderer: str, pdftoppm: str, pptx_path: Path, target_dir:
     return sorted(path.as_posix() for path in target_dir.glob("slide-*.png")), evidence
 
 
-def _render_direct_png(renderer: str, pptx_path: Path, target_dir: Path) -> tuple[list[str], dict[str, str]]:
-    completed = _run([renderer, "--headless", "--convert-to", "png", "--outdir", str(target_dir), str(pptx_path)])
-    evidence = {"stdout": _trim(completed.stdout), "stderr": _trim(completed.stderr)}
+def _render_direct_png(renderer: str, profile_dir: Path, pptx_path: Path, target_dir: Path) -> tuple[list[str], dict[str, str]]:
+    completed = _run(_libreoffice_command(renderer, profile_dir, ["--convert-to", "png", "--outdir", str(target_dir), str(pptx_path)]))
+    evidence = {"stdout": _trim(completed.stdout), "stderr": _trim(completed.stderr), "libreoffice_profile": "isolated_temp"}
     if completed.returncode != 0:
         return [], evidence
     return sorted(path.as_posix() for path in target_dir.glob("*.png")), evidence
@@ -98,38 +104,40 @@ def render_pptx_previews(pptx_path: str | Path, previews_dir: str | Path, label:
     try:
         pdftoppm = shutil.which("pdftoppm")
         expected_slide_count = int(summary.get("slide_count", 0))
-        if pdftoppm:
-            images, evidence = _render_pdf_pages(renderer, pdftoppm, pptx_path, target_dir)
+        with tempfile.TemporaryDirectory(prefix="cuif-lo-profile-") as profile:
+            profile_dir = Path(profile)
+            if pdftoppm:
+                images, evidence = _render_pdf_pages(renderer, profile_dir, pdftoppm, pptx_path, target_dir)
+                if images and len(images) >= expected_slide_count:
+                    return {
+                        "status": "rendered",
+                        "renderer": renderer,
+                        "page_renderer": pdftoppm,
+                        "summary": summary_path.as_posix(),
+                        "html": html_path.as_posix(),
+                        "images": images,
+                        **evidence,
+                    }
+
+            images, evidence = _render_direct_png(renderer, profile_dir, pptx_path, target_dir)
             if images and len(images) >= expected_slide_count:
                 return {
                     "status": "rendered",
                     "renderer": renderer,
-                    "page_renderer": pdftoppm,
                     "summary": summary_path.as_posix(),
                     "html": html_path.as_posix(),
                     "images": images,
                     **evidence,
                 }
-
-        images, evidence = _render_direct_png(renderer, pptx_path, target_dir)
-        if images and len(images) >= int(summary.get("slide_count", 0)):
             return {
-                "status": "rendered",
+                "status": "fallback",
                 "renderer": renderer,
                 "summary": summary_path.as_posix(),
                 "html": html_path.as_posix(),
                 "images": images,
+                "message": "Renderer did not produce one PNG per slide; generated fallback summary.",
                 **evidence,
             }
-        return {
-            "status": "fallback",
-            "renderer": renderer,
-            "summary": summary_path.as_posix(),
-            "html": html_path.as_posix(),
-            "images": images,
-            "message": "Renderer did not produce one PNG per slide; generated fallback summary.",
-            **evidence,
-        }
     except Exception as exc:  # pragma: no cover - host renderer failures vary
         return {
             "status": "fallback",
