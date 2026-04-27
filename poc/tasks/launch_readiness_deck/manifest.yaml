@@ -234,13 +234,3 @@ turns:
         params:
           prompt: "Inspect the rendered final Atlas launch readiness deck."
           rubric: "Pass if slide 1 has a clear title hierarchy, three readiness cards, and the risk callout in the lower-right without obvious overlap."
-review:
-  comparison_targets:
-    - label: Seed deck
-      artifact: package.seed
-    - label: Turn 1 output
-      artifact: run.outputs.turn1.result
-    - label: Final output
-      artifact: run.outputs.final.result
-    - label: Gold final
-      artifact: package.gold_final

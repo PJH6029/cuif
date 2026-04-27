@@ -152,13 +152,3 @@ turns:
         params:
           prompt: "Inspect the rendered final deck image for the CUIF PoC dashboard."
           rubric: "Pass if the PNG preview shows the CUIF PoC Dashboard title in a top banner-like region with dashboard panels below."
-review:
-  comparison_targets:
-    - label: Seed deck
-      artifact: package.seed
-    - label: Turn 1 output
-      artifact: run.outputs.turn1.result
-    - label: Final output
-      artifact: run.outputs.final.result
-    - label: Gold final
-      artifact: package.gold_final
