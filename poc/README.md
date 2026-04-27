@@ -2,6 +2,8 @@
 
 This directory contains proof-of-concept task packages for the CUIF office-family evaluation pipeline. The toy task is intentionally smoke-test quality: it exercises the full author/evaluator boundary without pretending to be a benchmark-quality example.
 
+For manually authoring the next 2--3 PoC tasks, follow the detailed [task generation guide](task-generation-guide.md).
+
 ## Task layout
 
 A task package is a directory with `manifest.yaml`, immutable package artifacts under `artifacts/`, and optional deterministic mock outputs under `mock_outputs/`.
