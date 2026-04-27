@@ -27,6 +27,8 @@ RED = RGBColor(193, 59, 54)
 WHITE = RGBColor(255, 255, 255)
 OFF_WHITE = RGBColor(249, 251, 253)
 LIGHT_GRAY = RGBColor(225, 231, 238)
+GRID = RGBColor(213, 222, 232)
+DARK_BLUE = RGBColor(25, 73, 119)
 
 
 def ensure_dirs() -> None:
@@ -74,8 +76,21 @@ def add_text(slide, text, x, y, w, h, *, size=18, color=NAVY, bold=False, fill=N
 
 
 def add_metric(slide, text, x, y, *, fill=PALE_BLUE):
-    shape = add_text(slide, text, x, y, 3.35, 0.76, size=20, bold=True, fill=fill, line=RGBColor(174, 193, 211), name=text)
+    shape = add_text(slide, text, x, y, 3.08, 0.94, size=15, bold=True, fill=fill, line=RGBColor(174, 193, 211), name=text)
+    shape.line.width = Pt(1.5)
     return shape
+
+
+def add_panel_title(slide, text, x, y, w, *, color=BLUE):
+    return add_text(slide, text, x, y, w, 0.28, size=12, color=color, bold=True)
+
+
+def add_tiny_text(slide, text, x, y, w, h, *, color=STEEL, bold=False):
+    return add_text(slide, text, x, y, w, h, size=10.5, color=color, bold=bold, margin=0.03)
+
+
+def add_status_pill(slide, text, x, y, w, *, fill=MINT, line=RGBColor(111, 181, 160), color=NAVY):
+    return add_text(slide, text, x, y, w, 0.34, size=11.5, color=color, bold=True, fill=fill, line=line, margin=0.04)
 
 
 def add_background(slide) -> None:
@@ -161,11 +176,12 @@ def add_audit_slide(slide) -> None:
 
 def add_seed_target_slide(slide) -> None:
     add_background(slide)
+    add_box(slide, 0, 0, 13.33, 0.18, fill=BLUE, line=BLUE, radius=False)
     add_text(slide, "Reliability Operations Review", 0.58, 0.38, 7.0, 0.48, size=28, bold=True)
     add_text(slide, "Seed slide: current layout is crowded and needs the screenshot annotations applied.", 0.61, 0.92, 8.8, 0.35, size=13, color=STEEL)
-    add_metric(slide, "MTTA 8 min", 0.82, 1.48)
-    add_metric(slide, "Backlog 42", 8.62, 1.22)
-    add_metric(slide, "Coverage 92%", 4.55, 5.82)
+    add_metric(slide, "MTTA 8 min\nTarget <=10 min", 0.82, 1.48)
+    add_metric(slide, "Backlog 42\n15 need review", 8.62, 1.22)
+    add_metric(slide, "Coverage 92%\nWeekend rota live", 4.55, 5.82)
     add_text(
         slide,
         "Incident trend\nP1 3 | P2 11 | P3 28\nSmall chart panel: expand and make this the analytical focus.",
@@ -207,40 +223,68 @@ def add_turn1_target_slide(slide, *, final: bool = False) -> None:
     add_background(slide)
     title_size = 32 if final else 28
     title_color = BLUE if final else NAVY
+    add_box(slide, 0, 0, 13.33, 0.20, fill=BLUE, line=BLUE, radius=False)
     add_text(slide, "Reliability Operations Review", 0.58, 0.34, 7.2, 0.52, size=title_size, bold=True, color=title_color, name="slide2_title")
+    add_status_pill(slide, "APRIL SERVICE REVIEW", 10.15, 0.42, 2.28, fill=WHITE, line=RGBColor(190, 203, 218), color=BLUE)
     add_text(slide, "Edited slide: annotated screenshot applied to the target dashboard.", 0.61, 0.92, 8.1, 0.34, size=13, color=STEEL)
-    add_metric(slide, "MTTA 8 min", 0.68, 1.32)
-    add_metric(slide, "Backlog 42", 4.92, 1.32)
-    add_metric(slide, "Coverage 92%", 9.16, 1.32)
-    chart = add_text(
-        slide,
-        "Incident trend\nP1 incidents: 3\nP2 incidents: 11\nP3 incidents: 28",
-        0.72,
-        2.44,
-        7.55,
-        3.1,
-        size=19,
-        fill=WHITE,
-        line=RGBColor(116, 140, 166),
-        name="incident_trend_panel",
-    )
+    add_metric(slide, "MTTA 8 min\nTarget <=10 min\n+2 min buffer", 0.68, 1.30)
+    add_metric(slide, "Backlog 42\n15 need SEV-2 review\nOwner gap", 4.92, 1.30, fill=RGBColor(238, 244, 251))
+    add_metric(slide, "Coverage 92%\nWeekend rota live\nWatch Friday", 9.16, 1.30, fill=RGBColor(233, 247, 240))
+    chart = add_box(slide, 0.72, 2.50, 7.55, 3.22, fill=WHITE, line=RGBColor(116, 140, 166))
+    chart.name = "incident_trend_panel"
     chart.line.width = Pt(2.0)
-    for idx, (label, width, color) in enumerate(
+    add_panel_title(slide, "INCIDENT TREND", 1.02, 2.72, 2.4)
+    add_tiny_text(slide, "Severity mix, last 7 days", 1.04, 3.06, 2.3, 0.22, color=STEEL)
+    add_text(
+        slide,
+        "P1 incidents: 3\nP2 incidents: 11\nP3 incidents: 28",
+        1.00,
+        3.50,
+        1.72,
+        0.88,
+        size=11.5,
+        color=NAVY,
+        fill=RGBColor(247, 250, 253),
+        line=LIGHT_GRAY,
+        margin=0.05,
+    )
+    add_text(
+        slide,
+        "Trend down 18% WoW\nDriver: owner cleanup",
+        5.55,
+        2.94,
+        2.16,
+        0.58,
+        size=11,
+        color=DARK_BLUE,
+        bold=True,
+        fill=PALE_BLUE,
+        line=RGBColor(174, 193, 211),
+        margin=0.05,
+    )
+    add_tiny_text(slide, "Count", 2.78, 3.50, 0.55, 0.22, bold=True)
+    for tick_idx, tick in enumerate(["0", "10", "20", "30"]):
+        x = 3.26 + tick_idx * 1.16
+        add_box(slide, x, 3.78, 0.01, 1.34, fill=GRID, line=GRID, radius=False)
+        add_tiny_text(slide, tick, x - 0.07, 5.18, 0.30, 0.16)
+    for idx, (label, value, width, color) in enumerate(
         [
-            ("P1", 0.72, RGBColor(91, 141, 203)),
-            ("P2", 1.72, RGBColor(68, 124, 185)),
-            ("P3", 3.36, BLUE),
+            ("P1", 3, 0.35, RGBColor(119, 166, 210)),
+            ("P2", 11, 1.28, RGBColor(67, 125, 183)),
+            ("P3", 28, 3.25, BLUE),
         ]
     ):
-        y = 4.56 + idx * 0.28
-        add_box(slide, 3.42, y, width, 0.15, fill=color, line=color, radius=False)
-        add_text(slide, label, 2.92, y - 0.08, 0.35, 0.22, size=9, color=STEEL)
+        y = 3.90 + idx * 0.46
+        add_tiny_text(slide, f"{label}", 2.66, y - 0.02, 0.34, 0.20, bold=True)
+        add_box(slide, 3.26, y, width, 0.22, fill=color, line=color, radius=False)
+        add_tiny_text(slide, str(value), 3.26 + width + 0.10, y - 0.01, 0.42, 0.20, color=NAVY, bold=True)
+    add_tiny_text(slide, "Visual target: expanded from seed into the annotated left-middle analysis region.", 1.02, 5.48, 6.72, 0.22)
     if final:
         add_text(
             slide,
             "Caption: queue risk is concentrated in SEV-2 ownership gaps.",
             0.82,
-            5.72,
+            5.86,
             7.3,
             0.42,
             size=15,
@@ -249,28 +293,44 @@ def add_turn1_target_slide(slide, *, final: bool = False) -> None:
         )
         add_text(
             slide,
-            "Action owners\nSRE: Priya\nSupport: Marcus\nComms: Lina",
+            "Action owners\nSRE: Priya\nSupport: Marcus\nComms: Lina\nNext checkpoint: Friday 16:00",
             8.86,
-            2.54,
+            2.52,
             3.58,
-            1.82,
-            size=17,
+            1.96,
+            size=15,
             fill=MINT,
             line=RGBColor(111, 181, 160),
             name="action_owners",
+        )
+        add_status_pill(slide, "EXEC HANDOFF READY", 9.06, 4.18, 2.18, fill=WHITE, line=RGBColor(111, 181, 160), color=RGBColor(33, 125, 103))
+    else:
+        add_text(
+            slide,
+            "Turn 1 layout fixes\nMetric row aligned\nRisk moved to lower-right\nNon-target slides preserved",
+            8.86,
+            2.52,
+            3.58,
+            1.78,
+            size=15,
+            fill=MINT,
+            line=RGBColor(111, 181, 160),
+            name="turn1_layout_fixes",
         )
     add_text(
         slide,
         "SEV-2 queue risk\nEscalation owner missing\nAnnotate hotfix owner by Friday",
         8.86,
-        5.08,
+        5.02,
         3.58,
-        1.42,
-        size=17,
+        1.50,
+        size=15,
         fill=RGBColor(255, 239, 239),
         line=RED,
         name="sev2_queue_risk",
     )
+    add_status_pill(slide, "Protected slides unchanged", 0.72, 6.72, 2.26, fill=WHITE, line=LIGHT_GRAY, color=STEEL)
+    add_tiny_text(slide, "Generated gold reference for CUIF annotated-screenshot edit task", 3.14, 6.78, 4.6, 0.18)
 
 
 def build_deck(stage: str) -> Presentation:
