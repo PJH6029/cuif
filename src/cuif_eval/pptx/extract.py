@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from hashlib import sha256
 from pathlib import Path
 from typing import Any
 
@@ -52,6 +53,29 @@ class ChartInfo:
     h: float
     categories: list[str]
     series: list[ChartSeriesInfo]
+
+    @property
+    def x_max(self) -> float:
+        return self.x + self.w
+
+    @property
+    def y_max(self) -> float:
+        return self.y + self.h
+
+
+@dataclass(frozen=True)
+class ImageInfo:
+    slide: int
+    shape_name: str
+    x: float
+    y: float
+    w: float
+    h: float
+    content_type: str
+    ext: str
+    size_bytes: int
+    sha256: str
+    blob: bytes
 
     @property
     def x_max(self) -> float:
@@ -179,6 +203,40 @@ def extract_charts(path: str | Path) -> list[ChartInfo]:
     return charts
 
 
+def extract_images(path: str | Path) -> list[ImageInfo]:
+    prs = Presentation(str(path))
+    width = float(prs.slide_width)
+    height = float(prs.slide_height)
+    images: list[ImageInfo] = []
+    for sidx, slide in enumerate(prs.slides, start=1):
+        for shape in slide.shapes:
+            try:
+                image = shape.image
+            except Exception:
+                continue
+            try:
+                left, top, sw, sh = float(shape.left), float(shape.top), float(shape.width), float(shape.height)
+            except Exception:
+                left = top = sw = sh = 0.0
+            blob = image.blob
+            images.append(
+                ImageInfo(
+                    slide=sidx,
+                    shape_name=getattr(shape, "name", ""),
+                    x=left / width if width else 0.0,
+                    y=top / height if height else 0.0,
+                    w=sw / width if width else 0.0,
+                    h=sh / height if height else 0.0,
+                    content_type=str(getattr(image, "content_type", "")),
+                    ext=str(getattr(image, "ext", "")),
+                    size_bytes=len(blob),
+                    sha256=sha256(blob).hexdigest(),
+                    blob=blob,
+                )
+            )
+    return images
+
+
 def extract_text_by_slide(path: str | Path) -> dict[int, list[str]]:
     text: dict[int, list[str]] = {}
     for shape in extract_shapes(path):
@@ -230,9 +288,25 @@ def find_charts(path: str | Path, selector: dict[str, Any] | None = None) -> lis
     return result
 
 
+def find_images(path: str | Path, selector: dict[str, Any] | None = None) -> list[ImageInfo]:
+    selector = selector or {}
+    images = extract_images(path)
+    slide = selector.get("slide")
+    name = selector.get("name")
+    result: list[ImageInfo] = []
+    for image in images:
+        if slide is not None and image.slide != int(slide):
+            continue
+        if name is not None and str(name) != image.shape_name:
+            continue
+        result.append(image)
+    return result
+
+
 def summarize_pptx(path: str | Path) -> dict[str, Any]:
     shapes = extract_shapes(path)
     charts = extract_charts(path)
+    images = extract_images(path)
     return {
         "path": str(path),
         "slide_count": slide_count(path),
@@ -242,4 +316,15 @@ def summarize_pptx(path: str | Path) -> dict[str, Any]:
         ],
         "shape_count": len(shapes),
         "chart_count": len(charts),
+        "image_count": len(images),
+        "images": [
+            {
+                "slide": image.slide,
+                "shape_name": image.shape_name,
+                "content_type": image.content_type,
+                "sha256": image.sha256,
+                "bbox": {"x": image.x, "y": image.y, "x_max": image.x_max, "y_max": image.y_max},
+            }
+            for image in images
+        ],
     }

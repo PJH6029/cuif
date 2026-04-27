@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import shutil
 
+from PIL import Image, ImageDraw
 import yaml
 from pptx import Presentation
 from pptx.chart.data import CategoryChartData
@@ -9,7 +10,7 @@ from pptx.enum.chart import XL_CHART_TYPE
 from pptx.util import Inches
 
 from cuif_eval.runner import run_task
-from cuif_eval.pptx.extract import extract_charts, extract_shapes, extract_text_by_slide, slide_count
+from cuif_eval.pptx.extract import extract_charts, extract_images, extract_shapes, extract_text_by_slide, slide_count
 
 
 def _write_chart_deck(path):
@@ -22,6 +23,29 @@ def _write_chart_deck(path):
     chart_shape = slide.shapes.add_chart(XL_CHART_TYPE.COLUMN_CLUSTERED, Inches(1), Inches(1), Inches(8), Inches(4.5), data)
     chart_shape.name = "renewable_share_clustered_chart"
     prs.save(path)
+
+
+def _write_image_formula_deck(path, image_path):
+    prs = Presentation()
+    slide = prs.slides.add_slide(prs.slide_layouts[6])
+    pic = slide.shapes.add_picture(str(image_path), Inches(1), Inches(1.2), width=Inches(4.0))
+    pic.name = "paper_architecture_figure"
+    box = slide.shapes.add_textbox(Inches(1), Inches(5.3), Inches(8.0), Inches(0.5))
+    box.name = "attention_formula_box"
+    run = box.text_frame.paragraphs[0].add_run()
+    run.text = "Attention(Q, K, V) = softmax(QK^T / sqrt(d_k))V"
+    prs.save(path)
+
+
+def _write_reference_image(path):
+    image = Image.new("RGB", (360, 220), "white")
+    draw = ImageDraw.Draw(image)
+    draw.rectangle((30, 30, 140, 92), outline="#1F4E79", width=5)
+    draw.rectangle((210, 30, 330, 92), outline="#2A9D8F", width=5)
+    draw.line((140, 61, 210, 61), fill="#172033", width=4)
+    draw.text((54, 52), "Encoder", fill="#172033")
+    draw.text((240, 52), "Decoder", fill="#172033")
+    image.save(path)
 
 
 def test_pptx_extraction_reads_slide_text_bbox_and_style(toy_task):
@@ -91,6 +115,88 @@ def test_pptx_chart_data_check_reads_native_chart_series(tmp_path):
     result = run_task(task, adapter_name="mock", out=tmp_path / "run", skip_judges=True)
     statuses = {r.check_id: r.status for r in result["results"]}
     assert statuses["chart_data"] == "pass"
+
+
+def test_pptx_image_and_formula_checks(tmp_path):
+    task = tmp_path / "image_formula_task"
+    (task / "artifacts" / "inputs").mkdir(parents=True)
+    (task / "mock_outputs" / "turn1").mkdir(parents=True)
+    reference = task / "artifacts" / "inputs" / "reference_figure.png"
+    _write_reference_image(reference)
+    _write_image_formula_deck(task / "artifacts" / "seed.pptx", reference)
+    shutil.copy2(task / "artifacts" / "seed.pptx", task / "mock_outputs" / "turn1" / "result.pptx")
+    (task / "manifest.yaml").write_text(
+        yaml.safe_dump(
+            {
+                "manifest_version": "0.1",
+                "id": "image_formula_task",
+                "title": "Image and formula smoke task",
+                "primary_artifact_family": "pptx",
+                "artifact_families": ["pptx"],
+                "tracks": ["open_tool"],
+                "artifacts": {
+                    "package": {
+                        "seed": {"path": "artifacts/seed.pptx", "type": "pptx", "role": "seed"},
+                        "reference_figure": {"path": "artifacts/inputs/reference_figure.png", "type": "png", "role": "source_input"},
+                    },
+                    "expected_outputs": {"turn1": {"result": {"path": "result.pptx", "type": "pptx"}}},
+                },
+                "turns": [
+                    {
+                        "id": "turn1",
+                        "instruction": "Embed the figure and formula.",
+                        "expected_output": "result",
+                        "checks": [
+                            {"id": "exists", "evaluator": "file_exists", "artifact": "run.outputs.turn1.result", "points": 1},
+                            {
+                                "id": "figure_count",
+                                "evaluator": "pptx_image_count",
+                                "artifact": "run.outputs.turn1.result",
+                                "points": 1,
+                                "params": {"selector": {"slide": 1}, "min_count": 1},
+                            },
+                            {
+                                "id": "figure_match",
+                                "evaluator": "pptx_image_match",
+                                "artifact": "run.outputs.turn1.result",
+                                "points": 3,
+                                "params": {
+                                    "source": "package.reference_figure",
+                                    "selector": {"slide": 1, "name": "paper_architecture_figure"},
+                                    "min_similarity": 0.98,
+                                    "region": {"slide": 1, "x_min": 0.05, "y_min": 0.10, "x_max": 0.56, "y_max": 0.52},
+                                    "tolerance": 0.02,
+                                },
+                            },
+                            {
+                                "id": "formula_present",
+                                "evaluator": "pptx_formula_present",
+                                "artifact": "run.outputs.turn1.result",
+                                "points": 2,
+                                "params": {
+                                    "formula": "Attention(Q,K,V)=softmax(QK^T/sqrt(d_k))V",
+                                    "selector": {"slide": 1, "name": "attention_formula_box"},
+                                    "region": {"slide": 1, "x_min": 0.05, "y_min": 0.65, "x_max": 0.92, "y_max": 0.88},
+                                    "tolerance": 0.02,
+                                },
+                            },
+                        ],
+                    }
+                ],
+            },
+            sort_keys=False,
+        ),
+        encoding="utf-8",
+    )
+
+    images = extract_images(task / "mock_outputs" / "turn1" / "result.pptx")
+    assert images[0].shape_name == "paper_architecture_figure"
+
+    result = run_task(task, adapter_name="mock", out=tmp_path / "run", skip_judges=True)
+    statuses = {r.check_id: r.status for r in result["results"]}
+    assert statuses["figure_count"] == "pass"
+    assert statuses["figure_match"] == "pass"
+    assert statuses["formula_present"] == "pass"
 
 
 def test_passing_toy_task_has_required_pptx_checks_pass(toy_task, tmp_path):

@@ -16,6 +16,7 @@ name = "cuif"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
+    { name = "pillow" },
     { name = "python-pptx" },
     { name = "pyyaml" },
 ]
@@ -27,6 +28,7 @@ dev = [
 
 [package.metadata]
 requires-dist = [
+    { name = "pillow", specifier = ">=10.0" },
     { name = "python-pptx", specifier = ">=1.0.2" },
     { name = "pyyaml", specifier = ">=6.0.2" },
 ]
