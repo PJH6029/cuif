@@ -1,0 +1,246 @@
+manifest_version: "0.1"
+id: launch_readiness_deck
+title: Atlas launch readiness deck
+primary_artifact_family: pptx
+artifact_families: [pptx]
+tracks: [open_tool, gui]
+scoring:
+  policy: sum_points
+judge:
+  api_key_env: OPENAI_API_KEY
+artifacts:
+  package:
+    seed:
+      path: artifacts/seed.pptx
+      type: pptx
+      role: seed
+    sketch:
+      path: artifacts/inputs/sketch.svg
+      type: svg
+      role: instruction_input
+    launch_brief:
+      path: artifacts/inputs/launch_brief.txt
+      type: txt
+      role: source_input
+    gold_turn1:
+      path: artifacts/gold/turn1.pptx
+      type: pptx
+      role: gold
+    gold_final:
+      path: artifacts/gold/final.pptx
+      type: pptx
+      role: gold
+  expected_outputs:
+    turn1:
+      result:
+        path: result.pptx
+        type: pptx
+    final:
+      result:
+        path: result.pptx
+        type: pptx
+turns:
+  - id: turn1
+    instruction: >-
+      Using the seed deck, launch brief, and sketch.svg, create a three-slide
+      launch readiness update. Slide 1 should follow the sketch: put the title
+      "Atlas Launch Readiness" near the top, add the subtitle "Executive
+      snapshot for April launch", show three readiness cards labeled "Demand:
+      Green", "Product: Amber", and "Support: Green", and include the risk
+      callout "Top risk: onboarding docs lag by one week" in the lower-left
+      callout area. Slide 2 should summarize the owner plan using the exact
+      strings "Owner plan", "Demand owner: Priya", "Product owner: Mateo", and
+      "Support owner: Lin". Preserve slide 3 exactly because it contains the
+      sentinel "Do not edit: Atlas launch invariant".
+    expected_output: result
+    checks:
+      - id: turn1_file_exists
+        evaluator: file_exists
+        artifact: run.outputs.turn1.result
+        points: 1
+      - id: turn1_slide_count
+        evaluator: pptx_slide_count
+        artifact: run.outputs.turn1.result
+        points: 1
+        depends_on: [turn1_file_exists]
+        params: {count: 3}
+      - id: turn1_title_present
+        evaluator: pptx_text_contains
+        artifact: run.outputs.turn1.result
+        points: 2
+        depends_on: [turn1_file_exists]
+        params: {text: "Atlas Launch Readiness"}
+      - id: turn1_slide1_readiness_texts
+        evaluator: pptx_text_contains
+        artifact: run.outputs.turn1.result
+        points: 3
+        depends_on: [turn1_file_exists]
+        params:
+          texts:
+            - "Executive snapshot for April launch"
+            - "Demand: Green"
+            - "Product: Amber"
+            - "Support: Green"
+            - "Top risk: onboarding docs lag by one week"
+      - id: turn1_title_region
+        evaluator: pptx_bbox_region
+        artifact: run.outputs.turn1.result
+        points: 2
+        depends_on: [turn1_title_present]
+        params:
+          selector: {slide: 1, text_contains: "Atlas Launch Readiness"}
+          region: {slide: 1, x_min: 0.04, y_min: 0.04, x_max: 0.96, y_max: 0.22}
+          tolerance: 0.02
+      - id: turn1_risk_callout_region
+        evaluator: pptx_bbox_region
+        artifact: run.outputs.turn1.result
+        points: 2
+        depends_on: [turn1_slide1_readiness_texts]
+        params:
+          selector: {slide: 1, text_contains: "Top risk: onboarding docs lag by one week"}
+          region: {slide: 1, x_min: 0.04, y_min: 0.68, x_max: 0.58, y_max: 0.94}
+          tolerance: 0.03
+      - id: turn1_owner_plan_present
+        evaluator: pptx_text_contains
+        artifact: run.outputs.turn1.result
+        points: 2
+        depends_on: [turn1_file_exists]
+        params:
+          texts:
+            - "Owner plan"
+            - "Demand owner: Priya"
+            - "Product owner: Mateo"
+            - "Support owner: Lin"
+      - id: turn1_protected_slide_preserved
+        evaluator: pptx_preservation_diff
+        artifact: run.outputs.turn1.result
+        points: 3
+        depends_on: [turn1_slide_count]
+        params:
+          reference: package.seed
+          compare: exact_slide_text
+          slides: [3]
+          protected_texts: ["Do not edit: Atlas launch invariant"]
+      - id: turn1_rendered_review
+        evaluator: rendered_layout_review
+        artifact: run.outputs.turn1.result
+        points: 0
+        optional: true
+        diagnostic: true
+        params:
+          note: Optional rendered review for the sketch-following launch readiness slide.
+  - id: final
+    instruction: >-
+      Revise the turn 1 deck. Apply CUIF brand styling to the slide 1 title:
+      blue #1F4E79, bold, 34 pt. Move the risk callout "Top risk: onboarding
+      docs lag by one week" into the lower-right region of slide 1 and add the
+      caption "Decision needed: confirm docs owner by Friday" directly below
+      it. Keep the slide 1 readiness cards and all slide 2 owner-plan content
+      from turn 1, and preserve slide 3 exactly.
+    expected_output: result
+    checks:
+      - id: final_file_exists
+        evaluator: file_exists
+        artifact: run.outputs.final.result
+        points: 1
+      - id: final_slide_count
+        evaluator: pptx_slide_count
+        artifact: run.outputs.final.result
+        points: 1
+        depends_on: [final_file_exists]
+        params: {count: 3}
+      - id: final_title_present
+        evaluator: pptx_text_contains
+        artifact: run.outputs.final.result
+        points: 1
+        depends_on: [final_file_exists]
+        params: {text: "Atlas Launch Readiness"}
+      - id: final_title_style
+        evaluator: pptx_style_check
+        artifact: run.outputs.final.result
+        points: 3
+        depends_on: [final_title_present]
+        params:
+          selector: {slide: 1, text_contains: "Atlas Launch Readiness"}
+          font_color: "#1F4E79"
+          font_size_pt: 34
+          font_size_tolerance: 0.25
+          bold: true
+      - id: final_slide1_core_texts_present
+        evaluator: pptx_text_contains
+        artifact: run.outputs.final.result
+        points: 2
+        depends_on: [final_file_exists]
+        params:
+          texts:
+            - "Demand: Green"
+            - "Product: Amber"
+            - "Support: Green"
+            - "Top risk: onboarding docs lag by one week"
+      - id: final_decision_caption_present
+        evaluator: pptx_text_contains
+        artifact: run.outputs.final.result
+        points: 2
+        depends_on: [final_file_exists]
+        params: {text: "Decision needed: confirm docs owner by Friday"}
+      - id: final_risk_lower_right_region
+        evaluator: pptx_bbox_region
+        artifact: run.outputs.final.result
+        points: 2
+        depends_on: [final_slide1_core_texts_present]
+        params:
+          selector: {slide: 1, text_contains: "Top risk: onboarding docs lag by one week"}
+          region: {slide: 1, x_min: 0.56, y_min: 0.58, x_max: 0.98, y_max: 0.86}
+          tolerance: 0.03
+      - id: final_slide2_preserved
+        evaluator: pptx_preservation_diff
+        artifact: run.outputs.final.result
+        points: 2
+        depends_on: [final_slide_count]
+        params:
+          reference: run.outputs.turn1.result
+          compare: exact_slide_text
+          slides: [2]
+          protected_texts:
+            - "Owner plan"
+            - "Demand owner: Priya"
+            - "Product owner: Mateo"
+            - "Support owner: Lin"
+      - id: final_slide3_preserved
+        evaluator: pptx_preservation_diff
+        artifact: run.outputs.final.result
+        points: 2
+        depends_on: [final_slide_count]
+        params:
+          reference: run.outputs.turn1.result
+          compare: exact_slide_text
+          slides: [3]
+          protected_texts: ["Do not edit: Atlas launch invariant"]
+      - id: optional_llm_launch_story_judge
+        evaluator: llm_text_rubric
+        artifact: run.outputs.final.result
+        points: 0
+        optional: true
+        diagnostic: true
+        params:
+          prompt: "Check whether the final deck communicates an Atlas launch readiness update."
+          rubric: "Pass if the deck contains the required readiness statuses, risk, decision caption, and preserved owner/protected context."
+      - id: optional_vlm_layout_judge
+        evaluator: vlm_layout_rubric
+        artifact: run.outputs.final.result
+        points: 0
+        optional: true
+        diagnostic: true
+        params:
+          prompt: "Inspect the rendered final Atlas launch readiness deck."
+          rubric: "Pass if slide 1 has a clear title hierarchy, three readiness cards, and the risk callout in the lower-right without obvious overlap."
+review:
+  comparison_targets:
+    - label: Seed deck
+      artifact: package.seed
+    - label: Turn 1 output
+      artifact: run.outputs.turn1.result
+    - label: Final output
+      artifact: run.outputs.final.result
+    - label: Gold final
+      artifact: package.gold_final

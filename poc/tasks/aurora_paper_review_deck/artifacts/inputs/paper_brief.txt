@@ -1,0 +1,12 @@
+Paper title: AURORA: Actionable UI Refinement for Office Agents
+Venue context: internal CUIF reading group.
+
+Use these exact facts when creating the paper-review deck:
+- Main claim: Trajectory-aware office evaluation exposes failures that final-only grading hides.
+- Benchmark: 120 office tasks.
+- Signals: screenshots + OOXML.
+- Outcome: +18% repair success.
+- Reviewer question: Are multimodal constraints weighted enough?
+
+Suggested interpretation:
+The paper argues that office agents need evaluation at multiple points in a workflow, not only at the final artifact. It combines rendered screenshots, structured document extraction, and preservation checks to diagnose whether an agent followed visual constraints, revised correctly, and avoided collateral damage.

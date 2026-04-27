@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-label="Sketch for Atlas launch readiness slide">
+  <rect x="0" y="0" width="960" height="540" fill="#f7fbff"/>
+  <text x="55" y="52" font-family="Arial" font-size="24" font-weight="700" fill="#172033">Title band</text>
+  <rect x="55" y="78" width="850" height="48" rx="4" fill="none" stroke="#1f4e79" stroke-width="3" stroke-dasharray="9 7"/>
+  <text x="75" y="110" font-family="Arial" font-size="18" fill="#172033">Atlas Launch Readiness + subtitle</text>
+
+  <rect x="65" y="165" width="245" height="145" rx="6" fill="#ffffff" stroke="#7aa6c7" stroke-width="3"/>
+  <rect x="357" y="165" width="245" height="145" rx="6" fill="#ffffff" stroke="#7aa6c7" stroke-width="3"/>
+  <rect x="650" y="165" width="245" height="145" rx="6" fill="#ffffff" stroke="#7aa6c7" stroke-width="3"/>
+  <text x="102" y="242" font-family="Arial" font-size="19" font-weight="700" fill="#172033">Demand card</text>
+  <text x="402" y="242" font-family="Arial" font-size="19" font-weight="700" fill="#172033">Product card</text>
+  <text x="700" y="242" font-family="Arial" font-size="19" font-weight="700" fill="#172033">Support card</text>
+
+  <rect x="65" y="410" width="410" height="70" rx="6" fill="#fff5e6" stroke="#c86f00" stroke-width="3"/>
+  <text x="84" y="452" font-family="Arial" font-size="18" font-weight="700" fill="#6b3f00">Turn 1 risk callout here</text>
+  <path d="M515 445 L710 445" fill="none" stroke="#6b3f00" stroke-width="4" stroke-linecap="round"/>
+  <path d="M710 445 L690 432 M710 445 L690 458" fill="none" stroke="#6b3f00" stroke-width="4" stroke-linecap="round"/>
+  <rect x="575" y="352" width="325" height="118" rx="6" fill="none" stroke="#c86f00" stroke-width="3" stroke-dasharray="8 7"/>
+  <text x="592" y="386" font-family="Arial" font-size="17" fill="#6b3f00">Final risk callout moves here</text>
+  <text x="592" y="416" font-family="Arial" font-size="17" fill="#6b3f00">Decision caption below it</text>
+</svg>

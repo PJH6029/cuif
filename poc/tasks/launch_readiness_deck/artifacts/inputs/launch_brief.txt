@@ -1,0 +1,19 @@
+Atlas launch readiness source brief
+
+Audience: executive review for the April launch.
+
+Required slide 1 message:
+- Title: Atlas Launch Readiness
+- Subtitle: Executive snapshot for April launch
+- Demand: Green. MQL pace is 12% ahead of plan.
+- Product: Amber. Release candidate is complete, but onboarding docs are one week behind.
+- Support: Green. Support macros and escalation paths are drafted.
+- Top risk: onboarding docs lag by one week
+
+Required slide 2 owner plan:
+- Demand owner: Priya
+- Product owner: Mateo
+- Support owner: Lin
+
+Protected context:
+- Slide 3 contains benchmark context and must remain unchanged.

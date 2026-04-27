@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="300" viewBox="0 0 780 300">
+  <rect width="780" height="300" fill="#ffffff"/>
+  <rect x="42" y="76" width="170" height="92" rx="16" fill="#eaf2fb" stroke="#1f4e79" stroke-width="4"/>
+  <text x="127" y="116" text-anchor="middle" font-family="Arial" font-size="22" font-weight="700" fill="#1f4e79">Action trace</text>
+  <text x="127" y="145" text-anchor="middle" font-family="Arial" font-size="16" fill="#172033">agent steps</text>
+  <rect x="304" y="76" width="170" height="92" rx="16" fill="#fff5e6" stroke="#c56a00" stroke-width="4"/>
+  <text x="389" y="116" text-anchor="middle" font-family="Arial" font-size="22" font-weight="700" fill="#c56a00">Rendered artifact</text>
+  <text x="389" y="145" text-anchor="middle" font-family="Arial" font-size="16" fill="#172033">visual state</text>
+  <rect x="566" y="76" width="170" height="92" rx="16" fill="#eaf7ef" stroke="#2e7d32" stroke-width="4"/>
+  <text x="651" y="116" text-anchor="middle" font-family="Arial" font-size="22" font-weight="700" fill="#2e7d32">Structured checks</text>
+  <text x="651" y="145" text-anchor="middle" font-family="Arial" font-size="16" fill="#172033">partial credit</text>
+  <path d="M214 122 L294 122" stroke="#44546a" stroke-width="6" marker-end="url(#arrow)"/>
+  <path d="M476 122 L556 122" stroke="#44546a" stroke-width="6" marker-end="url(#arrow)"/>
+  <text x="390" y="230" text-anchor="middle" font-family="Arial" font-size="20" fill="#44546a">Use this loop as the source figure on slide 1.</text>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#44546a"/>
+    </marker>
+  </defs>
+</svg>
