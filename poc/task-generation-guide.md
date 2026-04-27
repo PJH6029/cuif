@@ -328,16 +328,15 @@ turns:
         params:
           prompt: "Inspect the rendered final deck layout."
           rubric: "Pass if the rendered PNG previews visually match the requested hierarchy and no obvious layout damage appears."
-review:
-  comparison_targets:
-    - label: Seed deck
-      artifact: package.seed
-    - label: Turn 1 output
-      artifact: run.outputs.turn1.result
-    - label: Final output
-      artifact: run.outputs.final.result
-    - label: Gold final
-      artifact: package.gold_final
+# Review HTML is generated automatically from the task trajectory:
+# - top row: package.seed -> package.gold_turn1 -> ... -> package.gold_final
+# - bottom row: empty seed-output placeholder -> run.outputs.turn1.<expected_output>
+#   -> ... -> run.outputs.final.<expected_output>
+#
+# Prefer conventional gold artifact names (`gold_turn1`, `gold_turn2`,
+# `gold_final`) plus declared `turns[].expected_output`. The optional legacy
+# `review.comparison_targets` list is only needed for custom/extra comparison
+# targets; standard seed/gold/output trajectory review does not require it.
 ```
 
 If a task has no sketch, remove the `sketch` artifact entry instead of pointing it at a missing file.

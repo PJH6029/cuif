@@ -10,10 +10,55 @@ from typing import Any
 from .extract import summarize_pptx
 
 
+def _trim(text: str) -> str:
+    return text[-2000:]
+
+
+def _clear_render_outputs(target_dir: Path) -> None:
+    for pattern in ("*.png", "*.pdf"):
+        for path in target_dir.glob(pattern):
+            path.unlink(missing_ok=True)
+
+
+def _run(command: list[str], *, timeout: int = 60) -> subprocess.CompletedProcess[str]:
+    return subprocess.run(
+        command,
+        check=False,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        timeout=timeout,
+    )
+
+
+def _render_pdf_pages(renderer: str, pdftoppm: str, pptx_path: Path, target_dir: Path) -> tuple[list[str], dict[str, str]]:
+    pdf_result = _run([renderer, "--headless", "--convert-to", "pdf", "--outdir", str(target_dir), str(pptx_path)])
+    pdfs = sorted(target_dir.glob("*.pdf"))
+    evidence = {"stdout": _trim(pdf_result.stdout), "stderr": _trim(pdf_result.stderr)}
+    if pdf_result.returncode != 0 or not pdfs:
+        return [], evidence
+    prefix = target_dir / "slide"
+    page_result = _run([pdftoppm, "-png", "-r", "144", str(pdfs[0]), str(prefix)])
+    evidence.update({"pdftoppm_stdout": _trim(page_result.stdout), "pdftoppm_stderr": _trim(page_result.stderr)})
+    if page_result.returncode != 0:
+        return [], evidence
+    return sorted(path.as_posix() for path in target_dir.glob("slide-*.png")), evidence
+
+
+def _render_direct_png(renderer: str, pptx_path: Path, target_dir: Path) -> tuple[list[str], dict[str, str]]:
+    completed = _run([renderer, "--headless", "--convert-to", "png", "--outdir", str(target_dir), str(pptx_path)])
+    evidence = {"stdout": _trim(completed.stdout), "stderr": _trim(completed.stderr)}
+    if completed.returncode != 0:
+        return [], evidence
+    return sorted(path.as_posix() for path in target_dir.glob("*.png")), evidence
+
+
 def render_pptx_previews(pptx_path: str | Path, previews_dir: str | Path, label: str) -> dict[str, Any]:
     """Best-effort PPTX preview generation with deterministic summary fallback.
 
-    LibreOffice is optional. The fallback summary is always generated so CI does not
+    LibreOffice is optional. When LibreOffice and Poppler's ``pdftoppm`` are
+    available, the renderer converts PPTX -> PDF -> PNG so every slide gets a
+    navigable image. The fallback summary is always generated so CI does not
     depend on host rendering tools.
     """
     pptx_path = Path(pptx_path)
@@ -22,6 +67,8 @@ def render_pptx_previews(pptx_path: str | Path, previews_dir: str | Path, label:
     safe_label = "".join(ch if ch.isalnum() or ch in "-_" else "_" for ch in label)
     target_dir = previews_dir / safe_label
     target_dir.mkdir(parents=True, exist_ok=True)
+    _clear_render_outputs(target_dir)
+
     summary = summarize_pptx(pptx_path)
     summary_path = target_dir / "summary.json"
     summary_path.write_text(json.dumps(summary, indent=2), encoding="utf-8")
@@ -49,24 +96,30 @@ def render_pptx_previews(pptx_path: str | Path, previews_dir: str | Path, label:
         }
 
     try:
-        completed = subprocess.run(
-            [renderer, "--headless", "--convert-to", "png", "--outdir", str(target_dir), str(pptx_path)],
-            check=False,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            text=True,
-            timeout=60,
-        )
-        images = sorted(path.as_posix() for path in target_dir.glob("*.png"))
-        if completed.returncode == 0 and images:
+        pdftoppm = shutil.which("pdftoppm")
+        expected_slide_count = int(summary.get("slide_count", 0))
+        if pdftoppm:
+            images, evidence = _render_pdf_pages(renderer, pdftoppm, pptx_path, target_dir)
+            if images and len(images) >= expected_slide_count:
+                return {
+                    "status": "rendered",
+                    "renderer": renderer,
+                    "page_renderer": pdftoppm,
+                    "summary": summary_path.as_posix(),
+                    "html": html_path.as_posix(),
+                    "images": images,
+                    **evidence,
+                }
+
+        images, evidence = _render_direct_png(renderer, pptx_path, target_dir)
+        if images and len(images) >= int(summary.get("slide_count", 0)):
             return {
                 "status": "rendered",
                 "renderer": renderer,
                 "summary": summary_path.as_posix(),
                 "html": html_path.as_posix(),
                 "images": images,
-                "stdout": completed.stdout[-2000:],
-                "stderr": completed.stderr[-2000:],
+                **evidence,
             }
         return {
             "status": "fallback",
@@ -74,9 +127,8 @@ def render_pptx_previews(pptx_path: str | Path, previews_dir: str | Path, label:
             "summary": summary_path.as_posix(),
             "html": html_path.as_posix(),
             "images": images,
-            "message": "LibreOffice did not produce PNG previews; generated fallback summary.",
-            "stdout": completed.stdout[-2000:],
-            "stderr": completed.stderr[-2000:],
+            "message": "Renderer did not produce one PNG per slide; generated fallback summary.",
+            **evidence,
         }
     except Exception as exc:  # pragma: no cover - host renderer failures vary
         return {
