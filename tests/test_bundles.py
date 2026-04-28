@@ -1,9 +1,12 @@
 from __future__ import annotations
 
 import json
+import re
 import shutil
+import subprocess
 from pathlib import Path
 
+from cuif_eval.agent_runners import run_agent_on_bundle, run_and_evaluate_bundle
 from cuif_eval.bundles import evaluate_bundle_outputs, export_task_bundle, stage_bundle_turn
 from cuif_eval.scoring import aggregate_results
 
@@ -103,3 +106,58 @@ def test_evaluate_bundle_no_overwrite_refuses_existing_run(toy_task, tmp_path):
         assert "run directory already exists" in str(exc)
     else:
         raise AssertionError("expected FileExistsError")
+
+
+def test_run_agent_runs_turns_without_evaluating_outputs(toy_task, tmp_path):
+    calls = []
+
+    def fake_codex_run(command, *, cwd, text, stdout, stderr, check):
+        calls.append(command)
+        prompt = command[-1]
+        match = re.search(r"outputs/([^/]+)/result\.pptx", prompt)
+        assert match, prompt
+        turn_id = match.group(1)
+        destination = cwd / "outputs" / turn_id / "result.pptx"
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(toy_task / "mock_outputs" / turn_id / "result.pptx", destination)
+        return subprocess.CompletedProcess(command, 0, stdout='{"event":"done"}\n', stderr="")
+
+    bundle = export_task_bundle(toy_task, tmp_path / "bundle")["bundle_dir"]
+    result = run_agent_on_bundle(
+        bundle,
+        agent="codex-exec",
+        command_runner=fake_codex_run,
+    )
+
+    assert [turn["turn"] for turn in result["turns"]] == ["turn1", "final"]
+    assert len(calls) == 2
+    assert calls[0][:7] == ["codex", "exec", "--cd", str(tmp_path / "bundle" / "current"), "--json", "--yolo", "--skip-git-repo-check"]
+    assert "outputs/turn1/result.pptx" in calls[0][-1]
+    assert "outputs/final/result.pptx" in calls[1][-1]
+    assert (tmp_path / "bundle" / ".cuif_bundle" / "agent_run_logs" / "codex-exec" / "turn1.stdout.jsonl").exists()
+    assert not (tmp_path / "run" / "report.md").exists()
+
+
+def test_run_and_evaluate_exports_runs_agent_and_evaluates(toy_task, tmp_path):
+    def fake_codex_run(command, *, cwd, text, stdout, stderr, check):
+        prompt = command[-1]
+        match = re.search(r"outputs/([^/]+)/result\.pptx", prompt)
+        assert match, prompt
+        turn_id = match.group(1)
+        destination = cwd / "outputs" / turn_id / "result.pptx"
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(toy_task / "mock_outputs" / turn_id / "result.pptx", destination)
+        return subprocess.CompletedProcess(command, 0, stdout='{"event":"done"}\n', stderr="")
+
+    result = run_and_evaluate_bundle(
+        toy_task,
+        tmp_path / "bundle",
+        tmp_path / "run",
+        overwrite_bundle=True,
+        skip_judges=True,
+        command_runner=fake_codex_run,
+    )
+
+    assert [turn["turn"] for turn in result["agent_result"]["turns"]] == ["turn1", "final"]
+    assert (tmp_path / "run" / "report.md").exists()
+    assert result["summary"]["final_score"] == 1.0

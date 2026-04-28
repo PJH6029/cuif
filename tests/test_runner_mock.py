@@ -53,3 +53,38 @@ def test_command_template_flag_does_not_shadow_cli_subcommand():
     args = build_parser().parse_args(["run", "--task", "poc/tasks/toy_pptx_layout", "--adapter", "command", "--command", "echo {CUIF_TURN_ID}"])
     assert args.command == "run"
     assert args.command_template == "echo {CUIF_TURN_ID}"
+
+
+def test_run_agent_parser_contract():
+    args = build_parser().parse_args(
+        [
+            "run-agent",
+            "--bundle",
+            "output/bundles/toy",
+            "--agent",
+            "codex-exec",
+            "--agent-arg=--model",
+            "--agent-arg=gpt-5.5",
+        ]
+    )
+    assert args.command == "run-agent"
+    assert args.agent == "codex-exec"
+    assert args.agent_arg == ["--model", "gpt-5.5"]
+
+
+def test_run_and_evaluate_parser_contract():
+    args = build_parser().parse_args(
+        [
+            "run-and-evaluate",
+            "--task",
+            "poc/tasks/toy_pptx_layout",
+            "--bundle",
+            "output/bundles/toy",
+            "--run",
+            "output/runs/toy_codex",
+            "--agent",
+            "codex-exec",
+        ]
+    )
+    assert args.command == "run-and-evaluate"
+    assert args.agent == "codex-exec"

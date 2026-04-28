@@ -4,6 +4,7 @@ import argparse
 import json
 import sys
 
+from .agent_runners import DEFAULT_AGENT, DEFAULT_PROMPT_TEMPLATE, run_agent_on_bundle, run_and_evaluate_bundle
 from .bundles import evaluate_bundle_outputs, export_task_bundle, stage_bundle_turn
 from .runner import evaluate_run, regenerate_report, run_task
 from .schema import ManifestValidationError, validate_manifest
@@ -63,6 +64,31 @@ def build_parser() -> argparse.ArgumentParser:
     evaluate_bundle.add_argument("--judge-api-key-env", default="OPENAI_API_KEY")
     evaluate_bundle.add_argument("--judge-image-url-base", help="public URL base for run-local PNG previews when using openai-oauth VLM judges")
     evaluate_bundle.add_argument("--refresh-judge-cache", action="store_true")
+
+    run_agent = sub.add_parser("run-agent", help="run an agent across all turns of an already exported bundle")
+    run_agent.add_argument("--bundle", required=True, help="bundle root or current/ workspace")
+    run_agent.add_argument("--agent", default=DEFAULT_AGENT, help="agent runner to use")
+    run_agent.add_argument("--agent-bin", help="agent executable override, if supported by the selected agent")
+    run_agent.add_argument("--agent-arg", action="append", default=[], help="extra argument passed to the selected agent runner; repeat as needed")
+    run_agent.add_argument("--prompt-template", default=DEFAULT_PROMPT_TEMPLATE, help="prompt template; supports {task_id}, {task_title}, {turn_id}, and {output_path}")
+
+    run_and_evaluate = sub.add_parser("run-and-evaluate", help="export a bundle, run an agent across turns, then evaluate outputs")
+    run_and_evaluate.add_argument("--task", required=True)
+    run_and_evaluate.add_argument("--bundle", required=True, help="bundle root to create")
+    run_and_evaluate.add_argument("--run", required=True, help="repo-side run directory to create/evaluate")
+    run_and_evaluate.add_argument("--agent", default=DEFAULT_AGENT, help="agent runner to use")
+    run_and_evaluate.add_argument("--agent-bin", help="agent executable override, if supported by the selected agent")
+    run_and_evaluate.add_argument("--agent-arg", action="append", default=[], help="extra argument passed to the selected agent runner; repeat as needed")
+    run_and_evaluate.add_argument("--prompt-template", default=DEFAULT_PROMPT_TEMPLATE, help="prompt template; supports {task_id}, {task_title}, {turn_id}, and {output_path}")
+    run_and_evaluate.add_argument("--overwrite-bundle", action="store_true", help="replace an existing bundle directory")
+    run_and_evaluate.add_argument("--no-overwrite-run", action="store_true", help="fail if the evaluation run directory already exists")
+    run_and_evaluate.add_argument("--include-source-references", action="store_true", help="also expose package artifacts with role=source_reference")
+    run_and_evaluate.add_argument("--skip-judges", action="store_true")
+    run_and_evaluate.add_argument("--judge-base-url")
+    run_and_evaluate.add_argument("--judge-model")
+    run_and_evaluate.add_argument("--judge-api-key-env", default="OPENAI_API_KEY")
+    run_and_evaluate.add_argument("--judge-image-url-base", help="public URL base for run-local PNG previews when using openai-oauth VLM judges")
+    run_and_evaluate.add_argument("--refresh-judge-cache", action="store_true")
 
     report = sub.add_parser("report", help="print existing report summary")
     report.add_argument("--run", required=True)
@@ -156,6 +182,47 @@ def main(argv: list[str] | None = None) -> int:
             missing = len(result["imported"]["missing"])
             print(f"Run directory: {result['workspace'].run_dir}")
             print(f"Imported outputs: {copied} copied, {missing} missing")
+            print(f"Final score: {summary['earned_points']:.2f}/{summary['possible_points']:.2f} ({summary['final_score']:.1%})")
+            return 0
+        if args.command == "run-agent":
+            result = run_agent_on_bundle(
+                args.bundle,
+                agent=args.agent,
+                agent_bin=args.agent_bin,
+                agent_args=args.agent_arg,
+                prompt_template=args.prompt_template,
+            )
+            print(f"Bundle directory: {result['bundle_dir']}")
+            print(f"Agent workspace: {result['current_dir']}")
+            print(f"Agent logs: {result['log_dir']}")
+            print("Completed turns:")
+            for turn in result["turns"]:
+                print(f"- {turn['turn']}: exit {turn['returncode']}")
+            return 0
+        if args.command == "run-and-evaluate":
+            result = run_and_evaluate_bundle(
+                args.task,
+                args.bundle,
+                args.run,
+                agent=args.agent,
+                agent_bin=args.agent_bin,
+                agent_args=args.agent_arg,
+                prompt_template=args.prompt_template,
+                overwrite_bundle=args.overwrite_bundle,
+                overwrite_run=not args.no_overwrite_run,
+                include_source_references=args.include_source_references,
+                skip_judges=args.skip_judges,
+                judge_base_url=args.judge_base_url,
+                judge_model=args.judge_model,
+                judge_api_key_env=args.judge_api_key_env,
+                judge_image_url_base=args.judge_image_url_base,
+                refresh_judge_cache=args.refresh_judge_cache,
+            )
+            summary = result["summary"]
+            print(f"Bundle directory: {result['bundle']['bundle_dir']}")
+            print(f"Agent workspace: {result['bundle']['current_dir']}")
+            print(f"Run directory: {result['evaluation']['workspace'].run_dir}")
+            print(f"Agent logs: {result['log_dir']}")
             print(f"Final score: {summary['earned_points']:.2f}/{summary['possible_points']:.2f} ({summary['final_score']:.1%})")
             return 0
         if args.command == "report":

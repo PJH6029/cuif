@@ -63,3 +63,31 @@ uv run cuif-eval evaluate-bundle \
 ```
 
 The bundle keeps operator files under `.cuif_bundle/` and stages only the first turn in `current/instruction.md`. Use `stage-bundle-turn` when you are ready to reveal a later turn; it updates `current/instruction.md` and copies only that turn's newly declared textual/visual inputs into `current/inputs/<turn>/`.
+
+To run an already exported bundle through an agent runner, use `run-agent`. This handles turn execution and staging, but leaves evaluation as a separate step:
+
+```bash
+uv run cuif-eval run-agent \
+  --bundle ~/code/snupi/cuif-agents-evaluation/transformer_paper_review_deck \
+  --agent codex-exec
+
+uv run cuif-eval evaluate-bundle \
+  --task poc/tasks/transformer_paper_review_deck \
+  --workspace ~/code/snupi/cuif-agents-evaluation/transformer_paper_review_deck/current \
+  --run output/codex_exec_runs/transformer_paper_review_deck \
+  --skip-judges
+```
+
+For a single wrapper command that exports, runs the selected agent, and evaluates:
+
+```bash
+uv run cuif-eval run-and-evaluate \
+  --task poc/tasks/transformer_paper_review_deck \
+  --bundle ~/code/snupi/cuif-agents-evaluation/transformer_paper_review_deck \
+  --run output/codex_exec_runs/transformer_paper_review_deck \
+  --agent codex-exec \
+  --overwrite-bundle \
+  --skip-judges
+```
+
+The initial agent runner is `codex-exec`, which runs `codex exec --cd <bundle>/current --json --yolo --skip-git-repo-check` once per turn. Additional flags can be passed with repeated `--agent-arg` values.
