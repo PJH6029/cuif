@@ -4,6 +4,7 @@ import argparse
 import json
 import sys
 
+from .bundles import evaluate_bundle_outputs, export_task_bundle
 from .runner import evaluate_run, regenerate_report, run_task
 from .schema import ManifestValidationError, validate_manifest
 from .scoring import aggregate_results
@@ -40,6 +41,24 @@ def build_parser() -> argparse.ArgumentParser:
     evaluate.add_argument("--judge-api-key-env", default="OPENAI_API_KEY")
     evaluate.add_argument("--judge-image-url-base", help="public URL base for run-local PNG previews when using openai-oauth VLM judges")
     evaluate.add_argument("--refresh-judge-cache", action="store_true")
+
+    export_bundle = sub.add_parser("export-bundle", help="export a task-facing workspace for an external agent")
+    export_bundle.add_argument("--task", required=True)
+    export_bundle.add_argument("--out", required=True)
+    export_bundle.add_argument("--overwrite", action="store_true", help="replace an existing bundle directory")
+    export_bundle.add_argument("--include-source-references", action="store_true", help="also expose package artifacts with role=source_reference")
+
+    evaluate_bundle = sub.add_parser("evaluate-bundle", help="import outputs from an external-agent workspace and evaluate them")
+    evaluate_bundle.add_argument("--task", required=True)
+    evaluate_bundle.add_argument("--workspace", required=True, help="bundle root or current/ workspace containing outputs/")
+    evaluate_bundle.add_argument("--run", required=True, help="repo-side run directory to create/evaluate")
+    evaluate_bundle.add_argument("--no-overwrite", action="store_true", help="fail if the run directory already exists")
+    evaluate_bundle.add_argument("--skip-judges", action="store_true")
+    evaluate_bundle.add_argument("--judge-base-url")
+    evaluate_bundle.add_argument("--judge-model")
+    evaluate_bundle.add_argument("--judge-api-key-env", default="OPENAI_API_KEY")
+    evaluate_bundle.add_argument("--judge-image-url-base", help="public URL base for run-local PNG previews when using openai-oauth VLM judges")
+    evaluate_bundle.add_argument("--refresh-judge-cache", action="store_true")
 
     report = sub.add_parser("report", help="print existing report summary")
     report.add_argument("--run", required=True)
@@ -87,6 +106,40 @@ def main(argv: list[str] | None = None) -> int:
             )
             summary = aggregate_results(result["results"])
             print(f"Report directory: {result['workspace'].run_dir}")
+            print(f"Final score: {summary['earned_points']:.2f}/{summary['possible_points']:.2f} ({summary['final_score']:.1%})")
+            return 0
+        if args.command == "export-bundle":
+            result = export_task_bundle(
+                args.task,
+                args.out,
+                overwrite=args.overwrite,
+                include_source_references=args.include_source_references,
+            )
+            print(f"Bundle directory: {result['bundle_dir']}")
+            print(f"Agent workspace: {result['current_dir']}")
+            print(f"Active turn: {result['metadata']['active_turn']}")
+            print("Expected outputs:")
+            for output in result["metadata"]["outputs"]:
+                print(f"- {output['path']}")
+            return 0
+        if args.command == "evaluate-bundle":
+            result = evaluate_bundle_outputs(
+                args.task,
+                args.workspace,
+                args.run,
+                overwrite=not args.no_overwrite,
+                skip_judges=args.skip_judges,
+                judge_base_url=args.judge_base_url,
+                judge_model=args.judge_model,
+                judge_api_key_env=args.judge_api_key_env,
+                judge_image_url_base=args.judge_image_url_base,
+                refresh_judge_cache=args.refresh_judge_cache,
+            )
+            summary = result["summary"]
+            copied = len(result["imported"]["copied"])
+            missing = len(result["imported"]["missing"])
+            print(f"Run directory: {result['workspace'].run_dir}")
+            print(f"Imported outputs: {copied} copied, {missing} missing")
             print(f"Final score: {summary['earned_points']:.2f}/{summary['possible_points']:.2f} ({summary['final_score']:.1%})")
             return 0
         if args.command == "report":

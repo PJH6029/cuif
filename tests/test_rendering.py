@@ -8,19 +8,17 @@ from cuif_eval.pptx import render
 from cuif_eval.pptx.render import render_pptx_previews
 
 
-def test_png_rendering_or_structured_fallback_is_available(toy_task, tmp_path):
+def test_structured_fallback_is_available_without_host_renderer(monkeypatch, toy_task, tmp_path):
+    monkeypatch.setattr(render.shutil, "which", lambda name: None)
+
     result = render_pptx_previews(toy_task / "mock_outputs" / "final" / "result.pptx", tmp_path / "previews", "final")
-    assert result["status"] in {"rendered", "fallback"}
+    assert result["status"] == "fallback"
     assert Path(result["summary"]).exists()
     assert Path(result["html"]).exists()
-    if result["status"] == "rendered":
-        assert result["images"], result
-        summary = json.loads(Path(result["summary"]).read_text(encoding="utf-8"))
-        assert len(result["images"]) >= summary["slide_count"]
-        assert all(Path(image).suffix == ".png" and Path(image).exists() for image in result["images"])
-    else:
-        assert result["images"] == []
-        assert "message" in result
+    assert result["images"] == []
+    assert "message" in result
+    summary = json.loads(Path(result["summary"]).read_text(encoding="utf-8"))
+    assert summary["slide_count"] > 0
 
 
 def test_libreoffice_rendering_uses_isolated_profile_by_default(monkeypatch, toy_task, tmp_path):
@@ -49,3 +47,44 @@ def test_libreoffice_rendering_uses_isolated_profile_by_default(monkeypatch, toy
     assert result["status"] == "rendered"
     assert len(soffice_commands) == 1
     assert any(arg.startswith("-env:UserInstallation=file://") for arg in soffice_commands[0])
+
+
+def test_renderer_timeout_kills_process_group(monkeypatch):
+    calls: dict[str, object] = {}
+
+    class FakeProcess:
+        pid = 12345
+        returncode = None
+
+        def __init__(self) -> None:
+            self.communicate_calls = 0
+
+        def communicate(self, *, timeout: int | None = None):
+            self.communicate_calls += 1
+            if self.communicate_calls == 1:
+                raise subprocess.TimeoutExpired(["fake-soffice"], timeout)
+            self.returncode = -9
+            return "partial stdout", "partial stderr"
+
+    fake_process = FakeProcess()
+
+    def fake_popen(command, **kwargs):
+        calls["command"] = command
+        calls["kwargs"] = kwargs
+        return fake_process
+
+    def fake_killpg(pid, sig):
+        calls["killpg"] = (pid, sig)
+
+    monkeypatch.setattr(render.subprocess, "Popen", fake_popen)
+    monkeypatch.setattr(render.os, "killpg", fake_killpg)
+
+    completed = render._run(["fake-soffice"], timeout=1)
+
+    assert completed.returncode == -9
+    assert completed.stdout == "partial stdout"
+    assert "partial stderr" in completed.stderr
+    assert "timed out after 1s" in completed.stderr
+    assert calls["killpg"] == (12345, render.signal.SIGKILL)
+    if hasattr(render.os, "setsid"):
+        assert calls["kwargs"]["start_new_session"] is True

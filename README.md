@@ -31,3 +31,25 @@ The smoke run creates:
 - Optional OpenAI-compatible LLM/VLM judge checks with skip/cache behavior. VLM checks render PPTX artifacts to PNG previews and send those images through `/chat/completions` image content when live judges are enabled; `--judge-image-url-base` supports `openai-oauth` deployments that require HTTP(S) image URLs.
 
 See `poc/README.md` for task authoring and adapter details.
+
+## External-agent bundle flow
+
+For agents that run outside this evaluator process, such as Codex App with Computer Use, export a task-facing bundle, let the agent write turn outputs, then import/evaluate those outputs:
+
+```bash
+uv run cuif-eval export-bundle \
+  --task poc/tasks/transformer_paper_review_deck \
+  --out ~/code/snupi/cuif-agents-evaluation/transformer_paper_review_deck \
+  --overwrite
+
+# Open only .../transformer_paper_review_deck/current in the evaluated agent.
+# The agent writes outputs/turn1/result.pptx, outputs/turn2/result.pptx, and outputs/final/result.pptx.
+
+uv run cuif-eval evaluate-bundle \
+  --task poc/tasks/transformer_paper_review_deck \
+  --workspace ~/code/snupi/cuif-agents-evaluation/transformer_paper_review_deck/current \
+  --run output/codex_computer_use_runs/transformer_paper_review_deck \
+  --skip-judges
+```
+
+The bundle keeps operator files under `.cuif_bundle/` and stages only the first turn in `current/instruction.md`; copy a later `.cuif_bundle/instructions/<turn>.md` over `current/instruction.md` when you are ready to reveal that turn.

@@ -2,7 +2,9 @@ from __future__ import annotations
 
 import html
 import json
+import os
 import shutil
+import signal
 import subprocess
 import tempfile
 from pathlib import Path
@@ -22,14 +24,33 @@ def _clear_render_outputs(target_dir: Path) -> None:
 
 
 def _run(command: list[str], *, timeout: int = 60) -> subprocess.CompletedProcess[str]:
-    return subprocess.run(
-        command,
-        check=False,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        text=True,
-        timeout=timeout,
-    )
+    popen_kwargs: dict[str, Any] = {
+        "stdout": subprocess.PIPE,
+        "stderr": subprocess.PIPE,
+        "text": True,
+    }
+    if hasattr(os, "setsid"):
+        popen_kwargs["start_new_session"] = True
+    process = subprocess.Popen(command, **popen_kwargs)
+    try:
+        stdout, stderr = process.communicate(timeout=timeout)
+        return subprocess.CompletedProcess(command, process.returncode, stdout, stderr)
+    except subprocess.TimeoutExpired:
+        try:
+            if hasattr(os, "killpg"):
+                os.killpg(process.pid, signal.SIGKILL)
+            else:  # pragma: no cover - non-POSIX fallback
+                process.kill()
+        except ProcessLookupError:
+            pass
+        stdout, stderr = process.communicate()
+        message = f"Command timed out after {timeout}s; killed renderer process group."
+        return subprocess.CompletedProcess(
+            command,
+            process.returncode if process.returncode is not None else -signal.SIGKILL,
+            stdout or "",
+            f"{stderr or ''}\n{message}".strip(),
+        )
 
 
 def _libreoffice_command(renderer: str, profile_dir: Path, args: list[str]) -> list[str]:
