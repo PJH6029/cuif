@@ -144,6 +144,7 @@ def test_pptx_image_and_formula_checks(tmp_path):
                 "turns": [
                     {
                         "id": "turn1",
+                        "new_inputs": {"textual": [], "visual": ["package.reference_figure"]},
                         "instruction": "Embed the figure and formula.",
                         "expected_output": "result",
                         "checks": [

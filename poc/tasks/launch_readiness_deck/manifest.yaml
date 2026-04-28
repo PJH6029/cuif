@@ -41,6 +41,11 @@ artifacts:
         type: pptx
 turns:
   - id: turn1
+    new_inputs:
+      textual:
+        - package.launch_brief
+      visual:
+        - package.sketch
     instruction: >-
       Using the seed deck, launch brief, and sketch.svg, create a three-slide
       launch readiness update. Slide 1 should follow the sketch: put the title
@@ -130,6 +135,9 @@ turns:
         params:
           note: Optional rendered review for the sketch-following launch readiness slide.
   - id: final
+    new_inputs:
+      textual: []
+      visual: []
     instruction: >-
       Revise the turn 1 deck. Apply CUIF brand styling to the slide 1 title:
       blue #1F4E79, bold, 34 pt. Move the risk callout "Top risk: onboarding

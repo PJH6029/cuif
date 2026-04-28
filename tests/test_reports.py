@@ -68,6 +68,7 @@ def _make_two_turn_task(task):
 
     turn2 = copy.deepcopy(data["turns"][0])
     turn2["id"] = "turn2"
+    turn2["new_inputs"] = {"textual": [], "visual": []}
     turn2["instruction"] = "Continue the draft deck while preserving the protected context."
     turn2["checks"] = [
         {"id": "turn2_file_exists", "evaluator": "file_exists", "artifact": "run.outputs.turn2.result", "points": 1},

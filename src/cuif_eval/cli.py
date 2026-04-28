@@ -4,7 +4,7 @@ import argparse
 import json
 import sys
 
-from .bundles import evaluate_bundle_outputs, export_task_bundle
+from .bundles import evaluate_bundle_outputs, export_task_bundle, stage_bundle_turn
 from .runner import evaluate_run, regenerate_report, run_task
 from .schema import ManifestValidationError, validate_manifest
 from .scoring import aggregate_results
@@ -47,6 +47,10 @@ def build_parser() -> argparse.ArgumentParser:
     export_bundle.add_argument("--out", required=True)
     export_bundle.add_argument("--overwrite", action="store_true", help="replace an existing bundle directory")
     export_bundle.add_argument("--include-source-references", action="store_true", help="also expose package artifacts with role=source_reference")
+
+    stage_bundle = sub.add_parser("stage-bundle-turn", help="reveal one turn instruction and newly declared inputs in an external-agent bundle")
+    stage_bundle.add_argument("--bundle", required=True, help="bundle root or current/ workspace")
+    stage_bundle.add_argument("--turn", required=True, help="turn id to reveal")
 
     evaluate_bundle = sub.add_parser("evaluate-bundle", help="import outputs from an external-agent workspace and evaluate them")
     evaluate_bundle.add_argument("--task", required=True)
@@ -121,6 +125,18 @@ def main(argv: list[str] | None = None) -> int:
             print("Expected outputs:")
             for output in result["metadata"]["outputs"]:
                 print(f"- {output['path']}")
+            return 0
+        if args.command == "stage-bundle-turn":
+            result = stage_bundle_turn(args.bundle, args.turn)
+            print(f"Bundle directory: {result['bundle_dir']}")
+            print(f"Agent workspace: {result['current_dir']}")
+            print(f"Active turn: {result['turn']}")
+            if result["copied_inputs"]:
+                print("New inputs:")
+                for artifact in result["copied_inputs"]:
+                    print(f"- {artifact['workspace_path']}")
+            else:
+                print("New inputs: none")
             return 0
         if args.command == "evaluate-bundle":
             result = evaluate_bundle_outputs(

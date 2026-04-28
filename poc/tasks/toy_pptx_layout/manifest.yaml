@@ -37,6 +37,10 @@ artifacts:
         type: pptx
 turns:
   - id: turn1
+    new_inputs:
+      textual: []
+      visual:
+        - package.sketch
     instruction: >-
       Create a two-slide dashboard from the seed deck. On slide 1 place the title
       "CUIF PoC Dashboard" near the top and add the subtitle "Partial-credit office evaluation".
@@ -83,6 +87,9 @@ turns:
         params:
           note: Optional rendered smoke check; deterministic tests accept fallback/skip when LibreOffice is absent.
   - id: final
+    new_inputs:
+      textual: []
+      visual: []
     instruction: >-
       Apply the CUIF brand style to the slide 1 title: blue #1F4E79, bold, 34 pt.
       Keep the turn 1 layout and preserve the protected slide 2 content.

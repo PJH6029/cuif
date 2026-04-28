@@ -201,14 +201,23 @@ Example:
 ```yaml
 id: poc_ppt_sketch_001
 artifacts:
-  input:
-    - seed.pptx
-    - sketch.png
-    - source.txt
-  output:
-    - result.pptx
+  package:
+    seed: {path: seed.pptx, type: pptx, role: seed}
+    sketch: {path: sketch.png, type: png, role: instruction_input}
+    source: {path: source.txt, type: txt, role: source_input}
+    source_figure: {path: source_figure.png, type: png, role: instruction_input}
+  expected_outputs:
+    turn1:
+      result: {path: result.pptx, type: pptx}
+    turn2:
+      result: {path: result.pptx, type: pptx}
 turns:
   - id: turn1
+    new_inputs:
+      textual:
+        - package.source
+      visual:
+        - package.sketch
     instruction: "Create the slide following the sketch."
     checks:
       - id: required_title
@@ -221,6 +230,10 @@ turns:
         evaluator: rendered_vlm_layout
         points: 4
   - id: turn2
+    new_inputs:
+      textual: []
+      visual:
+        - package.source_figure
     instruction: "Apply the brand style and add the source figure."
     checks:
       - id: brand_colors

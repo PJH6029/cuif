@@ -11,6 +11,8 @@ def test_valid_toy_manifest_loads(toy_task):
     assert len(manifest.turns) == 2
     assert manifest.primary_artifact_family == "pptx"
     assert manifest.package_artifacts["seed"]["type"] == "pptx"
+    assert manifest.turns[0].new_inputs.visual == ["package.sketch"]
+    assert manifest.turns[1].new_inputs.refs() == []
 
 
 def test_missing_package_artifact_fails(mutate_manifest):
@@ -48,6 +50,24 @@ def test_duplicate_turn_id_fails(mutate_manifest):
     path = mutate_manifest(lambda data: data["turns"][1].update({"id": "turn1"}))
     with pytest.raises(ManifestValidationError, match="duplicate turn id"):
         load_manifest(path)
+
+
+def test_agent_facing_inputs_must_be_declared_by_turn(mutate_manifest):
+    path = mutate_manifest(lambda data: data["turns"][0].pop("new_inputs"))
+    with pytest.raises(ManifestValidationError, match="must be listed once"):
+        load_manifest(path)
+
+
+def test_turn_new_inputs_reject_duplicates_and_wrong_modality(mutate_manifest):
+    def mutate(data):
+        data["turns"][0]["new_inputs"] = {"textual": ["package.sketch"], "visual": ["package.sketch"]}
+        data["turns"][1]["new_inputs"] = {"textual": [], "visual": ["package.sketch"]}
+    path = mutate_manifest(mutate)
+    with pytest.raises(ManifestValidationError) as exc:
+        load_manifest(path)
+    text = str(exc.value)
+    assert "not supported for textual inputs" in text
+    assert "repeats package.sketch" in text
 
 
 def test_check_referencing_unknown_artifact_namespace_fails(mutate_manifest):

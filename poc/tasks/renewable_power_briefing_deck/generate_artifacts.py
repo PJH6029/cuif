@@ -552,6 +552,14 @@ artifacts:
         type: pptx
 turns:
   - id: turn1
+    new_inputs:
+      textual:
+        - package.source_data
+        - package.source_notes
+        - package.source_csv
+        - package.raw_world_bank_json
+      visual:
+        - package.layout_reference
     instruction: >-
       Using the seed deck, source_data.xlsx, source_notes.txt, and
       layout_reference.svg, create a four-slide renewable-electricity briefing.
@@ -662,6 +670,9 @@ turns:
         params:
           note: Optional rendered review for chart placement against layout_reference.svg.
   - id: turn2
+    new_inputs:
+      textual: []
+      visual: []
     instruction: >-
       Revise the turn 1 deck by adding a one-sentence insight directly below
       the chart on slide 1: "Insight: Germany leads at 39.8% in 2021; the U.S.
@@ -749,6 +760,10 @@ turns:
         params:
           note: Optional rendered review for insight placement and chart preservation.
   - id: final
+    new_inputs:
+      textual: []
+      visual:
+        - package.style_reference
     instruction: >-
       Finalize the deck using style_reference.svg. On slide 1, apply the CUIF
       title style to "Renewable Electricity Snapshot": blue #1F4E79, bold, 34

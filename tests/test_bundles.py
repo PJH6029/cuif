@@ -2,8 +2,9 @@ from __future__ import annotations
 
 import json
 import shutil
+from pathlib import Path
 
-from cuif_eval.bundles import evaluate_bundle_outputs, export_task_bundle
+from cuif_eval.bundles import evaluate_bundle_outputs, export_task_bundle, stage_bundle_turn
 from cuif_eval.scoring import aggregate_results
 
 
@@ -15,7 +16,7 @@ def test_export_bundle_stages_agent_workspace_without_gold_or_manifest(toy_task,
     assert (current / "AGENTS.md").exists()
     assert (current / "instruction.md").read_text(encoding="utf-8").startswith("# Toy PPTX layout smoke task / turn1")
     assert (current / "seed.pptx").exists()
-    assert (current / "sketch.svg").exists()
+    assert (current / "inputs" / "turn1" / "sketch.svg").exists()
     assert (current / "outputs" / "turn1").is_dir()
     assert (current / "outputs" / "final").is_dir()
     assert not (current / "manifest.yaml").exists()
@@ -25,6 +26,8 @@ def test_export_bundle_stages_agent_workspace_without_gold_or_manifest(toy_task,
     metadata = json.loads((bundle / ".cuif_bundle" / "bundle_metadata.json").read_text(encoding="utf-8"))
     assert metadata["task_id"] == "toy_pptx_layout"
     assert metadata["active_turn"] == "turn1"
+    assert metadata["staged_turns"] == ["turn1"]
+    assert metadata["turn_inputs"]["turn1"][0]["workspace_path"] == "inputs/turn1/sketch.svg"
     assert [item["path"] for item in metadata["outputs"]] == ["outputs/turn1/result.pptx", "outputs/final/result.pptx"]
     assert (bundle / ".cuif_bundle" / "instructions" / "final.md").exists()
     assert "outputs/turn1/result.pptx" in (bundle / ".cuif_bundle" / "instructions" / "final.md").read_text(encoding="utf-8")
@@ -38,6 +41,30 @@ def test_export_bundle_refuses_to_overwrite_without_flag(toy_task, tmp_path):
         assert "--overwrite" in str(exc)
     else:
         raise AssertionError("expected FileExistsError")
+
+
+def test_stage_bundle_turn_reveals_only_that_turns_new_inputs(tmp_path):
+    task = tmp_path / "turn_input_task"
+    repo_root = Path(__file__).resolve().parents[1]
+    shutil.copytree(repo_root / "poc" / "tasks" / "aurora_paper_review_deck", task)
+    result = export_task_bundle(task, tmp_path / "bundle")
+    bundle = result["bundle_dir"]
+    current = result["current_dir"]
+
+    assert (current / "inputs" / "turn1" / "paper_brief.txt").exists()
+    assert (current / "inputs" / "turn1" / "layout_sketch.svg").exists()
+    assert not (current / "inputs" / "turn2" / "source_figure.svg").exists()
+    assert not (current / "inputs" / "final" / "style_reference.svg").exists()
+
+    staged = stage_bundle_turn(bundle, "turn2")
+    assert staged["turn"] == "turn2"
+    assert (current / "inputs" / "turn2" / "source_figure.svg").exists()
+    assert not (current / "inputs" / "final" / "style_reference.svg").exists()
+    assert "source_figure.svg" in (current / "instruction.md").read_text(encoding="utf-8")
+
+    metadata = json.loads((bundle / ".cuif_bundle" / "bundle_metadata.json").read_text(encoding="utf-8"))
+    assert metadata["active_turn"] == "turn2"
+    assert metadata["staged_turns"] == ["turn1", "turn2"]
 
 
 def test_evaluate_bundle_imports_outputs_and_generates_report(toy_task, tmp_path):

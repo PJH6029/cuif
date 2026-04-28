@@ -6,7 +6,7 @@ from typing import Any
 
 import yaml
 
-from .types import CheckSpec, Manifest, TurnSpec
+from .types import CheckSpec, Manifest, TurnInputSpec, TurnSpec
 
 KNOWN_EVALUATORS = {
     "file_exists",
@@ -41,6 +41,12 @@ PPTX_EVALUATORS = {
 }
 GENERATED_ARTIFACT_PATH_PREFIXES = ("run/", "outputs/", "previews/", "review/", "reports/", "output/")
 GENERATED_ARTIFACT_FILENAMES = {"report.json", "report.md", "index.html"}
+AGENT_INPUT_ROLES = {"source_input", "instruction_input", "style_input"}
+TURN_INPUT_KEYS = ("textual", "visual")
+TURN_INPUT_TYPES = {
+    "textual": {"txt", "json", "xlsx", "docx", "pdf"},
+    "visual": {"image", "svg", "png"},
+}
 
 
 class ManifestValidationError(ValueError):
@@ -94,6 +100,53 @@ def _validate_artifact_ref(ref: Any, package_artifacts: dict[str, dict[str, Any]
     if len(parts) == 4 and parts[:2] == ["run", "outputs"] and parts[2] in expected_outputs and parts[3] in expected_outputs[parts[2]]:
         return
     errors.append(f"{field} references unknown artifact namespace: {ref}")
+
+
+def _validate_turn_new_inputs(turn_id: str, raw: Any, package_artifacts: dict[str, dict[str, Any]], errors: list[str]) -> TurnInputSpec:
+    if raw is None:
+        raw = {}
+    if not isinstance(raw, dict):
+        errors.append(f"turn {turn_id} new_inputs must be a mapping with textual/visual lists")
+        raw = {}
+
+    for key in raw:
+        if key not in TURN_INPUT_KEYS:
+            errors.append(f"turn {turn_id} new_inputs has unsupported category: {key}")
+
+    values: dict[str, list[str]] = {"textual": [], "visual": []}
+    seen_local: set[str] = set()
+    for category in TURN_INPUT_KEYS:
+        refs = raw.get(category, [])
+        if refs is None:
+            refs = []
+        if not isinstance(refs, list):
+            errors.append(f"turn {turn_id} new_inputs.{category} must be a list of package artifact refs")
+            refs = []
+        for index, ref in enumerate(refs):
+            field = f"turn {turn_id} new_inputs.{category}[{index}]"
+            if not isinstance(ref, str):
+                errors.append(f"{field} must be a package artifact reference string")
+                continue
+            parts = ref.split(".")
+            if len(parts) != 2 or parts[0] != "package" or parts[1] not in package_artifacts:
+                errors.append(f"{field} references unknown package artifact: {ref}")
+                continue
+            if ref in seen_local:
+                errors.append(f"turn {turn_id} new_inputs repeats {ref}")
+                continue
+            seen_local.add(ref)
+
+            artifact_name = parts[1]
+            spec = package_artifacts[artifact_name]
+            role = str(spec.get("role", ""))
+            artifact_type = str(spec.get("type", ""))
+            if role not in AGENT_INPUT_ROLES:
+                errors.append(f"{field} references package.{artifact_name} with non-agent-input role: {role}")
+            if artifact_type not in TURN_INPUT_TYPES[category]:
+                errors.append(f"{field} has type {artifact_type!r}, which is not supported for {category} inputs")
+            values[category].append(ref)
+
+    return TurnInputSpec(textual=values["textual"], visual=values["visual"])
 
 
 def load_manifest(path: str | Path, *, skip_judges: bool = False, validate_files: bool = True) -> Manifest:
@@ -151,6 +204,7 @@ def load_manifest(path: str | Path, *, skip_judges: bool = False, validate_files
         turns_raw = []
     seen_turns: set[str] = set()
     seen_checks: set[str] = set()
+    assigned_new_inputs: dict[str, tuple[str, str]] = {}
     all_dependencies: dict[str, list[str]] = {}
     turns: list[TurnSpec] = []
     judge_config = raw.get("judge", {}) if isinstance(raw.get("judge", {}), dict) else {}
@@ -170,6 +224,14 @@ def load_manifest(path: str | Path, *, skip_judges: bool = False, validate_files
             errors.append(f"turn {turn_id} missing expected_output")
         elif turn_id not in normalized_outputs or expected_output not in normalized_outputs.get(turn_id, {}):
             errors.append(f"turn {turn_id} expected_output {expected_output!r} is not declared in artifacts.expected_outputs")
+        new_inputs = _validate_turn_new_inputs(turn_id or f"turns[{idx}]", turn.get("new_inputs", {}), package_artifacts, errors)
+        for category in TURN_INPUT_KEYS:
+            for ref in getattr(new_inputs, category):
+                previous = assigned_new_inputs.get(ref)
+                if previous is not None:
+                    errors.append(f"{ref} is newly revealed more than once: {previous[0]}.new_inputs.{previous[1]} and {turn_id}.new_inputs.{category}")
+                else:
+                    assigned_new_inputs[ref] = (turn_id, category)
         checks_raw = turn.get("checks", [])
         if not isinstance(checks_raw, list):
             errors.append(f"turn {turn_id} checks must be a list")
@@ -234,11 +296,19 @@ def load_manifest(path: str | Path, *, skip_judges: bool = False, validate_files
                     description=check.get("description"),
                 )
             )
-        turns.append(TurnSpec(id=turn_id, instruction=str(turn.get("instruction", "")), expected_output=expected_output, checks=check_specs))
+        turns.append(TurnSpec(id=turn_id, instruction=str(turn.get("instruction", "")), expected_output=expected_output, checks=check_specs, new_inputs=new_inputs))
 
     unknown_deps = sorted({dep for deps in all_dependencies.values() for dep in deps if dep not in seen_checks})
     for dep in unknown_deps:
         errors.append(f"dependency references unknown check id: {dep}")
+
+    assigned_refs = set(assigned_new_inputs)
+    for artifact_name, spec in package_artifacts.items():
+        role = str(spec.get("role", ""))
+        if role in AGENT_INPUT_ROLES:
+            ref = f"package.{artifact_name}"
+            if ref not in assigned_refs:
+                errors.append(f"agent-facing package artifact {ref} with role {role} must be listed once under turns[].new_inputs.textual or turns[].new_inputs.visual")
 
     if errors:
         raise ManifestValidationError(errors)

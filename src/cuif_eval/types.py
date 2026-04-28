@@ -21,11 +21,21 @@ class CheckSpec:
 
 
 @dataclass(frozen=True)
+class TurnInputSpec:
+    textual: list[str] = field(default_factory=list)
+    visual: list[str] = field(default_factory=list)
+
+    def refs(self) -> list[str]:
+        return [*self.textual, *self.visual]
+
+
+@dataclass(frozen=True)
 class TurnSpec:
     id: str
     instruction: str
     expected_output: str
     checks: list[CheckSpec]
+    new_inputs: TurnInputSpec = field(default_factory=TurnInputSpec)
 
 
 @dataclass(frozen=True)

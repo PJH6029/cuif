@@ -43,7 +43,17 @@ uv run cuif-eval export-bundle \
   --overwrite
 
 # Open only .../transformer_paper_review_deck/current in the evaluated agent.
-# The agent writes outputs/turn1/result.pptx, outputs/turn2/result.pptx, and outputs/final/result.pptx.
+# The first turn is staged in current/instruction.md with only turn1 inputs visible.
+
+uv run cuif-eval stage-bundle-turn \
+  --bundle ~/code/snupi/cuif-agents-evaluation/transformer_paper_review_deck \
+  --turn turn2
+
+uv run cuif-eval stage-bundle-turn \
+  --bundle ~/code/snupi/cuif-agents-evaluation/transformer_paper_review_deck \
+  --turn final
+
+# The agent writes outputs/turn1/result.pptx, outputs/turn2/result.pptx, and outputs/final/result.pptx as turns are staged.
 
 uv run cuif-eval evaluate-bundle \
   --task poc/tasks/transformer_paper_review_deck \
@@ -52,4 +62,4 @@ uv run cuif-eval evaluate-bundle \
   --skip-judges
 ```
 
-The bundle keeps operator files under `.cuif_bundle/` and stages only the first turn in `current/instruction.md`; copy a later `.cuif_bundle/instructions/<turn>.md` over `current/instruction.md` when you are ready to reveal that turn.
+The bundle keeps operator files under `.cuif_bundle/` and stages only the first turn in `current/instruction.md`. Use `stage-bundle-turn` when you are ready to reveal a later turn; it updates `current/instruction.md` and copies only that turn's newly declared textual/visual inputs into `current/inputs/<turn>/`.

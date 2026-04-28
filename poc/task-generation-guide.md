@@ -220,6 +220,10 @@ artifacts:
         type: pptx
 turns:
   - id: turn1
+    new_inputs:
+      textual: []
+      visual:
+        - package.sketch
     instruction: >-
       <Turn 1 instruction. Mention seed deck and input artifacts by natural language.
       Include exact required text strings and any protected content.>
@@ -259,6 +263,9 @@ turns:
         params:
           note: Optional rendered smoke check for author review.
   - id: final
+    new_inputs:
+      textual: []
+      visual: []
     instruction: >-
       <Final turn instruction. Apply one style/layout/content change and explicitly
       preserve selected turn1 content or protected slide/object text.>
@@ -340,6 +347,8 @@ turns:
 ```
 
 If a task has no sketch, remove the `sketch` artifact entry instead of pointing it at a missing file.
+
+Every agent-facing package artifact with role `source_input`, `instruction_input`, or `style_input` must be revealed by exactly one turn under `turns[].new_inputs`. Use `textual` for text/data/document inputs such as `.txt`, `.json`, `.xlsx`, `.docx`, or `.pdf`, and `visual` for image/sketch/screenshot/style targets such as `.png`, `.svg`, or `image`. Do not list future-turn artifacts in earlier turns; the external bundle flow uses this field to copy only the active turn's new inputs into `current/inputs/<turn>/`.
 
 Supported package artifact `type` values today are `pptx`, `docx`, `xlsx`, `pdf`, `image`, `svg`, `png`, `json`, and `txt`; output artifact `type` values are `pptx`, `docx`, `xlsx`, `image`, `json`, and `txt`. If you include DOCX/XLSX/PDF as context, keep PPTX as the evaluated output unless new deterministic checks are added.
 

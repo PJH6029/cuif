@@ -57,6 +57,11 @@ artifacts:
         type: pptx
 turns:
   - id: turn1
+    new_inputs:
+      textual:
+        - package.paper_brief
+      visual:
+        - package.layout_sketch
     instruction: >-
       Using the seed deck, paper_brief.txt, and layout_sketch.svg, create a
       four-slide paper-review deck. Slide 1 must follow the sketch: put the
@@ -175,6 +180,10 @@ turns:
         params:
           note: Optional rendered review for the sketch-following paper review summary.
   - id: turn2
+    new_inputs:
+      textual: []
+      visual:
+        - package.source_figure
     instruction: >-
       Revise the turn 1 deck. On slide 1, reconstruct the source figure from
       source_figure.svg inside the right Method snapshot panel with the exact
@@ -286,6 +295,10 @@ turns:
         params:
           note: Optional rendered review for source figure reconstruction and question relocation.
   - id: final
+    new_inputs:
+      textual: []
+      visual:
+        - package.style_reference
     instruction: >-
       Make the deck final using style_reference.svg. On slide 1, apply the
       CUIF title style: blue #1F4E79, bold, 34 pt. Keep the source-figure

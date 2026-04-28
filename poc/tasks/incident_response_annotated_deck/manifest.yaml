@@ -45,6 +45,12 @@ artifacts:
         type: pptx
 turns:
   - id: turn1
+    new_inputs:
+      textual:
+        - package.revision_notes
+      visual:
+        - package.annotated_screenshot
+        - package.seed_slide2_screenshot
     instruction: >-
       Using the seed deck, revision_notes.txt, and annotated_slide2_screenshot.svg,
       revise only slide 2 of the Nimbus reliability deck. Follow the handwritten
@@ -166,6 +172,9 @@ turns:
         params:
           note: Optional rendered review for the annotated screenshot edit on slide 2.
   - id: final
+    new_inputs:
+      textual: []
+      visual: []
     instruction: >-
       Revise the turn 1 deck for executive handoff. On slide 2, style the title
       "Reliability Operations Review" as CUIF blue #1F4E79, bold, and 32 pt.

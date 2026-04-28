@@ -69,9 +69,15 @@ artifacts:
         type: pptx
 turns:
   - id: turn1
+    new_inputs:
+      textual:
+        - package.paper_pdf
+        - package.paper_source_notes
+      visual:
+        - package.seminar_style_reference
     instruction: >-
-      Using the seed deck, attention_is_all_you_need.pdf, paper_source_notes.txt,
-      annotated_slide2_layout.png, and seminar_style_reference.svg, create a
+      Using the seed deck, attention_is_all_you_need.pdf,
+      paper_source_notes.txt, and seminar_style_reference.svg, create a
       five-slide academic paper review deck for the reading group. Slide 1
       should introduce the paper with the exact title "Attention Is All You
       Need", the subtitle "Reading group review: Transformer architecture", and
@@ -187,6 +193,10 @@ turns:
         params:
           note: Rendered review for PDF-derived paper review deck after turn 1.
   - id: turn2
+    new_inputs:
+      textual: []
+      visual:
+        - package.annotated_slide2_layout
     instruction: >-
       Revise only slide 2 using annotated_slide2_layout.png. Enlarge the Figure
       1 crop so it sits in the large left-side figure region, keep the caption
@@ -285,6 +295,9 @@ turns:
         params:
           note: Rendered review for annotated slide 2 paper-figure revision.
   - id: final
+    new_inputs:
+      textual: []
+      visual: []
     instruction: >-
       Finalize the deck for the lab seminar. Apply the seminar style to the
       slide 1 title "Attention Is All You Need": CUIF blue #1F4E79, bold, and
