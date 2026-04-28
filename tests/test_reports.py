@@ -26,11 +26,14 @@ def test_reports_and_static_review_are_generated(toy_task, tmp_path):
     assert "per_turn" in report["summary"]
     assert "review_trajectory" in report
     assert [column["id"] for column in report["review_trajectory"]["columns"]] == ["seed", "turn1", "final"]
+    assert report["review_trajectory"]["columns"][1]["instruction"].startswith("Create a two-slide dashboard")
     seed_assets = [asset for asset in report["review_assets"] if asset["artifact"] == "package.seed"]
     assert seed_assets
     assert seed_assets[0]["path"].startswith("task/")
     html = (run / "review" / "index.html").read_text()
     assert "Trajectory Comparison" in html
+    assert "data-trajectory-instruction='turn1'" in html
+    assert "Create a two-slide dashboard from the seed deck." in html
     assert "data-trajectory-comparison" in html
     assert "data-trajectory-cell" in html
     assert "data-trajectory-prev" in html
@@ -90,7 +93,13 @@ def test_review_trajectory_includes_all_turns_and_one_final(copied_task, tmp_pat
     html = (run / "review" / "index.html").read_text()
 
     assert [column["id"] for column in report["review_trajectory"]["columns"]] == ["seed", "turn1", "turn2", "final"]
+    assert report["review_trajectory"]["columns"][2]["instruction"] == "Continue the draft deck while preserving the protected context."
     assert html.count("data-trajectory-column='final'") == 1
+    grid_start = html.index("data-trajectory-grid")
+    header_start = html.index("data-trajectory-column='turn1'", grid_start)
+    instruction_start = html.index("data-trajectory-instruction='turn1'", grid_start)
+    seed_gold_start = html.index('<div class="trajectory-row-label">Seed / gold</div>', grid_start)
+    assert header_start < instruction_start < seed_gold_start
     for label in ["Seed deck", "Turn 1 gold", "Turn 2 gold", "Final gold", "No seed output", "Turn 1 output", "Turn 2 output", "Final output"]:
         assert label in html
     for cell_id in ["seed-top", "turn1-top", "turn2-top", "final-top", "seed-bottom", "turn1-bottom", "turn2-bottom", "final-bottom"]:

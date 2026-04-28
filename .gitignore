@@ -14,3 +14,4 @@ mlxp_reservation_info.md
 .pytest_cache/
 .ruff_cache/
 *.egg-info/
+.omx/

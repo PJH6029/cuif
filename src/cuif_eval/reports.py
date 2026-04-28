@@ -226,6 +226,7 @@ def collect_review_trajectory(manifest: Manifest, workspace: RunWorkspace) -> di
         {
             "id": "seed",
             "label": "Seed",
+            "instruction": None,
             "top": _make_review_cell(
                 manifest,
                 workspace,
@@ -252,6 +253,7 @@ def collect_review_trajectory(manifest: Manifest, workspace: RunWorkspace) -> di
             {
                 "id": turn.id,
                 "label": turn_label,
+                "instruction": turn.instruction,
                 "top": _make_review_cell(
                     manifest,
                     workspace,
@@ -278,6 +280,7 @@ def collect_review_trajectory(manifest: Manifest, workspace: RunWorkspace) -> di
             {
                 "id": FINAL_TURN_ID,
                 "label": "Final",
+                "instruction": final_turn.instruction if final_turn is not None else None,
                 "top": _make_review_cell(
                     manifest,
                     workspace,
@@ -299,7 +302,11 @@ def collect_review_trajectory(manifest: Manifest, workspace: RunWorkspace) -> di
             }
         )
 
-    return {"version": 1, "columns": columns, "row_labels": {"top": "Seed / gold", "bottom": "Agent output"}}
+    return {
+        "version": 1,
+        "columns": columns,
+        "row_labels": {"instruction": "Instruction", "top": "Seed / gold", "bottom": "Agent output"},
+    }
 
 
 def build_report_data(manifest: Manifest, workspace: RunWorkspace, results: list[CheckResult]) -> dict[str, Any]:
@@ -429,6 +436,23 @@ def _render_trajectory_cell(cell: dict[str, Any], *, row: str, column_id: str) -
     )
 
 
+def _render_trajectory_instruction_cell(column: dict[str, Any]) -> str:
+    column_id = str(column.get("id", ""))
+    instruction = str(column.get("instruction") or "").strip()
+    classes = ["trajectory-instruction-cell"]
+    if instruction:
+        body = html.escape(instruction)
+    else:
+        classes.append("trajectory-instruction-cell--empty")
+        message = "Initial seed artifact" if column_id == "seed" else "No turn instruction declared."
+        body = f"<span>{html.escape(message)}</span>"
+    return (
+        f"<div class='{_html_attr(' '.join(classes))}' data-trajectory-instruction='{_html_attr(column_id)}'>"
+        f"{body}"
+        "</div>"
+    )
+
+
 def _render_trajectory_comparison(report_data: dict[str, Any]) -> str:
     trajectory = report_data.get("review_trajectory", {}) if isinstance(report_data.get("review_trajectory"), dict) else {}
     columns = trajectory.get("columns", []) if isinstance(trajectory.get("columns"), list) else []
@@ -436,6 +460,7 @@ def _render_trajectory_comparison(report_data: dict[str, Any]) -> str:
         return "<h2>Trajectory Comparison</h2><p>No trajectory comparison data available.</p>"
 
     headers = "".join(f"<div class='trajectory-column-header' data-trajectory-column='{_html_attr(col.get('id'))}'>{html.escape(str(col.get('label')))}</div>" for col in columns)
+    instruction_cells = "".join(_render_trajectory_instruction_cell(col) for col in columns)
     top_cells = "".join(_render_trajectory_cell(col.get("top", {}), row="top", column_id=str(col.get("id"))) for col in columns)
     bottom_cells = "".join(_render_trajectory_cell(col.get("bottom", {}), row="bottom", column_id=str(col.get("id"))) for col in columns)
     return f"""
@@ -450,6 +475,7 @@ def _render_trajectory_comparison(report_data: dict[str, Any]) -> str:
 <div class="trajectory-scroll">
 <div class="trajectory-grid" style="--trajectory-columns: {len(columns)};" data-trajectory-grid>
 <div class="trajectory-corner" aria-hidden="true"></div>{headers}
+<div class="trajectory-row-label">Instruction</div>{instruction_cells}
 <div class="trajectory-row-label">Seed / gold</div>{top_cells}
 <div class="trajectory-row-label">Agent output</div>{bottom_cells}
 </div>
@@ -487,11 +513,13 @@ h1 {{ margin-bottom: 1rem; }}
 .trajectory-controls button:not(:disabled):hover {{ border-color: var(--accent); color: var(--accent); }}
 #trajectory-selection-status {{ color: var(--muted); font-size: .95rem; }}
 .trajectory-scroll {{ overflow-x: auto; padding-bottom: .5rem; }}
-.trajectory-grid {{ display: grid; grid-template-columns: minmax(7rem, .45fr) repeat(var(--trajectory-columns), minmax(240px, 1fr)); gap: .75rem; min-width: max-content; align-items: stretch; }}
+.trajectory-grid {{ display: grid; grid-template-columns: minmax(7rem, .45fr) repeat(var(--trajectory-columns), minmax(240px, 1fr)); gap: .75rem; align-items: stretch; }}
 .trajectory-corner, .trajectory-column-header, .trajectory-row-label {{ border: 1px solid var(--border); border-radius: 10px; background: #f0f4fa; padding: .75rem; font-weight: 700; }}
 .trajectory-column-header {{ text-align: center; }}
 .trajectory-row-label {{ display: flex; align-items: center; justify-content: center; color: #314157; writing-mode: horizontal-tb; }}
-.trajectory-cell {{ min-height: 260px; border: 1px solid var(--border); border-radius: 14px; padding: .75rem; background: white; box-shadow: 0 1px 2px rgba(23, 32, 51, .04); outline: none; transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease; }}
+.trajectory-instruction-cell {{ min-width: 0; max-height: 12rem; overflow-y: auto; overflow-wrap: anywhere; border: 1px solid var(--border); border-radius: 12px; padding: .75rem; background: #fffdf7; color: #28364a; font-size: .86rem; line-height: 1.38; white-space: normal; }}
+.trajectory-instruction-cell--empty {{ display: flex; align-items: center; justify-content: center; color: var(--muted); font-style: italic; background: #fbfcfe; }}
+.trajectory-cell {{ min-width: 0; min-height: 260px; border: 1px solid var(--border); border-radius: 14px; padding: .75rem; background: white; box-shadow: 0 1px 2px rgba(23, 32, 51, .04); outline: none; transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease; }}
 .trajectory-cell--selectable {{ cursor: pointer; }}
 .trajectory-cell--selectable:hover, .trajectory-cell--selectable:focus {{ border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft), 0 6px 18px rgba(23, 32, 51, .08); transform: translateY(-1px); }}
 .trajectory-cell--selected {{ border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft), 0 10px 24px rgba(23, 32, 51, .12); }}
