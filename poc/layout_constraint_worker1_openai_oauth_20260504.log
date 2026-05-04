@@ -1,0 +1,5 @@
+$ npx -y openai-oauth --models gpt-5.4 --port 10641
+OpenAI-compatible endpoint ready at http://127.0.0.1:10641/v1
+Use this as your OpenAI base URL. No API key is required.
+
+Available Models: gpt-5.4
