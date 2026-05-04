@@ -1,0 +1,6 @@
+===== worker-4 task-6 codex-exec baseline: native_chart_style_deck =====
+started_at=2026-05-04T11:42:17Z
+bundle=output/bundles/worker4_task6/native_chart_style_deck_codex_20260504T113455Z
+run=output/runs/worker4_task6/native_chart_style_deck_codex_20260504T113455Z
+claim_token=159b4e72-cb11-47a4-a2ff-96548631b92f
+$ timeout 140s uv run cuif-eval run-and-evaluate --task poc/tasks/native_chart_style_deck --bundle output/bundles/worker4_task6/native_chart_style_deck_codex_20260504T113455Z --run output/runs/worker4_task6/native_chart_style_deck_codex_20260504T113455Z --agent codex-exec --agent-arg=--model --agent-arg=gpt-5.3-codex-spark --overwrite-bundle --skip-judges

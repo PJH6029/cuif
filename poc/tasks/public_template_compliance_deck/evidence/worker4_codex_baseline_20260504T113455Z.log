@@ -4,3 +4,7 @@ bundle=output/bundles/worker4_task6/public_template_compliance_deck_codex_202605
 run=output/runs/worker4_task6/public_template_compliance_deck_codex_20260504T113455Z
 claim_token=159b4e72-cb11-47a4-a2ff-96548631b92f
 $ timeout 140s uv run cuif-eval run-and-evaluate --task poc/tasks/public_template_compliance_deck --bundle output/bundles/worker4_task6/public_template_compliance_deck_codex_20260504T113455Z --run output/runs/worker4_task6/public_template_compliance_deck_codex_20260504T113455Z --agent codex-exec --agent-arg=--model --agent-arg=gpt-5.3-codex-spark --overwrite-bundle --skip-judges
+
+exit_code=124
+finished_at=2026-05-04T11:42:17Z
+agent_summary=output/bundles/worker4_task6/public_template_compliance_deck_codex_20260504T113455Z/.cuif_bundle/agent_run_logs/codex-exec/agent_run_summary.json
