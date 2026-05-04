@@ -1,0 +1,307 @@
+manifest_version: "0.1"
+id: native_chart_style_deck
+title: Native chart style deck from cross-file capacity data
+primary_artifact_family: pptx
+artifact_families: [pptx, xlsx]
+tracks: [open_tool, gui]
+scoring:
+  policy: sum_points
+judge:
+  api_key_env: OPENAI_API_KEY
+artifacts:
+  package:
+    seed:
+      path: artifacts/seed.pptx
+      type: pptx
+      role: seed
+    source_data:
+      path: artifacts/inputs/source_metrics.xlsx
+      type: xlsx
+      role: source_input
+    source_csv:
+      path: artifacts/inputs/source_metrics.csv
+      type: txt
+      role: source_input
+    analyst_notes:
+      path: artifacts/inputs/analyst_notes.txt
+      type: txt
+      role: source_input
+    layout_reference:
+      path: artifacts/inputs/layout_reference.svg
+      type: svg
+      role: instruction_input
+    style_reference:
+      path: artifacts/inputs/style_reference.svg
+      type: svg
+      role: style_input
+    gold_turn1:
+      path: artifacts/gold/turn1.pptx
+      type: pptx
+      role: gold
+    gold_final:
+      path: artifacts/gold/final.pptx
+      type: pptx
+      role: gold
+  expected_outputs:
+    turn1:
+      result:
+        path: result.pptx
+        type: pptx
+    final:
+      result:
+        path: result.pptx
+        type: pptx
+turns:
+  - id: turn1
+    new_inputs:
+      textual:
+        - package.source_data
+        - package.source_csv
+        - package.analyst_notes
+      visual:
+        - package.layout_reference
+    instruction: >-
+      Using the seed deck, source_metrics.xlsx, source_metrics.csv,
+      analyst_notes.txt, and layout_reference.svg, create a three-slide support
+      capacity forecast deck. Slide 1 must follow the layout reference with the
+      title "Support Capacity Forecast", the subtitle "Ticket demand vs staffed
+      capacity from source_metrics.xlsx", and a native editable PowerPoint
+      clustered column chart named "support_capacity_clustered_chart". The chart
+      must use categories Q1, Q2, Q3, and Q4, with series "Ticket demand" values
+      1180, 1285, 1420, 1580 and "Staffed capacity" values 1220, 1320, 1460,
+      1510. Do not paste a screenshot of a chart. Add the exact caption "Chart
+      caption: quarterly ticket demand and staffed support capacity" below the
+      chart. Slide 2 should be a source audit containing the exact strings
+      "Workbook audit", "Source data: support capacity forecast", "Q1 1180 1220
+      +40", "Q2 1285 1320 +35", "Q3 1420 1460 +40", and "Q4 1580 1510 -70".
+      Preserve slide 3 exactly because it contains the sentinel "Do not edit:
+      native chart package invariant".
+    expected_output: result
+    checks:
+      - id: native_chart_t1_file_exists
+        evaluator: file_exists
+        artifact: run.outputs.turn1.result
+        points: 1
+      - id: native_chart_t1_slide_count
+        evaluator: pptx_slide_count
+        artifact: run.outputs.turn1.result
+        points: 1
+        depends_on: [native_chart_t1_file_exists]
+        params: {count: 3}
+      - id: native_chart_t1_core_texts
+        evaluator: pptx_text_contains
+        artifact: run.outputs.turn1.result
+        points: 4
+        depends_on: [native_chart_t1_file_exists]
+        params:
+          texts:
+            - "Support Capacity Forecast"
+            - "Ticket demand vs staffed capacity from source_metrics.xlsx"
+            - "Chart caption: quarterly ticket demand and staffed support capacity"
+      - id: native_chart_t1_chart_data
+        evaluator: pptx_chart_data
+        artifact: run.outputs.turn1.result
+        points: 8
+        depends_on: [native_chart_t1_file_exists]
+        params:
+          selector: {slide: 1, name: "support_capacity_clustered_chart"}
+          chart_type: "COLUMN_CLUSTERED"
+          categories: ["Q1", "Q2", "Q3", "Q4"]
+          series:
+            - {name: "Ticket demand", values: [1180, 1285, 1420, 1580]}
+            - {name: "Staffed capacity", values: [1220, 1320, 1460, 1510]}
+          value_tolerance: 0.1
+      - id: native_chart_t1_chart_region
+        evaluator: pptx_bbox_region
+        artifact: run.outputs.turn1.result
+        points: 4
+        depends_on: [native_chart_t1_chart_data]
+        params:
+          selector: {slide: 1, name: "support_capacity_clustered_chart"}
+          region: {slide: 1, x_min: 0.04, y_min: 0.18, x_max: 0.68, y_max: 0.82}
+          tolerance: 0.03
+      - id: native_chart_t1_title_region
+        evaluator: pptx_bbox_region
+        artifact: run.outputs.turn1.result
+        points: 2
+        depends_on: [native_chart_t1_core_texts]
+        params:
+          selector: {slide: 1, text_contains: "Support Capacity Forecast"}
+          region: {slide: 1, x_min: 0.03, y_min: 0.03, x_max: 0.62, y_max: 0.15}
+          tolerance: 0.03
+      - id: native_chart_t1_source_audit_values
+        evaluator: pptx_text_contains
+        artifact: run.outputs.turn1.result
+        points: 4
+        depends_on: [native_chart_t1_file_exists]
+        params:
+          texts:
+            - "Workbook audit"
+            - "Source data: support capacity forecast"
+            - "Q1 1180 1220 +40"
+            - "Q2 1285 1320 +35"
+            - "Q3 1420 1460 +40"
+            - "Q4 1580 1510 -70"
+      - id: native_chart_t1_no_slide1_raster_shortcut
+        evaluator: pptx_image_count
+        artifact: run.outputs.turn1.result
+        points: 2
+        depends_on: [native_chart_t1_chart_data]
+        params:
+          selector: {slide: 1}
+          count: 0
+      - id: native_chart_t1_protected_slide_preserved
+        evaluator: pptx_preservation_diff
+        artifact: run.outputs.turn1.result
+        points: 4
+        depends_on: [native_chart_t1_slide_count]
+        params:
+          reference: package.seed
+          compare: exact_slide_text
+          slides: [3]
+          protected_texts: ["Do not edit: native chart package invariant"]
+      - id: native_chart_t1_rendered_review
+        evaluator: rendered_layout_review
+        artifact: run.outputs.turn1.result
+        points: 0
+        optional: true
+        diagnostic: true
+        params:
+          note: Optional preview for native chart placement against layout_reference.svg.
+  - id: final
+    new_inputs:
+      textual: []
+      visual:
+        - package.style_reference
+    instruction: >-
+      Finalize the turn 1 deck using style_reference.svg. On slide 1, style the
+      title "Support Capacity Forecast" as CUIF blue #1F4E79, bold, and 34 pt.
+      Keep the native chart named "support_capacity_clustered_chart" editable and
+      keep the chart data unchanged. Keep the chart in the large left chart
+      region, add a top-right badge with "Data cut: FY2026 forecast", add a right
+      observation rail containing exactly "Capacity observations", "Leader: Q4
+      demand 1580", "Gap: Q4 -70 tickets", and "Mitigation: shift 2 weekend
+      pods", and add the insight strip "Insight: Q4 demand exceeds staffed
+      capacity by 70 tickets; mitigation should shift two weekend pods before
+      launch." under the chart. Preserve slide 2 exactly from turn 1 and preserve
+      slide 3 exactly.
+    expected_output: result
+    checks:
+      - id: native_chart_final_file_exists
+        evaluator: file_exists
+        artifact: run.outputs.final.result
+        points: 1
+      - id: native_chart_final_slide_count
+        evaluator: pptx_slide_count
+        artifact: run.outputs.final.result
+        points: 1
+        depends_on: [native_chart_final_file_exists]
+        params: {count: 3}
+      - id: native_chart_final_title_style
+        evaluator: pptx_style_check
+        artifact: run.outputs.final.result
+        points: 5
+        depends_on: [native_chart_final_file_exists]
+        params:
+          selector: {slide: 1, text_contains: "Support Capacity Forecast"}
+          font_color: "#1F4E79"
+          font_size_pt: 34
+          font_size_tolerance: 0.25
+          bold: true
+      - id: native_chart_final_chart_data_preserved
+        evaluator: pptx_chart_data
+        artifact: run.outputs.final.result
+        points: 7
+        depends_on: [native_chart_final_file_exists]
+        params:
+          selector: {slide: 1, name: "support_capacity_clustered_chart"}
+          chart_type: "COLUMN_CLUSTERED"
+          categories: ["Q1", "Q2", "Q3", "Q4"]
+          series:
+            - {name: "Ticket demand", values: [1180, 1285, 1420, 1580]}
+            - {name: "Staffed capacity", values: [1220, 1320, 1460, 1510]}
+          value_tolerance: 0.1
+      - id: native_chart_final_chart_left_region
+        evaluator: pptx_bbox_region
+        artifact: run.outputs.final.result
+        points: 4
+        depends_on: [native_chart_final_chart_data_preserved]
+        params:
+          selector: {slide: 1, name: "support_capacity_clustered_chart"}
+          region: {slide: 1, x_min: 0.04, y_min: 0.18, x_max: 0.68, y_max: 0.82}
+          tolerance: 0.03
+      - id: native_chart_final_badge_region
+        evaluator: pptx_bbox_region
+        artifact: run.outputs.final.result
+        points: 3
+        depends_on: [native_chart_final_file_exists]
+        params:
+          selector: {slide: 1, text_contains: "Data cut: FY2026 forecast"}
+          region: {slide: 1, x_min: 0.70, y_min: 0.03, x_max: 0.95, y_max: 0.16}
+          tolerance: 0.03
+      - id: native_chart_final_rail_texts
+        evaluator: pptx_text_contains
+        artifact: run.outputs.final.result
+        points: 4
+        depends_on: [native_chart_final_file_exists]
+        params:
+          texts:
+            - "Capacity observations"
+            - "Leader: Q4 demand 1580"
+            - "Gap: Q4 -70 tickets"
+            - "Mitigation: shift 2 weekend pods"
+      - id: native_chart_final_rail_region
+        evaluator: pptx_bbox_region
+        artifact: run.outputs.final.result
+        points: 3
+        depends_on: [native_chart_final_rail_texts]
+        params:
+          selector: {slide: 1, text_contains: "Capacity observations"}
+          region: {slide: 1, x_min: 0.68, y_min: 0.18, x_max: 0.97, y_max: 0.78}
+          tolerance: 0.03
+      - id: native_chart_final_insight_text
+        evaluator: pptx_text_contains
+        artifact: run.outputs.final.result
+        points: 3
+        depends_on: [native_chart_final_file_exists]
+        params:
+          text: "Insight: Q4 demand exceeds staffed capacity by 70 tickets; mitigation should shift two weekend pods before launch."
+      - id: native_chart_final_no_slide1_raster_shortcut
+        evaluator: pptx_image_count
+        artifact: run.outputs.final.result
+        points: 2
+        depends_on: [native_chart_final_chart_data_preserved]
+        params:
+          selector: {slide: 1}
+          count: 0
+      - id: native_chart_final_source_audit_preserved
+        evaluator: pptx_preservation_diff
+        artifact: run.outputs.final.result
+        points: 4
+        depends_on: [native_chart_final_slide_count]
+        params:
+          reference: run.outputs.turn1.result
+          compare: exact_slide_text
+          slides: [2]
+          protected_texts:
+            - "Workbook audit"
+            - "Q4 1580 1510 -70"
+      - id: native_chart_final_protected_slide_preserved
+        evaluator: pptx_preservation_diff
+        artifact: run.outputs.final.result
+        points: 4
+        depends_on: [native_chart_final_slide_count]
+        params:
+          reference: run.outputs.turn1.result
+          compare: exact_slide_text
+          slides: [3]
+          protected_texts: ["Do not edit: native chart package invariant"]
+      - id: optional_vlm_native_chart_layout_judge
+        evaluator: vlm_layout_rubric
+        artifact: run.outputs.final.result
+        points: 0
+        optional: true
+        diagnostic: true
+        params:
+          prompt: "Inspect the rendered final support capacity deck."
+          rubric: "Pass if slide 1 has a native-chart dashboard layout with a large readable chart on the left, a top-right data-cut badge, a right observation rail, an insight strip below the chart, and no obvious overlap or screenshot-only chart shortcut."
