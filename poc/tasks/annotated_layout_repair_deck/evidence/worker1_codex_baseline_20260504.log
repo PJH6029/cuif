@@ -1,2 +1,4 @@
 ===== annotated_layout_repair_deck worker1 codex-exec bounded baseline 2026-05-04T20:39:34+09:00 =====
 $ timeout --kill-after=10s 90s uv run cuif-eval run-and-evaluate --task poc/tasks/annotated_layout_repair_deck --bundle output/bundles/annotated_layout_repair_deck_worker1_codex --run output/runs/annotated_layout_repair_deck_worker1_codex --agent codex-exec --overwrite-bundle --skip-judges
+exit_code=124
+--- log files ---
