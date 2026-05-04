@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <rect width="1280" height="720" fill="#faf8f2"/>
+  <rect x="58" y="36" width="720" height="88" rx="8" fill="#eaf4fa" stroke="#5d7287" stroke-width="3" stroke-dasharray="10 8"/>
+  <text x="84" y="91" font-family="Arial" font-size="34" font-weight="700" fill="#172033">Title zone: Support Capacity Forecast</text>
+  <rect x="62" y="142" width="780" height="425" rx="10" fill="#ffffff" stroke="#1f4e79" stroke-width="4"/>
+  <text x="96" y="196" font-family="Arial" font-size="26" fill="#1f4e79">Native clustered column chart goes here</text>
+  <rect x="64" y="590" width="780" height="72" rx="8" fill="#fff7df" stroke="#e8b442" stroke-width="3"/>
+  <text x="92" y="638" font-family="Arial" font-size="23" fill="#172033">Insight strip under chart</text>
+  <rect x="914" y="150" width="292" height="418" rx="10" fill="#e8f7f0" stroke="#2a9d8f" stroke-width="4"/>
+  <text x="944" y="208" font-family="Arial" font-size="28" font-weight="700" fill="#172033">Right observation rail</text>
+  <rect x="910" y="38" width="290" height="62" rx="26" fill="#ffffff" stroke="#e8b442" stroke-width="4"/>
+  <text x="940" y="80" font-family="Arial" font-size="22" font-weight="700" fill="#172033">Badge area</text>
+</svg>

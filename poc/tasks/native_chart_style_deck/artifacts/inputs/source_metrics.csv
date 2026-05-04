@@ -1,0 +1,5 @@
+quarter,ticket_demand,staffed_capacity,gap
+Q1,1180,1220,40
+Q2,1285,1320,35
+Q3,1420,1460,40
+Q4,1580,1510,-70

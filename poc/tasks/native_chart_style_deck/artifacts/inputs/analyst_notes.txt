@@ -1,0 +1,7 @@
+Support capacity deck notes
+
+Use the capacity_forecast sheet in source_metrics.xlsx as the source of truth.
+Create a native PowerPoint clustered column chart, not a pasted chart screenshot.
+Series must be named Ticket demand and Staffed capacity.
+Required audit strings include Q1 1180 1220 +40, Q2 1285 1320 +35, Q3 1420 1460 +40, and Q4 1580 1510 -70.
+Key narrative: Q4 demand exceeds staffed capacity by 70 tickets; add executive mitigation without changing the data.
