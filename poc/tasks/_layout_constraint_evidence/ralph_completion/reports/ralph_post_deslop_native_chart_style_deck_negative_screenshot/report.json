@@ -1,0 +1,1335 @@
+{
+  "artifacts": {
+    "package.analyst_notes": "task/artifacts/inputs/analyst_notes.txt",
+    "package.gold_final": "task/artifacts/gold/final.pptx",
+    "package.gold_turn1": "task/artifacts/gold/turn1.pptx",
+    "package.layout_reference": "task/artifacts/inputs/layout_reference.svg",
+    "package.seed": "task/artifacts/seed.pptx",
+    "package.source_csv": "task/artifacts/inputs/source_metrics.csv",
+    "package.source_data": "task/artifacts/inputs/source_metrics.xlsx",
+    "package.style_reference": "task/artifacts/inputs/style_reference.svg",
+    "run.outputs.final.result": "outputs/final/result.pptx",
+    "run.outputs.turn1.result": "outputs/turn1/result.pptx"
+  },
+  "checks": [
+    {
+      "artifact": "run.outputs.turn1.result",
+      "check_id": "native_chart_t1_file_exists",
+      "depends_on": [],
+      "description": null,
+      "diagnostic": false,
+      "earned_points": 1.0,
+      "evaluator": "file_exists",
+      "evidence": {
+        "exists": true,
+        "path": "outputs/turn1/result.pptx"
+      },
+      "message": "File exists: outputs/turn1/result.pptx",
+      "optional": false,
+      "points": 1.0,
+      "status": "pass",
+      "turn_id": "turn1"
+    },
+    {
+      "artifact": "run.outputs.turn1.result",
+      "check_id": "native_chart_t1_slide_count",
+      "depends_on": [
+        "native_chart_t1_file_exists"
+      ],
+      "description": null,
+      "diagnostic": false,
+      "earned_points": 1.0,
+      "evaluator": "pptx_slide_count",
+      "evidence": {
+        "actual": 3,
+        "expected": 3,
+        "path": "outputs/turn1/result.pptx"
+      },
+      "message": "Slide count 3 matched expected 3",
+      "optional": false,
+      "points": 1.0,
+      "status": "pass",
+      "turn_id": "turn1"
+    },
+    {
+      "artifact": "run.outputs.turn1.result",
+      "check_id": "native_chart_t1_core_texts",
+      "depends_on": [
+        "native_chart_t1_file_exists"
+      ],
+      "description": null,
+      "diagnostic": false,
+      "earned_points": 4.0,
+      "evaluator": "pptx_text_contains",
+      "evidence": {
+        "missing_texts": [],
+        "path": "outputs/turn1/result.pptx",
+        "required_texts": [
+          "Support Capacity Forecast",
+          "Ticket demand vs staffed capacity from source_metrics.xlsx",
+          "Chart caption: quarterly ticket demand and staffed support capacity"
+        ]
+      },
+      "message": "All required PPTX text was present",
+      "optional": false,
+      "points": 4.0,
+      "status": "pass",
+      "turn_id": "turn1"
+    },
+    {
+      "artifact": "run.outputs.turn1.result",
+      "check_id": "native_chart_t1_chart_data",
+      "depends_on": [
+        "native_chart_t1_file_exists"
+      ],
+      "description": null,
+      "diagnostic": false,
+      "earned_points": 0.0,
+      "evaluator": "pptx_chart_data",
+      "evidence": {
+        "selector": {
+          "name": "support_capacity_clustered_chart",
+          "slide": 1
+        }
+      },
+      "message": "No PPTX chart matched selector {'slide': 1, 'name': 'support_capacity_clustered_chart'}",
+      "optional": false,
+      "points": 8.0,
+      "status": "fail",
+      "turn_id": "turn1"
+    },
+    {
+      "artifact": "run.outputs.turn1.result",
+      "check_id": "native_chart_t1_chart_region",
+      "depends_on": [
+        "native_chart_t1_chart_data"
+      ],
+      "description": null,
+      "diagnostic": false,
+      "earned_points": 0.0,
+      "evaluator": "pptx_bbox_region",
+      "evidence": {
+        "blocked_by": [
+          "native_chart_t1_chart_data"
+        ]
+      },
+      "message": "Blocked by failed/skipped dependencies: native_chart_t1_chart_data",
+      "optional": false,
+      "points": 4.0,
+      "status": "blocked",
+      "turn_id": "turn1"
+    },
+    {
+      "artifact": "run.outputs.turn1.result",
+      "check_id": "native_chart_t1_title_region",
+      "depends_on": [
+        "native_chart_t1_core_texts"
+      ],
+      "description": null,
+      "diagnostic": false,
+      "earned_points": 2.0,
+      "evaluator": "pptx_bbox_region",
+      "evidence": {
+        "region": {
+          "slide": 1,
+          "x_max": 0.62,
+          "x_min": 0.03,
+          "y_max": 0.15,
+          "y_min": 0.03
+        },
+        "selector": {
+          "slide": 1,
+          "text_contains": "Support Capacity Forecast"
+        },
+        "shape": {
+          "slide": 1,
+          "text": "Support Capacity Forecast",
+          "x": 0.033750844324763704,
+          "x_max": 0.5062626648714555,
+          "y": 0.042666666666666665,
+          "y_max": 0.11599999999999999
+        },
+        "tolerance": 0.03
+      },
+      "message": "Shape bbox is inside requested region",
+      "optional": false,
+      "points": 2.0,
+      "status": "pass",
+      "turn_id": "turn1"
+    },
+    {
+      "artifact": "run.outputs.turn1.result",
+      "check_id": "native_chart_t1_source_audit_values",
+      "depends_on": [
+        "native_chart_t1_file_exists"
+      ],
+      "description": null,
+      "diagnostic": false,
+      "earned_points": 4.0,
+      "evaluator": "pptx_text_contains",
+      "evidence": {
+        "missing_texts": [],
+        "path": "outputs/turn1/result.pptx",
+        "required_texts": [
+          "Workbook audit",
+          "Source data: support capacity forecast",
+          "Q1 1180 1220 +40",
+          "Q2 1285 1320 +35",
+          "Q3 1420 1460 +40",
+          "Q4 1580 1510 -70"
+        ]
+      },
+      "message": "All required PPTX text was present",
+      "optional": false,
+      "points": 4.0,
+      "status": "pass",
+      "turn_id": "turn1"
+    },
+    {
+      "artifact": "run.outputs.turn1.result",
+      "check_id": "native_chart_t1_no_slide1_raster_shortcut",
+      "depends_on": [
+        "native_chart_t1_file_exists"
+      ],
+      "description": null,
+      "diagnostic": false,
+      "earned_points": 0.0,
+      "evaluator": "pptx_image_count",
+      "evidence": {
+        "images": [
+          {
+            "bbox": {
+              "x": 0.0,
+              "x_max": 1.0,
+              "y": 0.0,
+              "y_max": 1.0
+            },
+            "content_type": "image/png",
+            "sha256": "1d303d0a9ef8d5cd4c1c3c17ab8be0de0bef357f84c6daefa75b5c14b5553a94",
+            "shape_name": "Picture 1",
+            "slide": 1
+          }
+        ],
+        "selector": {
+          "slide": 1
+        }
+      },
+      "message": "Found 1 images; expected exactly 0",
+      "optional": false,
+      "points": 2.0,
+      "status": "fail",
+      "turn_id": "turn1"
+    },
+    {
+      "artifact": "run.outputs.turn1.result",
+      "check_id": "native_chart_t1_protected_slide_preserved",
+      "depends_on": [
+        "native_chart_t1_slide_count"
+      ],
+      "description": null,
+      "diagnostic": false,
+      "earned_points": 0.0,
+      "evaluator": "pptx_preservation_diff",
+      "evidence": {
+        "candidate": "outputs/turn1/result.pptx",
+        "match": false,
+        "mismatches": [
+          {
+            "candidate": [
+              "Do not edit: native chart package invariant"
+            ],
+            "reference": [
+              "Protected Benchmark Context",
+              "Do not edit: native chart package invariant This slide exists to detect collateral damage across turns. It must remain text-identical to the seed deck.",
+              "CUIF focus: editable native chart + layout constraints"
+            ],
+            "slide": 3
+          }
+        ],
+        "reference": "task/artifacts/seed.pptx"
+      },
+      "message": "Preservation differences detected",
+      "optional": false,
+      "points": 4.0,
+      "status": "fail",
+      "turn_id": "turn1"
+    },
+    {
+      "artifact": "run.outputs.turn1.result",
+      "check_id": "native_chart_t1_rendered_review",
+      "depends_on": [],
+      "description": null,
+      "diagnostic": true,
+      "earned_points": 0.0,
+      "evaluator": "rendered_layout_review",
+      "evidence": {
+        "html": "previews/scoring_turn1_native_chart_t1_rendered_review/summary.html",
+        "images": [
+          "previews/scoring_turn1_native_chart_t1_rendered_review/slide-1.png",
+          "previews/scoring_turn1_native_chart_t1_rendered_review/slide-2.png",
+          "previews/scoring_turn1_native_chart_t1_rendered_review/slide-3.png"
+        ],
+        "libreoffice_profile": "isolated_temp",
+        "page_renderer": "/usr/bin/pdftoppm",
+        "pdftoppm_stderr": "",
+        "pdftoppm_stdout": "",
+        "renderer": "/usr/bin/soffice",
+        "status": "rendered",
+        "stderr": "",
+        "stdout": "convert outputs/turn1/result.pptx as a Impress document -> previews/scoring_turn1_native_chart_t1_rendered_review/result.pdf using filter : impress_pdf_Export\n",
+        "summary": "previews/scoring_turn1_native_chart_t1_rendered_review/summary.json"
+      },
+      "message": "Rendered preview generated for layout review",
+      "optional": true,
+      "points": 0.0,
+      "status": "pass",
+      "turn_id": "turn1"
+    },
+    {
+      "artifact": "run.outputs.final.result",
+      "check_id": "native_chart_final_file_exists",
+      "depends_on": [],
+      "description": null,
+      "diagnostic": false,
+      "earned_points": 1.0,
+      "evaluator": "file_exists",
+      "evidence": {
+        "exists": true,
+        "path": "outputs/final/result.pptx"
+      },
+      "message": "File exists: outputs/final/result.pptx",
+      "optional": false,
+      "points": 1.0,
+      "status": "pass",
+      "turn_id": "final"
+    },
+    {
+      "artifact": "run.outputs.final.result",
+      "check_id": "native_chart_final_slide_count",
+      "depends_on": [
+        "native_chart_final_file_exists"
+      ],
+      "description": null,
+      "diagnostic": false,
+      "earned_points": 1.0,
+      "evaluator": "pptx_slide_count",
+      "evidence": {
+        "actual": 3,
+        "expected": 3,
+        "path": "outputs/final/result.pptx"
+      },
+      "message": "Slide count 3 matched expected 3",
+      "optional": false,
+      "points": 1.0,
+      "status": "pass",
+      "turn_id": "final"
+    },
+    {
+      "artifact": "run.outputs.final.result",
+      "check_id": "native_chart_final_title_style",
+      "depends_on": [
+        "native_chart_final_file_exists"
+      ],
+      "description": null,
+      "diagnostic": false,
+      "earned_points": 5.0,
+      "evaluator": "pptx_style_check",
+      "evidence": {
+        "actual": {
+          "bold": [
+            true
+          ],
+          "font_color": [
+            "#1F4E79"
+          ],
+          "font_size_pt": [
+            34.0
+          ]
+        },
+        "failures": [],
+        "selector": {
+          "slide": 1,
+          "text_contains": "Support Capacity Forecast"
+        }
+      },
+      "message": "Style check passed",
+      "optional": false,
+      "points": 5.0,
+      "status": "pass",
+      "turn_id": "final"
+    },
+    {
+      "artifact": "run.outputs.final.result",
+      "check_id": "native_chart_final_chart_data_preserved",
+      "depends_on": [
+        "native_chart_final_file_exists"
+      ],
+      "description": null,
+      "diagnostic": false,
+      "earned_points": 0.0,
+      "evaluator": "pptx_chart_data",
+      "evidence": {
+        "selector": {
+          "name": "support_capacity_clustered_chart",
+          "slide": 1
+        }
+      },
+      "message": "No PPTX chart matched selector {'slide': 1, 'name': 'support_capacity_clustered_chart'}",
+      "optional": false,
+      "points": 7.0,
+      "status": "fail",
+      "turn_id": "final"
+    },
+    {
+      "artifact": "run.outputs.final.result",
+      "check_id": "native_chart_final_chart_left_region",
+      "depends_on": [
+        "native_chart_final_chart_data_preserved"
+      ],
+      "description": null,
+      "diagnostic": false,
+      "earned_points": 0.0,
+      "evaluator": "pptx_bbox_region",
+      "evidence": {
+        "blocked_by": [
+          "native_chart_final_chart_data_preserved"
+        ]
+      },
+      "message": "Blocked by failed/skipped dependencies: native_chart_final_chart_data_preserved",
+      "optional": false,
+      "points": 4.0,
+      "status": "blocked",
+      "turn_id": "final"
+    },
+    {
+      "artifact": "run.outputs.final.result",
+      "check_id": "native_chart_final_badge_region",
+      "depends_on": [
+        "native_chart_final_file_exists"
+      ],
+      "description": null,
+      "diagnostic": false,
+      "earned_points": 3.0,
+      "evaluator": "pptx_bbox_region",
+      "evidence": {
+        "region": {
+          "slide": 1,
+          "x_max": 0.95,
+          "x_min": 0.7,
+          "y_max": 0.16,
+          "y_min": 0.03
+        },
+        "selector": {
+          "slide": 1,
+          "text_contains": "Data cut: FY2026 forecast"
+        },
+        "shape": {
+          "slide": 1,
+          "text": "Data cut: FY2026 forecast",
+          "x": 0.7087677308200377,
+          "x_max": 0.9187729843963452,
+          "y": 0.05733333333333333,
+          "y_max": 0.10400000000000001
+        },
+        "tolerance": 0.03
+      },
+      "message": "Shape bbox is inside requested region",
+      "optional": false,
+      "points": 3.0,
+      "status": "pass",
+      "turn_id": "final"
+    },
+    {
+      "artifact": "run.outputs.final.result",
+      "check_id": "native_chart_final_rail_texts",
+      "depends_on": [
+        "native_chart_final_file_exists"
+      ],
+      "description": null,
+      "diagnostic": false,
+      "earned_points": 4.0,
+      "evaluator": "pptx_text_contains",
+      "evidence": {
+        "missing_texts": [],
+        "path": "outputs/final/result.pptx",
+        "required_texts": [
+          "Capacity observations",
+          "Leader: Q4 demand 1580",
+          "Gap: Q4 -70 tickets",
+          "Mitigation: shift 2 weekend pods"
+        ]
+      },
+      "message": "All required PPTX text was present",
+      "optional": false,
+      "points": 4.0,
+      "status": "pass",
+      "turn_id": "final"
+    },
+    {
+      "artifact": "run.outputs.final.result",
+      "check_id": "native_chart_final_rail_region",
+      "depends_on": [
+        "native_chart_final_rail_texts"
+      ],
+      "description": null,
+      "diagnostic": false,
+      "earned_points": 3.0,
+      "evaluator": "pptx_bbox_region",
+      "evidence": {
+        "region": {
+          "slide": 1,
+          "x_max": 0.97,
+          "x_min": 0.68,
+          "y_max": 0.78,
+          "y_min": 0.18
+        },
+        "selector": {
+          "slide": 1,
+          "text_contains": "Capacity observations"
+        },
+        "shape": {
+          "slide": 1,
+          "text": "Capacity observations\nLeader: Q4 demand 1580\nGap: Q4 -70 tickets\nMitigation: shift 2 weekend pods",
+          "x": 0.6862671679368619,
+          "x_max": 0.9375234534656585,
+          "y": 0.20666666666666667,
+          "y_max": 0.38666666666666666
+        },
+        "tolerance": 0.03
+      },
+      "message": "Shape bbox is inside requested region",
+      "optional": false,
+      "points": 3.0,
+      "status": "pass",
+      "turn_id": "final"
+    },
+    {
+      "artifact": "run.outputs.final.result",
+      "check_id": "native_chart_final_insight_text",
+      "depends_on": [
+        "native_chart_final_file_exists"
+      ],
+      "description": null,
+      "diagnostic": false,
+      "earned_points": 3.0,
+      "evaluator": "pptx_text_contains",
+      "evidence": {
+        "missing_texts": [],
+        "path": "outputs/final/result.pptx",
+        "required_texts": [
+          "Insight: Q4 demand exceeds staffed capacity by 70 tickets; mitigation should shift two weekend pods before launch."
+        ]
+      },
+      "message": "All required PPTX text was present",
+      "optional": false,
+      "points": 3.0,
+      "status": "pass",
+      "turn_id": "final"
+    },
+    {
+      "artifact": "run.outputs.final.result",
+      "check_id": "native_chart_final_no_slide1_raster_shortcut",
+      "depends_on": [
+        "native_chart_final_file_exists"
+      ],
+      "description": null,
+      "diagnostic": false,
+      "earned_points": 0.0,
+      "evaluator": "pptx_image_count",
+      "evidence": {
+        "images": [
+          {
+            "bbox": {
+              "x": 0.0,
+              "x_max": 1.0,
+              "y": 0.0,
+              "y_max": 1.0
+            },
+            "content_type": "image/png",
+            "sha256": "2c5496d20d179db432350b93507b0faa78e6d722a6bc0b5eca6ffb7339cdfe63",
+            "shape_name": "Picture 1",
+            "slide": 1
+          }
+        ],
+        "selector": {
+          "slide": 1
+        }
+      },
+      "message": "Found 1 images; expected exactly 0",
+      "optional": false,
+      "points": 2.0,
+      "status": "fail",
+      "turn_id": "final"
+    },
+    {
+      "artifact": "run.outputs.final.result",
+      "check_id": "native_chart_final_source_audit_preserved",
+      "depends_on": [
+        "native_chart_final_slide_count"
+      ],
+      "description": null,
+      "diagnostic": false,
+      "earned_points": 4.0,
+      "evaluator": "pptx_preservation_diff",
+      "evidence": {
+        "candidate": "outputs/final/result.pptx",
+        "match": true,
+        "mismatches": [],
+        "reference": "outputs/turn1/result.pptx"
+      },
+      "message": "Protected content/layout preserved",
+      "optional": false,
+      "points": 4.0,
+      "status": "pass",
+      "turn_id": "final"
+    },
+    {
+      "artifact": "run.outputs.final.result",
+      "check_id": "native_chart_final_protected_slide_preserved",
+      "depends_on": [
+        "native_chart_final_slide_count"
+      ],
+      "description": null,
+      "diagnostic": false,
+      "earned_points": 4.0,
+      "evaluator": "pptx_preservation_diff",
+      "evidence": {
+        "candidate": "outputs/final/result.pptx",
+        "match": true,
+        "mismatches": [],
+        "reference": "outputs/turn1/result.pptx"
+      },
+      "message": "Protected content/layout preserved",
+      "optional": false,
+      "points": 4.0,
+      "status": "pass",
+      "turn_id": "final"
+    },
+    {
+      "artifact": "run.outputs.final.result",
+      "check_id": "optional_vlm_native_chart_layout_judge",
+      "depends_on": [],
+      "description": null,
+      "diagnostic": true,
+      "earned_points": 0.0,
+      "evaluator": "vlm_layout_rubric",
+      "evidence": {
+        "skip_judges": true
+      },
+      "message": "Judge checks skipped by configuration",
+      "optional": true,
+      "points": 0.0,
+      "status": "skipped",
+      "turn_id": "final"
+    }
+  ],
+  "point_distribution": {
+    "buckets": {
+      "boilerplate": 4.0,
+      "content_source": 15.0,
+      "diagnostic": 0.0,
+      "layout_template_style": 21.0,
+      "native_editability": 15.0,
+      "other": 4.0,
+      "preservation_regression": 12.0
+    },
+    "checks": [
+      {
+        "bucket": "boilerplate",
+        "check_id": "native_chart_t1_file_exists",
+        "diagnostic": false,
+        "evaluator": "file_exists",
+        "excluded_from_review_denominator": true,
+        "optional": false,
+        "points": 1.0,
+        "thesis_heavy": false,
+        "turn_id": "turn1"
+      },
+      {
+        "bucket": "boilerplate",
+        "check_id": "native_chart_t1_slide_count",
+        "diagnostic": false,
+        "evaluator": "pptx_slide_count",
+        "excluded_from_review_denominator": true,
+        "optional": false,
+        "points": 1.0,
+        "thesis_heavy": false,
+        "turn_id": "turn1"
+      },
+      {
+        "bucket": "content_source",
+        "check_id": "native_chart_t1_core_texts",
+        "diagnostic": false,
+        "evaluator": "pptx_text_contains",
+        "excluded_from_review_denominator": false,
+        "optional": false,
+        "points": 4.0,
+        "thesis_heavy": false,
+        "turn_id": "turn1"
+      },
+      {
+        "bucket": "native_editability",
+        "check_id": "native_chart_t1_chart_data",
+        "diagnostic": false,
+        "evaluator": "pptx_chart_data",
+        "excluded_from_review_denominator": false,
+        "optional": false,
+        "points": 8.0,
+        "thesis_heavy": true,
+        "turn_id": "turn1"
+      },
+      {
+        "bucket": "layout_template_style",
+        "check_id": "native_chart_t1_chart_region",
+        "diagnostic": false,
+        "evaluator": "pptx_bbox_region",
+        "excluded_from_review_denominator": false,
+        "optional": false,
+        "points": 4.0,
+        "thesis_heavy": true,
+        "turn_id": "turn1"
+      },
+      {
+        "bucket": "layout_template_style",
+        "check_id": "native_chart_t1_title_region",
+        "diagnostic": false,
+        "evaluator": "pptx_bbox_region",
+        "excluded_from_review_denominator": false,
+        "optional": false,
+        "points": 2.0,
+        "thesis_heavy": true,
+        "turn_id": "turn1"
+      },
+      {
+        "bucket": "content_source",
+        "check_id": "native_chart_t1_source_audit_values",
+        "diagnostic": false,
+        "evaluator": "pptx_text_contains",
+        "excluded_from_review_denominator": false,
+        "optional": false,
+        "points": 4.0,
+        "thesis_heavy": false,
+        "turn_id": "turn1"
+      },
+      {
+        "bucket": "other",
+        "check_id": "native_chart_t1_no_slide1_raster_shortcut",
+        "diagnostic": false,
+        "evaluator": "pptx_image_count",
+        "excluded_from_review_denominator": false,
+        "optional": false,
+        "points": 2.0,
+        "thesis_heavy": false,
+        "turn_id": "turn1"
+      },
+      {
+        "bucket": "preservation_regression",
+        "check_id": "native_chart_t1_protected_slide_preserved",
+        "diagnostic": false,
+        "evaluator": "pptx_preservation_diff",
+        "excluded_from_review_denominator": false,
+        "optional": false,
+        "points": 4.0,
+        "thesis_heavy": true,
+        "turn_id": "turn1"
+      },
+      {
+        "bucket": "diagnostic",
+        "check_id": "native_chart_t1_rendered_review",
+        "diagnostic": true,
+        "evaluator": "rendered_layout_review",
+        "excluded_from_review_denominator": true,
+        "optional": true,
+        "points": 0.0,
+        "thesis_heavy": false,
+        "turn_id": "turn1"
+      },
+      {
+        "bucket": "boilerplate",
+        "check_id": "native_chart_final_file_exists",
+        "diagnostic": false,
+        "evaluator": "file_exists",
+        "excluded_from_review_denominator": true,
+        "optional": false,
+        "points": 1.0,
+        "thesis_heavy": false,
+        "turn_id": "final"
+      },
+      {
+        "bucket": "boilerplate",
+        "check_id": "native_chart_final_slide_count",
+        "diagnostic": false,
+        "evaluator": "pptx_slide_count",
+        "excluded_from_review_denominator": true,
+        "optional": false,
+        "points": 1.0,
+        "thesis_heavy": false,
+        "turn_id": "final"
+      },
+      {
+        "bucket": "layout_template_style",
+        "check_id": "native_chart_final_title_style",
+        "diagnostic": false,
+        "evaluator": "pptx_style_check",
+        "excluded_from_review_denominator": false,
+        "optional": false,
+        "points": 5.0,
+        "thesis_heavy": true,
+        "turn_id": "final"
+      },
+      {
+        "bucket": "native_editability",
+        "check_id": "native_chart_final_chart_data_preserved",
+        "diagnostic": false,
+        "evaluator": "pptx_chart_data",
+        "excluded_from_review_denominator": false,
+        "optional": false,
+        "points": 7.0,
+        "thesis_heavy": true,
+        "turn_id": "final"
+      },
+      {
+        "bucket": "layout_template_style",
+        "check_id": "native_chart_final_chart_left_region",
+        "diagnostic": false,
+        "evaluator": "pptx_bbox_region",
+        "excluded_from_review_denominator": false,
+        "optional": false,
+        "points": 4.0,
+        "thesis_heavy": true,
+        "turn_id": "final"
+      },
+      {
+        "bucket": "layout_template_style",
+        "check_id": "native_chart_final_badge_region",
+        "diagnostic": false,
+        "evaluator": "pptx_bbox_region",
+        "excluded_from_review_denominator": false,
+        "optional": false,
+        "points": 3.0,
+        "thesis_heavy": true,
+        "turn_id": "final"
+      },
+      {
+        "bucket": "content_source",
+        "check_id": "native_chart_final_rail_texts",
+        "diagnostic": false,
+        "evaluator": "pptx_text_contains",
+        "excluded_from_review_denominator": false,
+        "optional": false,
+        "points": 4.0,
+        "thesis_heavy": false,
+        "turn_id": "final"
+      },
+      {
+        "bucket": "layout_template_style",
+        "check_id": "native_chart_final_rail_region",
+        "diagnostic": false,
+        "evaluator": "pptx_bbox_region",
+        "excluded_from_review_denominator": false,
+        "optional": false,
+        "points": 3.0,
+        "thesis_heavy": true,
+        "turn_id": "final"
+      },
+      {
+        "bucket": "content_source",
+        "check_id": "native_chart_final_insight_text",
+        "diagnostic": false,
+        "evaluator": "pptx_text_contains",
+        "excluded_from_review_denominator": false,
+        "optional": false,
+        "points": 3.0,
+        "thesis_heavy": false,
+        "turn_id": "final"
+      },
+      {
+        "bucket": "other",
+        "check_id": "native_chart_final_no_slide1_raster_shortcut",
+        "diagnostic": false,
+        "evaluator": "pptx_image_count",
+        "excluded_from_review_denominator": false,
+        "optional": false,
+        "points": 2.0,
+        "thesis_heavy": false,
+        "turn_id": "final"
+      },
+      {
+        "bucket": "preservation_regression",
+        "check_id": "native_chart_final_source_audit_preserved",
+        "diagnostic": false,
+        "evaluator": "pptx_preservation_diff",
+        "excluded_from_review_denominator": false,
+        "optional": false,
+        "points": 4.0,
+        "thesis_heavy": true,
+        "turn_id": "final"
+      },
+      {
+        "bucket": "preservation_regression",
+        "check_id": "native_chart_final_protected_slide_preserved",
+        "diagnostic": false,
+        "evaluator": "pptx_preservation_diff",
+        "excluded_from_review_denominator": false,
+        "optional": false,
+        "points": 4.0,
+        "thesis_heavy": true,
+        "turn_id": "final"
+      },
+      {
+        "bucket": "diagnostic",
+        "check_id": "optional_vlm_native_chart_layout_judge",
+        "diagnostic": true,
+        "evaluator": "vlm_layout_rubric",
+        "excluded_from_review_denominator": true,
+        "optional": true,
+        "points": 0.0,
+        "thesis_heavy": false,
+        "turn_id": "final"
+      }
+    ],
+    "evaluators": {
+      "file_exists": 2.0,
+      "pptx_bbox_region": 16.0,
+      "pptx_chart_data": 15.0,
+      "pptx_image_count": 4.0,
+      "pptx_preservation_diff": 12.0,
+      "pptx_slide_count": 2.0,
+      "pptx_style_check": 5.0,
+      "pptx_text_contains": 15.0,
+      "rendered_layout_review": 0.0,
+      "vlm_layout_rubric": 0.0
+    },
+    "excluded_buckets": [
+      "boilerplate",
+      "diagnostic"
+    ],
+    "excluded_points": 4.0,
+    "meets_threshold": true,
+    "review_points": 67.0,
+    "thesis_heavy_buckets": [
+      "layout_template_style",
+      "native_editability",
+      "preservation_regression"
+    ],
+    "thesis_heavy_points": 48.0,
+    "thesis_heavy_share": 0.7164179104477612,
+    "threshold": 0.6,
+    "total_points": 71.0
+  },
+  "review_assets": [
+    {
+      "artifact": "package.seed",
+      "label": "seed deck",
+      "path": "task/artifacts/seed.pptx",
+      "preview": {
+        "html": "previews/seed_deck/summary.html",
+        "images": [
+          "previews/seed_deck/slide-1.png",
+          "previews/seed_deck/slide-2.png",
+          "previews/seed_deck/slide-3.png"
+        ],
+        "libreoffice_profile": "isolated_temp",
+        "page_renderer": "/usr/bin/pdftoppm",
+        "pdftoppm_stderr": "",
+        "pdftoppm_stdout": "",
+        "renderer": "/usr/bin/soffice",
+        "status": "rendered",
+        "stderr": "",
+        "stdout": "convert task/artifacts/seed.pptx as a Impress document -> previews/seed_deck/seed.pdf using filter : impress_pdf_Export\n",
+        "summary": "previews/seed_deck/summary.json"
+      },
+      "status": "rendered"
+    },
+    {
+      "artifact": "package.gold_turn1",
+      "label": "turn 1 gold",
+      "path": "task/artifacts/gold/turn1.pptx",
+      "preview": {
+        "html": "previews/turn_1_gold/summary.html",
+        "images": [
+          "previews/turn_1_gold/slide-1.png",
+          "previews/turn_1_gold/slide-2.png",
+          "previews/turn_1_gold/slide-3.png"
+        ],
+        "libreoffice_profile": "isolated_temp",
+        "page_renderer": "/usr/bin/pdftoppm",
+        "pdftoppm_stderr": "",
+        "pdftoppm_stdout": "",
+        "renderer": "/usr/bin/soffice",
+        "status": "rendered",
+        "stderr": "",
+        "stdout": "convert task/artifacts/gold/turn1.pptx as a Impress document -> previews/turn_1_gold/turn1.pdf using filter : impress_pdf_Export\n",
+        "summary": "previews/turn_1_gold/summary.json"
+      },
+      "status": "rendered"
+    },
+    {
+      "artifact": "run.outputs.turn1.result",
+      "label": "turn 1 output",
+      "path": "outputs/turn1/result.pptx",
+      "preview": {
+        "html": "previews/turn_1_output/summary.html",
+        "images": [
+          "previews/turn_1_output/slide-1.png",
+          "previews/turn_1_output/slide-2.png",
+          "previews/turn_1_output/slide-3.png"
+        ],
+        "libreoffice_profile": "isolated_temp",
+        "page_renderer": "/usr/bin/pdftoppm",
+        "pdftoppm_stderr": "",
+        "pdftoppm_stdout": "",
+        "renderer": "/usr/bin/soffice",
+        "status": "rendered",
+        "stderr": "",
+        "stdout": "convert outputs/turn1/result.pptx as a Impress document -> previews/turn_1_output/result.pdf using filter : impress_pdf_Export\n",
+        "summary": "previews/turn_1_output/summary.json"
+      },
+      "status": "rendered"
+    },
+    {
+      "artifact": "package.gold_final",
+      "label": "final gold",
+      "path": "task/artifacts/gold/final.pptx",
+      "preview": {
+        "html": "previews/final_gold/summary.html",
+        "images": [
+          "previews/final_gold/slide-1.png",
+          "previews/final_gold/slide-2.png",
+          "previews/final_gold/slide-3.png"
+        ],
+        "libreoffice_profile": "isolated_temp",
+        "page_renderer": "/usr/bin/pdftoppm",
+        "pdftoppm_stderr": "",
+        "pdftoppm_stdout": "",
+        "renderer": "/usr/bin/soffice",
+        "status": "rendered",
+        "stderr": "",
+        "stdout": "convert task/artifacts/gold/final.pptx as a Impress document -> previews/final_gold/final.pdf using filter : impress_pdf_Export\n",
+        "summary": "previews/final_gold/summary.json"
+      },
+      "status": "rendered"
+    },
+    {
+      "artifact": "run.outputs.final.result",
+      "label": "final output",
+      "path": "outputs/final/result.pptx",
+      "preview": {
+        "html": "previews/final_output/summary.html",
+        "images": [
+          "previews/final_output/slide-1.png",
+          "previews/final_output/slide-2.png",
+          "previews/final_output/slide-3.png"
+        ],
+        "libreoffice_profile": "isolated_temp",
+        "page_renderer": "/usr/bin/pdftoppm",
+        "pdftoppm_stderr": "",
+        "pdftoppm_stdout": "",
+        "renderer": "/usr/bin/soffice",
+        "status": "rendered",
+        "stderr": "",
+        "stdout": "convert outputs/final/result.pptx as a Impress document -> previews/final_output/result.pdf using filter : impress_pdf_Export\n",
+        "summary": "previews/final_output/summary.json"
+      },
+      "status": "rendered"
+    }
+  ],
+  "review_trajectory": {
+    "columns": [
+      {
+        "bottom": {
+          "artifact": null,
+          "label": "No seed output",
+          "message": "Agent output starts after turn 1.",
+          "preview": {
+            "images": []
+          },
+          "role": "output-placeholder",
+          "selectable": false,
+          "status": "placeholder"
+        },
+        "id": "seed",
+        "instruction": null,
+        "label": "Seed",
+        "top": {
+          "artifact": "package.seed",
+          "label": "Seed deck",
+          "message": null,
+          "path": "task/artifacts/seed.pptx",
+          "preview": {
+            "html": "previews/Seed_deck/summary.html",
+            "images": [
+              "previews/Seed_deck/slide-1.png",
+              "previews/Seed_deck/slide-2.png",
+              "previews/Seed_deck/slide-3.png"
+            ],
+            "libreoffice_profile": "isolated_temp",
+            "page_renderer": "/usr/bin/pdftoppm",
+            "pdftoppm_stderr": "",
+            "pdftoppm_stdout": "",
+            "renderer": "/usr/bin/soffice",
+            "status": "rendered",
+            "stderr": "",
+            "stdout": "convert task/artifacts/seed.pptx as a Impress document -> previews/Seed_deck/seed.pdf using filter : impress_pdf_Export\n",
+            "summary": "previews/Seed_deck/summary.json"
+          },
+          "role": "seed",
+          "selectable": true,
+          "status": "rendered",
+          "type": "pptx"
+        }
+      },
+      {
+        "bottom": {
+          "artifact": "run.outputs.turn1.result",
+          "label": "Turn 1 output",
+          "message": null,
+          "path": "outputs/turn1/result.pptx",
+          "preview": {
+            "html": "previews/Turn_1_output/summary.html",
+            "images": [
+              "previews/Turn_1_output/slide-1.png",
+              "previews/Turn_1_output/slide-2.png",
+              "previews/Turn_1_output/slide-3.png"
+            ],
+            "libreoffice_profile": "isolated_temp",
+            "page_renderer": "/usr/bin/pdftoppm",
+            "pdftoppm_stderr": "",
+            "pdftoppm_stdout": "",
+            "renderer": "/usr/bin/soffice",
+            "status": "rendered",
+            "stderr": "",
+            "stdout": "convert outputs/turn1/result.pptx as a Impress document -> previews/Turn_1_output/result.pdf using filter : impress_pdf_Export\n",
+            "summary": "previews/Turn_1_output/summary.json"
+          },
+          "role": "output",
+          "selectable": true,
+          "status": "rendered",
+          "type": "pptx"
+        },
+        "id": "turn1",
+        "instruction": "Using the seed deck, source_metrics.xlsx, source_metrics.csv, analyst_notes.txt, and layout_reference.svg, create a three-slide support capacity forecast deck. Slide 1 must follow the layout reference with the title \"Support Capacity Forecast\", the subtitle \"Ticket demand vs staffed capacity from source_metrics.xlsx\", and a native editable PowerPoint clustered column chart named \"support_capacity_clustered_chart\". The chart must use categories Q1, Q2, Q3, and Q4, with series \"Ticket demand\" values 1180, 1285, 1420, 1580 and \"Staffed capacity\" values 1220, 1320, 1460, 1510. Do not paste a screenshot of a chart. Add the exact caption \"Chart caption: quarterly ticket demand and staffed support capacity\" below the chart. Slide 2 should be a source audit containing the exact strings \"Workbook audit\", \"Source data: support capacity forecast\", \"Q1 1180 1220 +40\", \"Q2 1285 1320 +35\", \"Q3 1420 1460 +40\", and \"Q4 1580 1510 -70\". Preserve slide 3 exactly because it contains the sentinel \"Do not edit: native chart package invariant\".",
+        "label": "Turn 1",
+        "top": {
+          "artifact": "package.gold_turn1",
+          "label": "Turn 1 gold",
+          "message": null,
+          "path": "task/artifacts/gold/turn1.pptx",
+          "preview": {
+            "html": "previews/Turn_1_gold/summary.html",
+            "images": [
+              "previews/Turn_1_gold/slide-1.png",
+              "previews/Turn_1_gold/slide-2.png",
+              "previews/Turn_1_gold/slide-3.png"
+            ],
+            "libreoffice_profile": "isolated_temp",
+            "page_renderer": "/usr/bin/pdftoppm",
+            "pdftoppm_stderr": "",
+            "pdftoppm_stdout": "",
+            "renderer": "/usr/bin/soffice",
+            "status": "rendered",
+            "stderr": "",
+            "stdout": "convert task/artifacts/gold/turn1.pptx as a Impress document -> previews/Turn_1_gold/turn1.pdf using filter : impress_pdf_Export\n",
+            "summary": "previews/Turn_1_gold/summary.json"
+          },
+          "role": "gold",
+          "selectable": true,
+          "status": "rendered",
+          "type": "pptx"
+        }
+      },
+      {
+        "bottom": {
+          "artifact": "run.outputs.final.result",
+          "label": "Final output",
+          "message": null,
+          "path": "outputs/final/result.pptx",
+          "preview": {
+            "html": "previews/Final_output/summary.html",
+            "images": [
+              "previews/Final_output/slide-1.png",
+              "previews/Final_output/slide-2.png",
+              "previews/Final_output/slide-3.png"
+            ],
+            "libreoffice_profile": "isolated_temp",
+            "page_renderer": "/usr/bin/pdftoppm",
+            "pdftoppm_stderr": "",
+            "pdftoppm_stdout": "",
+            "renderer": "/usr/bin/soffice",
+            "status": "rendered",
+            "stderr": "",
+            "stdout": "convert outputs/final/result.pptx as a Impress document -> previews/Final_output/result.pdf using filter : impress_pdf_Export\n",
+            "summary": "previews/Final_output/summary.json"
+          },
+          "role": "output-final",
+          "selectable": true,
+          "status": "rendered",
+          "type": "pptx"
+        },
+        "id": "final",
+        "instruction": "Finalize the turn 1 deck using style_reference.svg. On slide 1, style the title \"Support Capacity Forecast\" as CUIF blue #1F4E79, bold, and 34 pt. Keep the native chart named \"support_capacity_clustered_chart\" editable and keep the chart data unchanged. Keep the chart in the large left chart region, add a top-right badge with \"Data cut: FY2026 forecast\", add a right observation rail containing exactly \"Capacity observations\", \"Leader: Q4 demand 1580\", \"Gap: Q4 -70 tickets\", and \"Mitigation: shift 2 weekend pods\", and add the insight strip \"Insight: Q4 demand exceeds staffed capacity by 70 tickets; mitigation should shift two weekend pods before launch.\" under the chart. Preserve slide 2 exactly from turn 1 and preserve slide 3 exactly.",
+        "label": "Final",
+        "top": {
+          "artifact": "package.gold_final",
+          "label": "Final gold",
+          "message": null,
+          "path": "task/artifacts/gold/final.pptx",
+          "preview": {
+            "html": "previews/Final_gold/summary.html",
+            "images": [
+              "previews/Final_gold/slide-1.png",
+              "previews/Final_gold/slide-2.png",
+              "previews/Final_gold/slide-3.png"
+            ],
+            "libreoffice_profile": "isolated_temp",
+            "page_renderer": "/usr/bin/pdftoppm",
+            "pdftoppm_stderr": "",
+            "pdftoppm_stdout": "",
+            "renderer": "/usr/bin/soffice",
+            "status": "rendered",
+            "stderr": "",
+            "stdout": "convert task/artifacts/gold/final.pptx as a Impress document -> previews/Final_gold/final.pdf using filter : impress_pdf_Export\n",
+            "summary": "previews/Final_gold/summary.json"
+          },
+          "role": "gold-final",
+          "selectable": true,
+          "status": "rendered",
+          "type": "pptx"
+        }
+      }
+    ],
+    "row_labels": {
+      "bottom": "Agent output",
+      "instruction": "Instruction",
+      "top": "Seed / gold"
+    },
+    "version": 1
+  },
+  "run": {
+    "adapter": "mock",
+    "adapter_result": {
+      "adapter": "mock",
+      "errors": [],
+      "logs": [
+        "Mock adapter invocation_mode=per_turn",
+        "Fixture directory: task/mock_outputs_negative_screenshot",
+        "Copied task/mock_outputs_negative_screenshot/turn1/result.pptx -> outputs/turn1/result.pptx",
+        "Copied task/mock_outputs_negative_screenshot/final/result.pptx -> outputs/final/result.pptx"
+      ],
+      "outputs": {
+        "final": {
+          "result": "outputs/final/result.pptx"
+        },
+        "turn1": {
+          "result": "outputs/turn1/result.pptx"
+        }
+      },
+      "status": "succeeded",
+      "timings": {
+        "seconds": 0.0018186329998570727
+      }
+    },
+    "adapter_status": "succeeded",
+    "invocation_mode": "per_turn",
+    "judge": {
+      "api_key_env": "OPENAI_API_KEY",
+      "base_url": null,
+      "image_url_base": null,
+      "model": null,
+      "skip_judges": true
+    },
+    "manifest_path": "task/manifest.yaml",
+    "started_at": "2026-05-04T13:13:06.829898+00:00",
+    "task_dir": "task",
+    "task_id": "native_chart_style_deck",
+    "workspace": {
+      "judge_cache_dir": "judge_cache",
+      "logs_dir": "logs",
+      "outputs_dir": "outputs",
+      "previews_dir": "previews",
+      "review_dir": "review",
+      "run_dir": ".",
+      "task_copy_dir": "task",
+      "task_dir": "task",
+      "work_dir": "work"
+    }
+  },
+  "schema_version": "0.1",
+  "summary": {
+    "blocked_checks": [
+      "native_chart_t1_chart_region",
+      "native_chart_final_chart_left_region"
+    ],
+    "earned_points": 40.0,
+    "final_score": 0.5633802816901409,
+    "lost_points": 31.0,
+    "per_turn": {
+      "final": {
+        "checks": [
+          "native_chart_final_file_exists",
+          "native_chart_final_slide_count",
+          "native_chart_final_title_style",
+          "native_chart_final_chart_data_preserved",
+          "native_chart_final_chart_left_region",
+          "native_chart_final_badge_region",
+          "native_chart_final_rail_texts",
+          "native_chart_final_rail_region",
+          "native_chart_final_insight_text",
+          "native_chart_final_no_slide1_raster_shortcut",
+          "native_chart_final_source_audit_preserved",
+          "native_chart_final_protected_slide_preserved",
+          "optional_vlm_native_chart_layout_judge"
+        ],
+        "earned_points": 28.0,
+        "possible_points": 41.0,
+        "score": 0.6829268292682927,
+        "status_counts": {
+          "blocked": 1,
+          "fail": 2,
+          "pass": 9,
+          "skipped": 1
+        }
+      },
+      "turn1": {
+        "checks": [
+          "native_chart_t1_file_exists",
+          "native_chart_t1_slide_count",
+          "native_chart_t1_core_texts",
+          "native_chart_t1_chart_data",
+          "native_chart_t1_chart_region",
+          "native_chart_t1_title_region",
+          "native_chart_t1_source_audit_values",
+          "native_chart_t1_no_slide1_raster_shortcut",
+          "native_chart_t1_protected_slide_preserved",
+          "native_chart_t1_rendered_review"
+        ],
+        "earned_points": 12.0,
+        "possible_points": 30.0,
+        "score": 0.4,
+        "status_counts": {
+          "blocked": 1,
+          "fail": 3,
+          "pass": 6
+        }
+      }
+    },
+    "possible_points": 71.0,
+    "preservation_failures": [
+      "native_chart_t1_protected_slide_preserved"
+    ],
+    "regressions": [
+      "native_chart_t1_protected_slide_preserved"
+    ],
+    "status_counts": {
+      "blocked": 2,
+      "fail": 5,
+      "pass": 15,
+      "skipped": 1
+    }
+  },
+  "task": {
+    "id": "native_chart_style_deck",
+    "manifest": "task/manifest.yaml",
+    "title": "Native chart style deck from cross-file capacity data"
+  }
+}

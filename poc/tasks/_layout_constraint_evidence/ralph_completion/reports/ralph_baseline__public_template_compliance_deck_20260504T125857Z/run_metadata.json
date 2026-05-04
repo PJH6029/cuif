@@ -1,0 +1,34 @@
+{
+  "adapter": "external_bundle",
+  "adapter_status": "imported",
+  "imported_at": "2026-05-04T13:00:11.256954+00:00",
+  "imported_outputs": [
+    {
+      "output": "result",
+      "path": "outputs/turn1/result.pptx",
+      "turn": "turn1"
+    },
+    {
+      "output": "result",
+      "path": "outputs/final/result.pptx",
+      "turn": "final"
+    }
+  ],
+  "manifest_path": "/home/top321902/code/snupi/cuif/poc/tasks/public_template_compliance_deck/manifest.yaml",
+  "missing_outputs": [],
+  "source_outputs_dir": "/home/top321902/code/snupi/cuif/output/bundles/ralph_baseline/public_template_compliance_deck_20260504T125857Z/current/outputs",
+  "source_workspace": "/home/top321902/code/snupi/cuif/output/bundles/ralph_baseline/public_template_compliance_deck_20260504T125857Z/current",
+  "task_dir": "/home/top321902/code/snupi/cuif/poc/tasks/public_template_compliance_deck",
+  "task_id": "public_template_compliance_deck",
+  "workspace": {
+    "judge_cache_dir": "/home/top321902/code/snupi/cuif/output/runs/ralph_baseline/public_template_compliance_deck_20260504T125857Z/judge_cache",
+    "logs_dir": "/home/top321902/code/snupi/cuif/output/runs/ralph_baseline/public_template_compliance_deck_20260504T125857Z/logs",
+    "outputs_dir": "/home/top321902/code/snupi/cuif/output/runs/ralph_baseline/public_template_compliance_deck_20260504T125857Z/outputs",
+    "previews_dir": "/home/top321902/code/snupi/cuif/output/runs/ralph_baseline/public_template_compliance_deck_20260504T125857Z/previews",
+    "review_dir": "/home/top321902/code/snupi/cuif/output/runs/ralph_baseline/public_template_compliance_deck_20260504T125857Z/review",
+    "run_dir": "/home/top321902/code/snupi/cuif/output/runs/ralph_baseline/public_template_compliance_deck_20260504T125857Z",
+    "task_copy_dir": "/home/top321902/code/snupi/cuif/output/runs/ralph_baseline/public_template_compliance_deck_20260504T125857Z/task",
+    "task_dir": "/home/top321902/code/snupi/cuif/poc/tasks/public_template_compliance_deck",
+    "work_dir": "/home/top321902/code/snupi/cuif/output/runs/ralph_baseline/public_template_compliance_deck_20260504T125857Z/work"
+  }
+}

@@ -379,10 +379,15 @@ turns:
         params:
           prompt: "Inspect the rendered Metro Civic final deck for strict public template compliance."
           rubric: >-
-            Pass if both slides use the navy header/footer, teal section band,
-            embedded seal, visible 0.42 inch-style margins, aligned card/table
-            grid, protected notice regions, and the final lower-right oversight
-            callout without overlap or arbitrary styling.
+            Pass if both slides use the navy header/footer, embedded seal,
+            visible 0.42 inch-style margins, aligned card/table grid, and
+            protected notice regions. Slide 1 must keep the teal section band
+            with white label and place the final lower-right oversight callout
+            in the approved callout zone. Slide 2 must keep the teal section
+            band while intentionally restyling the COMPLIANCE MONITORING label
+            to gold as requested. Do not require the oversight callout on
+            slide 2. Fail only for off-template layout, overlap, missing seal,
+            missing protected regions, or arbitrary styling contradictions.
 review:
   comparison_targets:
     - label: seed deck

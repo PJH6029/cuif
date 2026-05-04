@@ -1,0 +1,247 @@
+{
+  "results": [
+    {
+      "bundle": "output/bundles/ralph_baseline/annotated_layout_repair_deck_20260504T125731Z",
+      "completed_at": "2026-05-04T12:58:57.778806+00:00",
+      "exit_code": 0,
+      "followup": null,
+      "log": "poc/tasks/annotated_layout_repair_deck/evidence/codex_baseline_ralph_20260504T125731Z.log",
+      "model": "gpt-5.3-codex-spark",
+      "report": "output/runs/ralph_baseline/annotated_layout_repair_deck_20260504T125731Z/report.json",
+      "run_dir": "output/runs/ralph_baseline/annotated_layout_repair_deck_20260504T125731Z",
+      "summary": {
+        "blocked_checks": [],
+        "earned_points": 55.0,
+        "final_score": 0.9649122807017544,
+        "lost_points": 2.0,
+        "per_turn": {
+          "final": {
+            "checks": [
+              "taska_final_file_exists",
+              "taska_final_slide_count",
+              "taska_final_title_style",
+              "taska_final_handoff_texts",
+              "taska_final_caption_region",
+              "taska_final_action_owners_region",
+              "taska_final_risk_lower_right",
+              "taska_final_trend_layout_preserved",
+              "taska_final_checkout_layout_preserved",
+              "taska_final_slide1_preserved",
+              "taska_final_slide3_preserved",
+              "taska_final_slide4_preserved",
+              "taska_optional_llm_repair_judge",
+              "taska_optional_vlm_layout_judge"
+            ],
+            "earned_points": 28.0,
+            "possible_points": 30.0,
+            "score": 0.9333333333333333,
+            "status_counts": {
+              "fail": 1,
+              "pass": 11,
+              "skipped": 2
+            }
+          },
+          "turn1": {
+            "checks": [
+              "taska_t1_file_exists",
+              "taska_t1_slide_count",
+              "taska_t1_core_texts",
+              "taska_t1_checkout_top_left",
+              "taska_t1_backlog_top_center",
+              "taska_t1_fatigue_top_right",
+              "taska_t1_trend_panel_region",
+              "taska_t1_risk_lower_right",
+              "taska_t1_slide1_preserved",
+              "taska_t1_slide3_preserved",
+              "taska_t1_slide4_preserved",
+              "taska_t1_rendered_review"
+            ],
+            "earned_points": 27.0,
+            "possible_points": 27.0,
+            "score": 1.0,
+            "status_counts": {
+              "pass": 12
+            }
+          }
+        },
+        "possible_points": 57.0,
+        "preservation_failures": [],
+        "regressions": [],
+        "status_counts": {
+          "fail": 1,
+          "pass": 23,
+          "skipped": 2
+        }
+      },
+      "task_id": "annotated_layout_repair_deck"
+    },
+    {
+      "bundle": "output/bundles/ralph_baseline/public_template_compliance_deck_20260504T125857Z",
+      "completed_at": "2026-05-04T13:00:35.732447+00:00",
+      "exit_code": 0,
+      "followup": null,
+      "log": "poc/tasks/public_template_compliance_deck/evidence/codex_baseline_ralph_20260504T125857Z.log",
+      "model": "gpt-5.3-codex-spark",
+      "report": "output/runs/ralph_baseline/public_template_compliance_deck_20260504T125857Z/report.json",
+      "run_dir": "output/runs/ralph_baseline/public_template_compliance_deck_20260504T125857Z",
+      "summary": {
+        "blocked_checks": [
+          "metro_t1_title_region",
+          "metro_t1_section_band_region",
+          "metro_t1_program_card_region",
+          "metro_t1_funding_card_region",
+          "metro_t1_timeline_card_region",
+          "metro_t1_compliance_table_region",
+          "metro_t1_title_style",
+          "metro_t1_footer_style",
+          "metro_final_title_style",
+          "metro_final_section_header_style",
+          "metro_final_callout_region",
+          "metro_final_footer_style"
+        ],
+        "earned_points": 26.0,
+        "final_score": 0.3939393939393939,
+        "lost_points": 40.0,
+        "per_turn": {
+          "final": {
+            "checks": [
+              "metro_final_file_exists",
+              "metro_final_slide_count",
+              "metro_final_required_texts",
+              "metro_final_title_style",
+              "metro_final_section_header_style",
+              "metro_final_callout_region",
+              "metro_final_seal_match_slide1",
+              "metro_final_footer_style",
+              "metro_final_program_card_layout_preserved",
+              "metro_final_funding_card_layout_preserved",
+              "metro_final_timeline_card_layout_preserved",
+              "metro_final_slide1_footer_layout_preserved",
+              "metro_final_slide2_preserved",
+              "metro_final_optional_vlm_template_judge"
+            ],
+            "earned_points": 15.0,
+            "possible_points": 33.0,
+            "score": 0.45454545454545453,
+            "status_counts": {
+              "blocked": 4,
+              "fail": 1,
+              "pass": 8,
+              "skipped": 1
+            }
+          },
+          "turn1": {
+            "checks": [
+              "metro_t1_file_exists",
+              "metro_t1_slide_count",
+              "metro_t1_required_texts",
+              "metro_t1_seal_match_slide1",
+              "metro_t1_title_region",
+              "metro_t1_section_band_region",
+              "metro_t1_program_card_region",
+              "metro_t1_funding_card_region",
+              "metro_t1_timeline_card_region",
+              "metro_t1_compliance_table_region",
+              "metro_t1_title_style",
+              "metro_t1_footer_style",
+              "metro_t1_legal_notice_preserved",
+              "metro_t1_audit_notice_preserved",
+              "metro_t1_rendered_review"
+            ],
+            "earned_points": 11.0,
+            "possible_points": 33.0,
+            "score": 0.3333333333333333,
+            "status_counts": {
+              "blocked": 8,
+              "fail": 1,
+              "pass": 6
+            }
+          }
+        },
+        "possible_points": 66.0,
+        "preservation_failures": [],
+        "regressions": [],
+        "status_counts": {
+          "blocked": 12,
+          "fail": 2,
+          "pass": 14,
+          "skipped": 1
+        }
+      },
+      "task_id": "public_template_compliance_deck"
+    },
+    {
+      "bundle": "output/bundles/ralph_baseline/native_chart_style_deck_20260504T130035Z",
+      "completed_at": "2026-05-04T13:02:12.832833+00:00",
+      "exit_code": 0,
+      "followup": null,
+      "log": "poc/tasks/native_chart_style_deck/evidence/codex_baseline_ralph_20260504T130035Z.log",
+      "model": "gpt-5.3-codex-spark",
+      "report": "output/runs/ralph_baseline/native_chart_style_deck_20260504T130035Z/report.json",
+      "run_dir": "output/runs/ralph_baseline/native_chart_style_deck_20260504T130035Z",
+      "summary": {
+        "blocked_checks": [],
+        "earned_points": 63.0,
+        "final_score": 0.8873239436619719,
+        "lost_points": 8.0,
+        "per_turn": {
+          "final": {
+            "checks": [
+              "native_chart_final_file_exists",
+              "native_chart_final_slide_count",
+              "native_chart_final_title_style",
+              "native_chart_final_chart_data_preserved",
+              "native_chart_final_chart_left_region",
+              "native_chart_final_badge_region",
+              "native_chart_final_rail_texts",
+              "native_chart_final_rail_region",
+              "native_chart_final_insight_text",
+              "native_chart_final_no_slide1_raster_shortcut",
+              "native_chart_final_source_audit_preserved",
+              "native_chart_final_protected_slide_preserved",
+              "optional_vlm_native_chart_layout_judge"
+            ],
+            "earned_points": 37.0,
+            "possible_points": 41.0,
+            "score": 0.9024390243902439,
+            "status_counts": {
+              "fail": 1,
+              "pass": 11,
+              "skipped": 1
+            }
+          },
+          "turn1": {
+            "checks": [
+              "native_chart_t1_file_exists",
+              "native_chart_t1_slide_count",
+              "native_chart_t1_core_texts",
+              "native_chart_t1_chart_data",
+              "native_chart_t1_chart_region",
+              "native_chart_t1_title_region",
+              "native_chart_t1_source_audit_values",
+              "native_chart_t1_no_slide1_raster_shortcut",
+              "native_chart_t1_protected_slide_preserved",
+              "native_chart_t1_rendered_review"
+            ],
+            "earned_points": 26.0,
+            "possible_points": 30.0,
+            "score": 0.8666666666666667,
+            "status_counts": {
+              "fail": 1,
+              "pass": 9
+            }
+          }
+        },
+        "possible_points": 71.0,
+        "preservation_failures": [],
+        "regressions": [],
+        "status_counts": {
+          "fail": 2,
+          "pass": 20,
+          "skipped": 1
+        }
+      },
+      "task_id": "native_chart_style_deck"
+    }
+  ]
+}

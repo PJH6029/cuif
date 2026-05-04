@@ -1,0 +1,686 @@
+[
+  {
+    "artifact": "run.outputs.turn1.result",
+    "check_id": "native_chart_t1_file_exists",
+    "depends_on": [],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 1.0,
+    "evaluator": "file_exists",
+    "evidence": {
+      "exists": true,
+      "path": "/home/top321902/code/snupi/cuif/output/runs/ralph_post_deslop_native_chart_style_deck_mock/outputs/turn1/result.pptx"
+    },
+    "message": "File exists: /home/top321902/code/snupi/cuif/output/runs/ralph_post_deslop_native_chart_style_deck_mock/outputs/turn1/result.pptx",
+    "optional": false,
+    "points": 1.0,
+    "status": "pass",
+    "turn_id": "turn1"
+  },
+  {
+    "artifact": "run.outputs.turn1.result",
+    "check_id": "native_chart_t1_slide_count",
+    "depends_on": [
+      "native_chart_t1_file_exists"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 1.0,
+    "evaluator": "pptx_slide_count",
+    "evidence": {
+      "actual": 3,
+      "expected": 3,
+      "path": "/home/top321902/code/snupi/cuif/output/runs/ralph_post_deslop_native_chart_style_deck_mock/outputs/turn1/result.pptx"
+    },
+    "message": "Slide count 3 matched expected 3",
+    "optional": false,
+    "points": 1.0,
+    "status": "pass",
+    "turn_id": "turn1"
+  },
+  {
+    "artifact": "run.outputs.turn1.result",
+    "check_id": "native_chart_t1_core_texts",
+    "depends_on": [
+      "native_chart_t1_file_exists"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 4.0,
+    "evaluator": "pptx_text_contains",
+    "evidence": {
+      "missing_texts": [],
+      "path": "/home/top321902/code/snupi/cuif/output/runs/ralph_post_deslop_native_chart_style_deck_mock/outputs/turn1/result.pptx",
+      "required_texts": [
+        "Support Capacity Forecast",
+        "Ticket demand vs staffed capacity from source_metrics.xlsx",
+        "Chart caption: quarterly ticket demand and staffed support capacity"
+      ]
+    },
+    "message": "All required PPTX text was present",
+    "optional": false,
+    "points": 4.0,
+    "status": "pass",
+    "turn_id": "turn1"
+  },
+  {
+    "artifact": "run.outputs.turn1.result",
+    "check_id": "native_chart_t1_chart_data",
+    "depends_on": [
+      "native_chart_t1_file_exists"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 8.0,
+    "evaluator": "pptx_chart_data",
+    "evidence": {
+      "chart": {
+        "bbox": {
+          "x": 0.054001350919621924,
+          "x_max": 0.6277657044406049,
+          "y": 0.20266666666666666,
+          "y_max": 0.7826665208515602
+        },
+        "categories": [
+          "Q1",
+          "Q2",
+          "Q3",
+          "Q4"
+        ],
+        "chart_type": "COLUMN_CLUSTERED",
+        "series": [
+          {
+            "name": "Ticket demand",
+            "values": [
+              1180.0,
+              1285.0,
+              1420.0,
+              1580.0
+            ]
+          },
+          {
+            "name": "Staffed capacity",
+            "values": [
+              1220.0,
+              1320.0,
+              1460.0,
+              1510.0
+            ]
+          }
+        ],
+        "shape_name": "support_capacity_clustered_chart",
+        "slide": 1
+      },
+      "failures": [],
+      "selector": {
+        "name": "support_capacity_clustered_chart",
+        "slide": 1
+      },
+      "value_tolerance": 0.1
+    },
+    "message": "Chart data check passed",
+    "optional": false,
+    "points": 8.0,
+    "status": "pass",
+    "turn_id": "turn1"
+  },
+  {
+    "artifact": "run.outputs.turn1.result",
+    "check_id": "native_chart_t1_chart_region",
+    "depends_on": [
+      "native_chart_t1_chart_data"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 4.0,
+    "evaluator": "pptx_bbox_region",
+    "evidence": {
+      "region": {
+        "slide": 1,
+        "x_max": 0.68,
+        "x_min": 0.04,
+        "y_max": 0.82,
+        "y_min": 0.18
+      },
+      "selector": {
+        "name": "support_capacity_clustered_chart",
+        "slide": 1
+      },
+      "shape": {
+        "slide": 1,
+        "text": "",
+        "x": 0.054001350919621924,
+        "x_max": 0.6277657044406049,
+        "y": 0.20266666666666666,
+        "y_max": 0.7826665208515602
+      },
+      "tolerance": 0.03
+    },
+    "message": "Shape bbox is inside requested region",
+    "optional": false,
+    "points": 4.0,
+    "status": "pass",
+    "turn_id": "turn1"
+  },
+  {
+    "artifact": "run.outputs.turn1.result",
+    "check_id": "native_chart_t1_title_region",
+    "depends_on": [
+      "native_chart_t1_core_texts"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 2.0,
+    "evaluator": "pptx_bbox_region",
+    "evidence": {
+      "region": {
+        "slide": 1,
+        "x_max": 0.62,
+        "x_min": 0.03,
+        "y_max": 0.15,
+        "y_min": 0.03
+      },
+      "selector": {
+        "slide": 1,
+        "text_contains": "Support Capacity Forecast"
+      },
+      "shape": {
+        "slide": 1,
+        "text": "Support Capacity Forecast",
+        "x": 0.04350108824080655,
+        "x_max": 0.56101403455385,
+        "y": 0.048,
+        "y_max": 0.12266666666666667
+      },
+      "tolerance": 0.03
+    },
+    "message": "Shape bbox is inside requested region",
+    "optional": false,
+    "points": 2.0,
+    "status": "pass",
+    "turn_id": "turn1"
+  },
+  {
+    "artifact": "run.outputs.turn1.result",
+    "check_id": "native_chart_t1_source_audit_values",
+    "depends_on": [
+      "native_chart_t1_file_exists"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 4.0,
+    "evaluator": "pptx_text_contains",
+    "evidence": {
+      "missing_texts": [],
+      "path": "/home/top321902/code/snupi/cuif/output/runs/ralph_post_deslop_native_chart_style_deck_mock/outputs/turn1/result.pptx",
+      "required_texts": [
+        "Workbook audit",
+        "Source data: support capacity forecast",
+        "Q1 1180 1220 +40",
+        "Q2 1285 1320 +35",
+        "Q3 1420 1460 +40",
+        "Q4 1580 1510 -70"
+      ]
+    },
+    "message": "All required PPTX text was present",
+    "optional": false,
+    "points": 4.0,
+    "status": "pass",
+    "turn_id": "turn1"
+  },
+  {
+    "artifact": "run.outputs.turn1.result",
+    "check_id": "native_chart_t1_no_slide1_raster_shortcut",
+    "depends_on": [
+      "native_chart_t1_file_exists"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 2.0,
+    "evaluator": "pptx_image_count",
+    "evidence": {
+      "images": [],
+      "selector": {
+        "slide": 1
+      }
+    },
+    "message": "Found 0 images; expected exactly 0",
+    "optional": false,
+    "points": 2.0,
+    "status": "pass",
+    "turn_id": "turn1"
+  },
+  {
+    "artifact": "run.outputs.turn1.result",
+    "check_id": "native_chart_t1_protected_slide_preserved",
+    "depends_on": [
+      "native_chart_t1_slide_count"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 4.0,
+    "evaluator": "pptx_preservation_diff",
+    "evidence": {
+      "candidate": "/home/top321902/code/snupi/cuif/output/runs/ralph_post_deslop_native_chart_style_deck_mock/outputs/turn1/result.pptx",
+      "match": true,
+      "mismatches": [],
+      "reference": "/home/top321902/code/snupi/cuif/output/runs/ralph_post_deslop_native_chart_style_deck_mock/task/artifacts/seed.pptx"
+    },
+    "message": "Protected content/layout preserved",
+    "optional": false,
+    "points": 4.0,
+    "status": "pass",
+    "turn_id": "turn1"
+  },
+  {
+    "artifact": "run.outputs.turn1.result",
+    "check_id": "native_chart_t1_rendered_review",
+    "depends_on": [],
+    "description": null,
+    "diagnostic": true,
+    "earned_points": 0.0,
+    "evaluator": "rendered_layout_review",
+    "evidence": {
+      "html": "/home/top321902/code/snupi/cuif/output/runs/ralph_post_deslop_native_chart_style_deck_mock/previews/scoring_turn1_native_chart_t1_rendered_review/summary.html",
+      "images": [
+        "/home/top321902/code/snupi/cuif/output/runs/ralph_post_deslop_native_chart_style_deck_mock/previews/scoring_turn1_native_chart_t1_rendered_review/slide-1.png",
+        "/home/top321902/code/snupi/cuif/output/runs/ralph_post_deslop_native_chart_style_deck_mock/previews/scoring_turn1_native_chart_t1_rendered_review/slide-2.png",
+        "/home/top321902/code/snupi/cuif/output/runs/ralph_post_deslop_native_chart_style_deck_mock/previews/scoring_turn1_native_chart_t1_rendered_review/slide-3.png"
+      ],
+      "libreoffice_profile": "isolated_temp",
+      "page_renderer": "/usr/bin/pdftoppm",
+      "pdftoppm_stderr": "",
+      "pdftoppm_stdout": "",
+      "renderer": "/usr/bin/soffice",
+      "status": "rendered",
+      "stderr": "",
+      "stdout": "convert /home/top321902/code/snupi/cuif/output/runs/ralph_post_deslop_native_chart_style_deck_mock/outputs/turn1/result.pptx as a Impress document -> /home/top321902/code/snupi/cuif/output/runs/ralph_post_deslop_native_chart_style_deck_mock/previews/scoring_turn1_native_chart_t1_rendered_review/result.pdf using filter : impress_pdf_Export\n",
+      "summary": "/home/top321902/code/snupi/cuif/output/runs/ralph_post_deslop_native_chart_style_deck_mock/previews/scoring_turn1_native_chart_t1_rendered_review/summary.json"
+    },
+    "message": "Rendered preview generated for layout review",
+    "optional": true,
+    "points": 0.0,
+    "status": "pass",
+    "turn_id": "turn1"
+  },
+  {
+    "artifact": "run.outputs.final.result",
+    "check_id": "native_chart_final_file_exists",
+    "depends_on": [],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 1.0,
+    "evaluator": "file_exists",
+    "evidence": {
+      "exists": true,
+      "path": "/home/top321902/code/snupi/cuif/output/runs/ralph_post_deslop_native_chart_style_deck_mock/outputs/final/result.pptx"
+    },
+    "message": "File exists: /home/top321902/code/snupi/cuif/output/runs/ralph_post_deslop_native_chart_style_deck_mock/outputs/final/result.pptx",
+    "optional": false,
+    "points": 1.0,
+    "status": "pass",
+    "turn_id": "final"
+  },
+  {
+    "artifact": "run.outputs.final.result",
+    "check_id": "native_chart_final_slide_count",
+    "depends_on": [
+      "native_chart_final_file_exists"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 1.0,
+    "evaluator": "pptx_slide_count",
+    "evidence": {
+      "actual": 3,
+      "expected": 3,
+      "path": "/home/top321902/code/snupi/cuif/output/runs/ralph_post_deslop_native_chart_style_deck_mock/outputs/final/result.pptx"
+    },
+    "message": "Slide count 3 matched expected 3",
+    "optional": false,
+    "points": 1.0,
+    "status": "pass",
+    "turn_id": "final"
+  },
+  {
+    "artifact": "run.outputs.final.result",
+    "check_id": "native_chart_final_title_style",
+    "depends_on": [
+      "native_chart_final_file_exists"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 5.0,
+    "evaluator": "pptx_style_check",
+    "evidence": {
+      "actual": {
+        "bold": [
+          true
+        ],
+        "font_color": [
+          "#1F4E79"
+        ],
+        "font_size_pt": [
+          34.0
+        ]
+      },
+      "failures": [],
+      "selector": {
+        "slide": 1,
+        "text_contains": "Support Capacity Forecast"
+      }
+    },
+    "message": "Style check passed",
+    "optional": false,
+    "points": 5.0,
+    "status": "pass",
+    "turn_id": "final"
+  },
+  {
+    "artifact": "run.outputs.final.result",
+    "check_id": "native_chart_final_chart_data_preserved",
+    "depends_on": [
+      "native_chart_final_file_exists"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 7.0,
+    "evaluator": "pptx_chart_data",
+    "evidence": {
+      "chart": {
+        "bbox": {
+          "x": 0.054001350919621924,
+          "x_max": 0.6277657044406049,
+          "y": 0.20266666666666666,
+          "y_max": 0.7826665208515602
+        },
+        "categories": [
+          "Q1",
+          "Q2",
+          "Q3",
+          "Q4"
+        ],
+        "chart_type": "COLUMN_CLUSTERED",
+        "series": [
+          {
+            "name": "Ticket demand",
+            "values": [
+              1180.0,
+              1285.0,
+              1420.0,
+              1580.0
+            ]
+          },
+          {
+            "name": "Staffed capacity",
+            "values": [
+              1220.0,
+              1320.0,
+              1460.0,
+              1510.0
+            ]
+          }
+        ],
+        "shape_name": "support_capacity_clustered_chart",
+        "slide": 1
+      },
+      "failures": [],
+      "selector": {
+        "name": "support_capacity_clustered_chart",
+        "slide": 1
+      },
+      "value_tolerance": 0.1
+    },
+    "message": "Chart data check passed",
+    "optional": false,
+    "points": 7.0,
+    "status": "pass",
+    "turn_id": "final"
+  },
+  {
+    "artifact": "run.outputs.final.result",
+    "check_id": "native_chart_final_chart_left_region",
+    "depends_on": [
+      "native_chart_final_chart_data_preserved"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 4.0,
+    "evaluator": "pptx_bbox_region",
+    "evidence": {
+      "region": {
+        "slide": 1,
+        "x_max": 0.68,
+        "x_min": 0.04,
+        "y_max": 0.82,
+        "y_min": 0.18
+      },
+      "selector": {
+        "name": "support_capacity_clustered_chart",
+        "slide": 1
+      },
+      "shape": {
+        "slide": 1,
+        "text": "",
+        "x": 0.054001350919621924,
+        "x_max": 0.6277657044406049,
+        "y": 0.20266666666666666,
+        "y_max": 0.7826665208515602
+      },
+      "tolerance": 0.03
+    },
+    "message": "Shape bbox is inside requested region",
+    "optional": false,
+    "points": 4.0,
+    "status": "pass",
+    "turn_id": "final"
+  },
+  {
+    "artifact": "run.outputs.final.result",
+    "check_id": "native_chart_final_badge_region",
+    "depends_on": [
+      "native_chart_final_file_exists"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 3.0,
+    "evaluator": "pptx_bbox_region",
+    "evidence": {
+      "region": {
+        "slide": 1,
+        "x_max": 0.95,
+        "x_min": 0.7,
+        "y_max": 0.16,
+        "y_min": 0.03
+      },
+      "selector": {
+        "slide": 1,
+        "text_contains": "Data cut: FY2026 forecast"
+      },
+      "shape": {
+        "slide": 1,
+        "text": "Data cut: FY2026 forecast",
+        "x": 0.716267918447763,
+        "x_max": 0.91127279676862,
+        "y": 0.050666666666666665,
+        "y_max": 0.12266666666666666
+      },
+      "tolerance": 0.03
+    },
+    "message": "Shape bbox is inside requested region",
+    "optional": false,
+    "points": 3.0,
+    "status": "pass",
+    "turn_id": "final"
+  },
+  {
+    "artifact": "run.outputs.final.result",
+    "check_id": "native_chart_final_rail_texts",
+    "depends_on": [
+      "native_chart_final_file_exists"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 4.0,
+    "evaluator": "pptx_text_contains",
+    "evidence": {
+      "missing_texts": [],
+      "path": "/home/top321902/code/snupi/cuif/output/runs/ralph_post_deslop_native_chart_style_deck_mock/outputs/final/result.pptx",
+      "required_texts": [
+        "Capacity observations",
+        "Leader: Q4 demand 1580",
+        "Gap: Q4 -70 tickets",
+        "Mitigation: shift 2 weekend pods"
+      ]
+    },
+    "message": "All required PPTX text was present",
+    "optional": false,
+    "points": 4.0,
+    "status": "pass",
+    "turn_id": "final"
+  },
+  {
+    "artifact": "run.outputs.final.result",
+    "check_id": "native_chart_final_rail_region",
+    "depends_on": [
+      "native_chart_final_rail_texts"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 3.0,
+    "evaluator": "pptx_bbox_region",
+    "evidence": {
+      "region": {
+        "slide": 1,
+        "x_max": 0.97,
+        "x_min": 0.68,
+        "y_max": 0.78,
+        "y_min": 0.18
+      },
+      "selector": {
+        "slide": 1,
+        "text_contains": "Capacity observations"
+      },
+      "shape": {
+        "slide": 1,
+        "text": "Capacity observations\nLeader: Q4 demand 1580\nGap: Q4 -70 tickets\nMitigation: shift 2 weekend pods",
+        "x": 0.7035175994806301,
+        "x_max": 0.9375234534656585,
+        "y": 0.21066666666666667,
+        "y_max": 0.5106666666666666
+      },
+      "tolerance": 0.03
+    },
+    "message": "Shape bbox is inside requested region",
+    "optional": false,
+    "points": 3.0,
+    "status": "pass",
+    "turn_id": "final"
+  },
+  {
+    "artifact": "run.outputs.final.result",
+    "check_id": "native_chart_final_insight_text",
+    "depends_on": [
+      "native_chart_final_file_exists"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 3.0,
+    "evaluator": "pptx_text_contains",
+    "evidence": {
+      "missing_texts": [],
+      "path": "/home/top321902/code/snupi/cuif/output/runs/ralph_post_deslop_native_chart_style_deck_mock/outputs/final/result.pptx",
+      "required_texts": [
+        "Insight: Q4 demand exceeds staffed capacity by 70 tickets; mitigation should shift two weekend pods before launch."
+      ]
+    },
+    "message": "All required PPTX text was present",
+    "optional": false,
+    "points": 3.0,
+    "status": "pass",
+    "turn_id": "final"
+  },
+  {
+    "artifact": "run.outputs.final.result",
+    "check_id": "native_chart_final_no_slide1_raster_shortcut",
+    "depends_on": [
+      "native_chart_final_file_exists"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 2.0,
+    "evaluator": "pptx_image_count",
+    "evidence": {
+      "images": [],
+      "selector": {
+        "slide": 1
+      }
+    },
+    "message": "Found 0 images; expected exactly 0",
+    "optional": false,
+    "points": 2.0,
+    "status": "pass",
+    "turn_id": "final"
+  },
+  {
+    "artifact": "run.outputs.final.result",
+    "check_id": "native_chart_final_source_audit_preserved",
+    "depends_on": [
+      "native_chart_final_slide_count"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 4.0,
+    "evaluator": "pptx_preservation_diff",
+    "evidence": {
+      "candidate": "/home/top321902/code/snupi/cuif/output/runs/ralph_post_deslop_native_chart_style_deck_mock/outputs/final/result.pptx",
+      "match": true,
+      "mismatches": [],
+      "reference": "/home/top321902/code/snupi/cuif/output/runs/ralph_post_deslop_native_chart_style_deck_mock/outputs/turn1/result.pptx"
+    },
+    "message": "Protected content/layout preserved",
+    "optional": false,
+    "points": 4.0,
+    "status": "pass",
+    "turn_id": "final"
+  },
+  {
+    "artifact": "run.outputs.final.result",
+    "check_id": "native_chart_final_protected_slide_preserved",
+    "depends_on": [
+      "native_chart_final_slide_count"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 4.0,
+    "evaluator": "pptx_preservation_diff",
+    "evidence": {
+      "candidate": "/home/top321902/code/snupi/cuif/output/runs/ralph_post_deslop_native_chart_style_deck_mock/outputs/final/result.pptx",
+      "match": true,
+      "mismatches": [],
+      "reference": "/home/top321902/code/snupi/cuif/output/runs/ralph_post_deslop_native_chart_style_deck_mock/outputs/turn1/result.pptx"
+    },
+    "message": "Protected content/layout preserved",
+    "optional": false,
+    "points": 4.0,
+    "status": "pass",
+    "turn_id": "final"
+  },
+  {
+    "artifact": "run.outputs.final.result",
+    "check_id": "optional_vlm_native_chart_layout_judge",
+    "depends_on": [],
+    "description": null,
+    "diagnostic": true,
+    "earned_points": 0.0,
+    "evaluator": "vlm_layout_rubric",
+    "evidence": {
+      "skip_judges": true
+    },
+    "message": "Judge checks skipped by configuration",
+    "optional": true,
+    "points": 0.0,
+    "status": "skipped",
+    "turn_id": "final"
+  }
+]

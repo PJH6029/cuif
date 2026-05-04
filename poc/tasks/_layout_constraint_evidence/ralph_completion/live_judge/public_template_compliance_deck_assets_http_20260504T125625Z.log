@@ -1,0 +1,8 @@
+127.0.0.1 - - [04/May/2026 21:56:26] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [04/May/2026 21:56:38] "GET /gold_final_montage.png HTTP/1.1" 200 -
+127.0.0.1 - - [04/May/2026 21:56:38] "GET /input_assets_montage.png HTTP/1.1" 200 -
+127.0.0.1 - - [04/May/2026 21:56:40] "GET /gold_turn1_montage.png HTTP/1.1" 200 -
+127.0.0.1 - - [04/May/2026 21:56:40] "GET /input_assets_montage.png HTTP/1.1" 200 -
+127.0.0.1 - - [04/May/2026 21:56:41] "GET /gold_final_montage.png HTTP/1.1" 200 -
+127.0.0.1 - - [04/May/2026 21:56:42] "GET /gold_turn1_montage.png HTTP/1.1" 200 -
+127.0.0.1 - - [04/May/2026 21:56:44] "GET /gold_turn1_montage.png HTTP/1.1" 200 -

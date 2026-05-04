@@ -49,7 +49,7 @@ def test_export_bundle_refuses_to_overwrite_without_flag(toy_task, tmp_path):
 def test_stage_bundle_turn_reveals_only_that_turns_new_inputs(tmp_path):
     task = tmp_path / "turn_input_task"
     repo_root = Path(__file__).resolve().parents[1]
-    shutil.copytree(repo_root / "poc" / "tasks" / "aurora_paper_review_deck", task)
+    shutil.copytree(repo_root / "poc" / "tasks" / "legacy" / "aurora_paper_review_deck", task)
     result = export_task_bundle(task, tmp_path / "bundle")
     bundle = result["bundle_dir"]
     current = result["current_dir"]

@@ -1,0 +1,719 @@
+[
+  {
+    "artifact": "run.outputs.turn1.result",
+    "check_id": "taska_t1_file_exists",
+    "depends_on": [],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 1.0,
+    "evaluator": "file_exists",
+    "evidence": {
+      "exists": true,
+      "path": "/home/top321902/code/snupi/cuif/output/runs/ralph_baseline/annotated_layout_repair_deck_20260504T125731Z/outputs/turn1/result.pptx"
+    },
+    "message": "File exists: /home/top321902/code/snupi/cuif/output/runs/ralph_baseline/annotated_layout_repair_deck_20260504T125731Z/outputs/turn1/result.pptx",
+    "optional": false,
+    "points": 1.0,
+    "status": "pass",
+    "turn_id": "turn1"
+  },
+  {
+    "artifact": "run.outputs.turn1.result",
+    "check_id": "taska_t1_slide_count",
+    "depends_on": [
+      "taska_t1_file_exists"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 1.0,
+    "evaluator": "pptx_slide_count",
+    "evidence": {
+      "actual": 4,
+      "expected": 4,
+      "path": "/home/top321902/code/snupi/cuif/output/runs/ralph_baseline/annotated_layout_repair_deck_20260504T125731Z/outputs/turn1/result.pptx"
+    },
+    "message": "Slide count 4 matched expected 4",
+    "optional": false,
+    "points": 1.0,
+    "status": "pass",
+    "turn_id": "turn1"
+  },
+  {
+    "artifact": "run.outputs.turn1.result",
+    "check_id": "taska_t1_core_texts",
+    "depends_on": [
+      "taska_t1_file_exists"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 4.0,
+    "evaluator": "pptx_text_contains",
+    "evidence": {
+      "missing_texts": [],
+      "path": "/home/top321902/code/snupi/cuif/output/runs/ralph_baseline/annotated_layout_repair_deck_20260504T125731Z/outputs/turn1/result.pptx",
+      "required_texts": [
+        "Service Reliability Dashboard",
+        "Checkout SLA 97.2%",
+        "Queue backlog 42",
+        "Alert fatigue 18%",
+        "Service health trend",
+        "Hotspot: checkout latency",
+        "Escalation owner missing",
+        "Route rollback owner by Friday"
+      ]
+    },
+    "message": "All required PPTX text was present",
+    "optional": false,
+    "points": 4.0,
+    "status": "pass",
+    "turn_id": "turn1"
+  },
+  {
+    "artifact": "run.outputs.turn1.result",
+    "check_id": "taska_t1_checkout_top_left",
+    "depends_on": [
+      "taska_t1_core_texts"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 2.0,
+    "evaluator": "pptx_bbox_region",
+    "evidence": {
+      "region": {
+        "slide": 2,
+        "x_max": 0.34,
+        "x_min": 0.04,
+        "y_max": 0.32,
+        "y_min": 0.13
+      },
+      "selector": {
+        "slide": 2,
+        "text_contains": "Checkout SLA 97.2%"
+      },
+      "shape": {
+        "slide": 2,
+        "text": "Checkout SLA 97.2%",
+        "x": 0.05,
+        "x_max": 0.31,
+        "y": 0.14,
+        "y_max": 0.26
+      },
+      "tolerance": 0.03
+    },
+    "message": "Shape bbox is inside requested region",
+    "optional": false,
+    "points": 2.0,
+    "status": "pass",
+    "turn_id": "turn1"
+  },
+  {
+    "artifact": "run.outputs.turn1.result",
+    "check_id": "taska_t1_backlog_top_center",
+    "depends_on": [
+      "taska_t1_core_texts"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 2.0,
+    "evaluator": "pptx_bbox_region",
+    "evidence": {
+      "region": {
+        "slide": 2,
+        "x_max": 0.67,
+        "x_min": 0.34,
+        "y_max": 0.32,
+        "y_min": 0.13
+      },
+      "selector": {
+        "slide": 2,
+        "text_contains": "Queue backlog 42"
+      },
+      "shape": {
+        "slide": 2,
+        "text": "Queue backlog 42",
+        "x": 0.37,
+        "x_max": 0.63,
+        "y": 0.14,
+        "y_max": 0.26
+      },
+      "tolerance": 0.03
+    },
+    "message": "Shape bbox is inside requested region",
+    "optional": false,
+    "points": 2.0,
+    "status": "pass",
+    "turn_id": "turn1"
+  },
+  {
+    "artifact": "run.outputs.turn1.result",
+    "check_id": "taska_t1_fatigue_top_right",
+    "depends_on": [
+      "taska_t1_core_texts"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 2.0,
+    "evaluator": "pptx_bbox_region",
+    "evidence": {
+      "region": {
+        "slide": 2,
+        "x_max": 0.98,
+        "x_min": 0.64,
+        "y_max": 0.32,
+        "y_min": 0.13
+      },
+      "selector": {
+        "slide": 2,
+        "text_contains": "Alert fatigue 18%"
+      },
+      "shape": {
+        "slide": 2,
+        "text": "Alert fatigue 18%",
+        "x": 0.695,
+        "x_max": 0.955,
+        "y": 0.14,
+        "y_max": 0.26
+      },
+      "tolerance": 0.03
+    },
+    "message": "Shape bbox is inside requested region",
+    "optional": false,
+    "points": 2.0,
+    "status": "pass",
+    "turn_id": "turn1"
+  },
+  {
+    "artifact": "run.outputs.turn1.result",
+    "check_id": "taska_t1_trend_panel_region",
+    "depends_on": [
+      "taska_t1_core_texts"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 3.0,
+    "evaluator": "pptx_bbox_region",
+    "evidence": {
+      "region": {
+        "slide": 2,
+        "x_max": 0.66,
+        "x_min": 0.04,
+        "y_max": 0.76,
+        "y_min": 0.28
+      },
+      "selector": {
+        "slide": 2,
+        "text_contains": "Service health trend"
+      },
+      "shape": {
+        "slide": 2,
+        "text": "Service health trend",
+        "x": 0.05,
+        "x_max": 0.64,
+        "y": 0.3,
+        "y_max": 0.7333333333333334
+      },
+      "tolerance": 0.03
+    },
+    "message": "Shape bbox is inside requested region",
+    "optional": false,
+    "points": 3.0,
+    "status": "pass",
+    "turn_id": "turn1"
+  },
+  {
+    "artifact": "run.outputs.turn1.result",
+    "check_id": "taska_t1_risk_lower_right",
+    "depends_on": [
+      "taska_t1_core_texts"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 3.0,
+    "evaluator": "pptx_bbox_region",
+    "evidence": {
+      "region": {
+        "slide": 2,
+        "x_max": 0.98,
+        "x_min": 0.64,
+        "y_max": 0.9,
+        "y_min": 0.6
+      },
+      "selector": {
+        "slide": 2,
+        "text_contains": "Hotspot: checkout latency"
+      },
+      "shape": {
+        "slide": 2,
+        "text": "Hotspot: checkout latency\nEscalation owner missing\nRoute rollback owner by Friday",
+        "x": 0.665,
+        "x_max": 0.9550000000000001,
+        "y": 0.6333333333333333,
+        "y_max": 0.8533333333333333
+      },
+      "tolerance": 0.03
+    },
+    "message": "Shape bbox is inside requested region",
+    "optional": false,
+    "points": 3.0,
+    "status": "pass",
+    "turn_id": "turn1"
+  },
+  {
+    "artifact": "run.outputs.turn1.result",
+    "check_id": "taska_t1_slide1_preserved",
+    "depends_on": [
+      "taska_t1_slide_count"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 3.0,
+    "evaluator": "pptx_preservation_diff",
+    "evidence": {
+      "candidate": "/home/top321902/code/snupi/cuif/output/runs/ralph_baseline/annotated_layout_repair_deck_20260504T125731Z/outputs/turn1/result.pptx",
+      "match": true,
+      "mismatches": [],
+      "reference": "/home/top321902/code/snupi/cuif/output/runs/ralph_baseline/annotated_layout_repair_deck_20260504T125731Z/task/artifacts/seed.pptx"
+    },
+    "message": "Protected content/layout preserved",
+    "optional": false,
+    "points": 3.0,
+    "status": "pass",
+    "turn_id": "turn1"
+  },
+  {
+    "artifact": "run.outputs.turn1.result",
+    "check_id": "taska_t1_slide3_preserved",
+    "depends_on": [
+      "taska_t1_slide_count"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 3.0,
+    "evaluator": "pptx_preservation_diff",
+    "evidence": {
+      "candidate": "/home/top321902/code/snupi/cuif/output/runs/ralph_baseline/annotated_layout_repair_deck_20260504T125731Z/outputs/turn1/result.pptx",
+      "match": true,
+      "mismatches": [],
+      "reference": "/home/top321902/code/snupi/cuif/output/runs/ralph_baseline/annotated_layout_repair_deck_20260504T125731Z/task/artifacts/seed.pptx"
+    },
+    "message": "Protected content/layout preserved",
+    "optional": false,
+    "points": 3.0,
+    "status": "pass",
+    "turn_id": "turn1"
+  },
+  {
+    "artifact": "run.outputs.turn1.result",
+    "check_id": "taska_t1_slide4_preserved",
+    "depends_on": [
+      "taska_t1_slide_count"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 3.0,
+    "evaluator": "pptx_preservation_diff",
+    "evidence": {
+      "candidate": "/home/top321902/code/snupi/cuif/output/runs/ralph_baseline/annotated_layout_repair_deck_20260504T125731Z/outputs/turn1/result.pptx",
+      "match": true,
+      "mismatches": [],
+      "reference": "/home/top321902/code/snupi/cuif/output/runs/ralph_baseline/annotated_layout_repair_deck_20260504T125731Z/task/artifacts/seed.pptx"
+    },
+    "message": "Protected content/layout preserved",
+    "optional": false,
+    "points": 3.0,
+    "status": "pass",
+    "turn_id": "turn1"
+  },
+  {
+    "artifact": "run.outputs.turn1.result",
+    "check_id": "taska_t1_rendered_review",
+    "depends_on": [],
+    "description": null,
+    "diagnostic": true,
+    "earned_points": 0.0,
+    "evaluator": "rendered_layout_review",
+    "evidence": {
+      "html": "/home/top321902/code/snupi/cuif/output/runs/ralph_baseline/annotated_layout_repair_deck_20260504T125731Z/previews/scoring_turn1_taska_t1_rendered_review/summary.html",
+      "images": [
+        "/home/top321902/code/snupi/cuif/output/runs/ralph_baseline/annotated_layout_repair_deck_20260504T125731Z/previews/scoring_turn1_taska_t1_rendered_review/slide-1.png",
+        "/home/top321902/code/snupi/cuif/output/runs/ralph_baseline/annotated_layout_repair_deck_20260504T125731Z/previews/scoring_turn1_taska_t1_rendered_review/slide-2.png",
+        "/home/top321902/code/snupi/cuif/output/runs/ralph_baseline/annotated_layout_repair_deck_20260504T125731Z/previews/scoring_turn1_taska_t1_rendered_review/slide-3.png",
+        "/home/top321902/code/snupi/cuif/output/runs/ralph_baseline/annotated_layout_repair_deck_20260504T125731Z/previews/scoring_turn1_taska_t1_rendered_review/slide-4.png"
+      ],
+      "libreoffice_profile": "isolated_temp",
+      "page_renderer": "/usr/bin/pdftoppm",
+      "pdftoppm_stderr": "",
+      "pdftoppm_stdout": "",
+      "renderer": "/usr/bin/soffice",
+      "status": "rendered",
+      "stderr": "",
+      "stdout": "convert /home/top321902/code/snupi/cuif/output/runs/ralph_baseline/annotated_layout_repair_deck_20260504T125731Z/outputs/turn1/result.pptx as a Impress document -> /home/top321902/code/snupi/cuif/output/runs/ralph_baseline/annotated_layout_repair_deck_20260504T125731Z/previews/scoring_turn1_taska_t1_rendered_review/result.pdf using filter : impress_pdf_Export\n",
+      "summary": "/home/top321902/code/snupi/cuif/output/runs/ralph_baseline/annotated_layout_repair_deck_20260504T125731Z/previews/scoring_turn1_taska_t1_rendered_review/summary.json"
+    },
+    "message": "Rendered preview generated for layout review",
+    "optional": true,
+    "points": 0.0,
+    "status": "pass",
+    "turn_id": "turn1"
+  },
+  {
+    "artifact": "run.outputs.final.result",
+    "check_id": "taska_final_file_exists",
+    "depends_on": [],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 1.0,
+    "evaluator": "file_exists",
+    "evidence": {
+      "exists": true,
+      "path": "/home/top321902/code/snupi/cuif/output/runs/ralph_baseline/annotated_layout_repair_deck_20260504T125731Z/outputs/final/result.pptx"
+    },
+    "message": "File exists: /home/top321902/code/snupi/cuif/output/runs/ralph_baseline/annotated_layout_repair_deck_20260504T125731Z/outputs/final/result.pptx",
+    "optional": false,
+    "points": 1.0,
+    "status": "pass",
+    "turn_id": "final"
+  },
+  {
+    "artifact": "run.outputs.final.result",
+    "check_id": "taska_final_slide_count",
+    "depends_on": [
+      "taska_final_file_exists"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 1.0,
+    "evaluator": "pptx_slide_count",
+    "evidence": {
+      "actual": 4,
+      "expected": 4,
+      "path": "/home/top321902/code/snupi/cuif/output/runs/ralph_baseline/annotated_layout_repair_deck_20260504T125731Z/outputs/final/result.pptx"
+    },
+    "message": "Slide count 4 matched expected 4",
+    "optional": false,
+    "points": 1.0,
+    "status": "pass",
+    "turn_id": "final"
+  },
+  {
+    "artifact": "run.outputs.final.result",
+    "check_id": "taska_final_title_style",
+    "depends_on": [
+      "taska_final_file_exists"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 4.0,
+    "evaluator": "pptx_style_check",
+    "evidence": {
+      "actual": {
+        "bold": [
+          true
+        ],
+        "font_color": [
+          "#1F4E79"
+        ],
+        "font_size_pt": [
+          32.0
+        ]
+      },
+      "failures": [],
+      "selector": {
+        "slide": 2,
+        "text_contains": "Service Reliability Dashboard"
+      }
+    },
+    "message": "Style check passed",
+    "optional": false,
+    "points": 4.0,
+    "status": "pass",
+    "turn_id": "final"
+  },
+  {
+    "artifact": "run.outputs.final.result",
+    "check_id": "taska_final_handoff_texts",
+    "depends_on": [
+      "taska_final_file_exists"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 4.0,
+    "evaluator": "pptx_text_contains",
+    "evidence": {
+      "missing_texts": [],
+      "path": "/home/top321902/code/snupi/cuif/output/runs/ralph_baseline/annotated_layout_repair_deck_20260504T125731Z/outputs/final/result.pptx",
+      "required_texts": [
+        "Caption: checkout latency risk is concentrated in owner-routing gaps.",
+        "Action owners",
+        "SRE: Priya",
+        "Support: Marcus",
+        "Comms: Lina",
+        "Hotspot: checkout latency",
+        "Route rollback owner by Friday"
+      ]
+    },
+    "message": "All required PPTX text was present",
+    "optional": false,
+    "points": 4.0,
+    "status": "pass",
+    "turn_id": "final"
+  },
+  {
+    "artifact": "run.outputs.final.result",
+    "check_id": "taska_final_caption_region",
+    "depends_on": [
+      "taska_final_handoff_texts"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 2.0,
+    "evaluator": "pptx_bbox_region",
+    "evidence": {
+      "region": {
+        "slide": 2,
+        "x_max": 0.66,
+        "x_min": 0.05,
+        "y_max": 0.86,
+        "y_min": 0.73
+      },
+      "selector": {
+        "slide": 2,
+        "text_contains": "Caption: checkout latency risk is concentrated in owner-routing gaps."
+      },
+      "shape": {
+        "slide": 2,
+        "text": "Caption: checkout latency risk is concentrated in owner-routing gaps.",
+        "x": 0.05,
+        "x_max": 0.64,
+        "y": 0.734,
+        "y_max": 0.8206666666666667
+      },
+      "tolerance": 0.03
+    },
+    "message": "Shape bbox is inside requested region",
+    "optional": false,
+    "points": 2.0,
+    "status": "pass",
+    "turn_id": "final"
+  },
+  {
+    "artifact": "run.outputs.final.result",
+    "check_id": "taska_final_action_owners_region",
+    "depends_on": [
+      "taska_final_handoff_texts"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 0.0,
+    "evaluator": "pptx_bbox_region",
+    "evidence": {
+      "region": {
+        "slide": 2,
+        "x_max": 0.98,
+        "x_min": 0.65,
+        "y_max": 0.56,
+        "y_min": 0.31
+      },
+      "selector": {
+        "slide": 2,
+        "text_contains": "Action owners"
+      },
+      "shape": {
+        "slide": 2,
+        "text": "\nAction owners\nSRE: Priya\nSupport: Marcus\nComms: Lina",
+        "x": 0.615,
+        "x_max": 0.855,
+        "y": 0.26,
+        "y_max": 0.42000000000000004
+      },
+      "tolerance": 0.03
+    },
+    "message": "Shape bbox is outside requested region",
+    "optional": false,
+    "points": 2.0,
+    "status": "fail",
+    "turn_id": "final"
+  },
+  {
+    "artifact": "run.outputs.final.result",
+    "check_id": "taska_final_risk_lower_right",
+    "depends_on": [
+      "taska_final_handoff_texts"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 2.0,
+    "evaluator": "pptx_bbox_region",
+    "evidence": {
+      "region": {
+        "slide": 2,
+        "x_max": 0.98,
+        "x_min": 0.64,
+        "y_max": 0.9,
+        "y_min": 0.6
+      },
+      "selector": {
+        "slide": 2,
+        "text_contains": "Hotspot: checkout latency"
+      },
+      "shape": {
+        "slide": 2,
+        "text": "Hotspot: checkout latency\nEscalation owner missing\nRoute rollback owner by Friday",
+        "x": 0.665,
+        "x_max": 0.9550000000000001,
+        "y": 0.6333333333333333,
+        "y_max": 0.8533333333333333
+      },
+      "tolerance": 0.03
+    },
+    "message": "Shape bbox is inside requested region",
+    "optional": false,
+    "points": 2.0,
+    "status": "pass",
+    "turn_id": "final"
+  },
+  {
+    "artifact": "run.outputs.final.result",
+    "check_id": "taska_final_trend_layout_preserved",
+    "depends_on": [
+      "taska_final_slide_count"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 3.0,
+    "evaluator": "pptx_preservation_diff",
+    "evidence": {
+      "candidate": "/home/top321902/code/snupi/cuif/output/runs/ralph_baseline/annotated_layout_repair_deck_20260504T125731Z/outputs/final/result.pptx",
+      "match": true,
+      "mismatches": [],
+      "reference": "/home/top321902/code/snupi/cuif/output/runs/ralph_baseline/annotated_layout_repair_deck_20260504T125731Z/outputs/turn1/result.pptx"
+    },
+    "message": "Protected content/layout preserved",
+    "optional": false,
+    "points": 3.0,
+    "status": "pass",
+    "turn_id": "final"
+  },
+  {
+    "artifact": "run.outputs.final.result",
+    "check_id": "taska_final_checkout_layout_preserved",
+    "depends_on": [
+      "taska_final_slide_count"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 2.0,
+    "evaluator": "pptx_preservation_diff",
+    "evidence": {
+      "candidate": "/home/top321902/code/snupi/cuif/output/runs/ralph_baseline/annotated_layout_repair_deck_20260504T125731Z/outputs/final/result.pptx",
+      "match": true,
+      "mismatches": [],
+      "reference": "/home/top321902/code/snupi/cuif/output/runs/ralph_baseline/annotated_layout_repair_deck_20260504T125731Z/outputs/turn1/result.pptx"
+    },
+    "message": "Protected content/layout preserved",
+    "optional": false,
+    "points": 2.0,
+    "status": "pass",
+    "turn_id": "final"
+  },
+  {
+    "artifact": "run.outputs.final.result",
+    "check_id": "taska_final_slide1_preserved",
+    "depends_on": [
+      "taska_final_slide_count"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 3.0,
+    "evaluator": "pptx_preservation_diff",
+    "evidence": {
+      "candidate": "/home/top321902/code/snupi/cuif/output/runs/ralph_baseline/annotated_layout_repair_deck_20260504T125731Z/outputs/final/result.pptx",
+      "match": true,
+      "mismatches": [],
+      "reference": "/home/top321902/code/snupi/cuif/output/runs/ralph_baseline/annotated_layout_repair_deck_20260504T125731Z/outputs/turn1/result.pptx"
+    },
+    "message": "Protected content/layout preserved",
+    "optional": false,
+    "points": 3.0,
+    "status": "pass",
+    "turn_id": "final"
+  },
+  {
+    "artifact": "run.outputs.final.result",
+    "check_id": "taska_final_slide3_preserved",
+    "depends_on": [
+      "taska_final_slide_count"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 3.0,
+    "evaluator": "pptx_preservation_diff",
+    "evidence": {
+      "candidate": "/home/top321902/code/snupi/cuif/output/runs/ralph_baseline/annotated_layout_repair_deck_20260504T125731Z/outputs/final/result.pptx",
+      "match": true,
+      "mismatches": [],
+      "reference": "/home/top321902/code/snupi/cuif/output/runs/ralph_baseline/annotated_layout_repair_deck_20260504T125731Z/outputs/turn1/result.pptx"
+    },
+    "message": "Protected content/layout preserved",
+    "optional": false,
+    "points": 3.0,
+    "status": "pass",
+    "turn_id": "final"
+  },
+  {
+    "artifact": "run.outputs.final.result",
+    "check_id": "taska_final_slide4_preserved",
+    "depends_on": [
+      "taska_final_slide_count"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 3.0,
+    "evaluator": "pptx_preservation_diff",
+    "evidence": {
+      "candidate": "/home/top321902/code/snupi/cuif/output/runs/ralph_baseline/annotated_layout_repair_deck_20260504T125731Z/outputs/final/result.pptx",
+      "match": true,
+      "mismatches": [],
+      "reference": "/home/top321902/code/snupi/cuif/output/runs/ralph_baseline/annotated_layout_repair_deck_20260504T125731Z/outputs/turn1/result.pptx"
+    },
+    "message": "Protected content/layout preserved",
+    "optional": false,
+    "points": 3.0,
+    "status": "pass",
+    "turn_id": "final"
+  },
+  {
+    "artifact": "run.outputs.final.result",
+    "check_id": "taska_optional_llm_repair_judge",
+    "depends_on": [],
+    "description": null,
+    "diagnostic": true,
+    "earned_points": 0.0,
+    "evaluator": "llm_text_rubric",
+    "evidence": {
+      "skip_judges": true
+    },
+    "message": "Judge checks skipped by configuration",
+    "optional": true,
+    "points": 0.0,
+    "status": "skipped",
+    "turn_id": "final"
+  },
+  {
+    "artifact": "run.outputs.final.result",
+    "check_id": "taska_optional_vlm_layout_judge",
+    "depends_on": [],
+    "description": null,
+    "diagnostic": true,
+    "earned_points": 0.0,
+    "evaluator": "vlm_layout_rubric",
+    "evidence": {
+      "skip_judges": true
+    },
+    "message": "Judge checks skipped by configuration",
+    "optional": true,
+    "points": 0.0,
+    "status": "skipped",
+    "turn_id": "final"
+  }
+]

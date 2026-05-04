@@ -1,0 +1,6 @@
+$ uv run cuif-eval run --task poc/tasks/annotated_layout_repair_deck --adapter mock --out output/runs/ralph_annotated_layout_repair_deck_judge_public --judge-base-url http://127.0.0.1:10561/v1 --judge-model gpt-5.4 --judge-image-url-base https://shiny-pigs-help.loca.lt --refresh-judge-cache
+Run directory: /home/top321902/code/snupi/cuif/output/runs/ralph_annotated_layout_repair_deck_judge_public
+Adapter status: succeeded
+Final score: 57.00/57.00 (100.0%)
+
+exit_code=0

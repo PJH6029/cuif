@@ -1,0 +1,1031 @@
+[
+  {
+    "artifact": "run.outputs.turn1.result",
+    "check_id": "metro_t1_file_exists",
+    "depends_on": [],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 1.0,
+    "evaluator": "file_exists",
+    "evidence": {
+      "exists": true,
+      "path": "/home/top321902/code/snupi/cuif/output/runs/ralph_public_template_compliance_deck_judge_public/outputs/turn1/result.pptx"
+    },
+    "message": "File exists: /home/top321902/code/snupi/cuif/output/runs/ralph_public_template_compliance_deck_judge_public/outputs/turn1/result.pptx",
+    "optional": false,
+    "points": 1.0,
+    "status": "pass",
+    "turn_id": "turn1"
+  },
+  {
+    "artifact": "run.outputs.turn1.result",
+    "check_id": "metro_t1_slide_count",
+    "depends_on": [
+      "metro_t1_file_exists"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 1.0,
+    "evaluator": "pptx_slide_count",
+    "evidence": {
+      "actual": 2,
+      "expected": 2,
+      "path": "/home/top321902/code/snupi/cuif/output/runs/ralph_public_template_compliance_deck_judge_public/outputs/turn1/result.pptx"
+    },
+    "message": "Slide count 2 matched expected 2",
+    "optional": false,
+    "points": 1.0,
+    "status": "pass",
+    "turn_id": "turn1"
+  },
+  {
+    "artifact": "run.outputs.turn1.result",
+    "check_id": "metro_t1_required_texts",
+    "depends_on": [
+      "metro_t1_file_exists"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 5.0,
+    "evaluator": "pptx_text_contains",
+    "evidence": {
+      "missing_texts": [],
+      "path": "/home/top321902/code/snupi/cuif/output/runs/ralph_public_template_compliance_deck_judge_public/outputs/turn1/result.pptx",
+      "required_texts": [
+        "Metro Civic Grants: FY26 Oversight",
+        "PROGRAM STATUS BRIEFING",
+        "Program health",
+        "Funding status",
+        "Timeline",
+        "Risk watch",
+        "Council checkpoint",
+        "COMPLIANCE MONITORING",
+        "Compliance table",
+        "Reporting",
+        "Procurement",
+        "Equity review",
+        "Protected legal notice: FY26 allocations remain preliminary until council adoption.",
+        "Do not edit: Metro Civic audit trail invariant."
+      ]
+    },
+    "message": "All required PPTX text was present",
+    "optional": false,
+    "points": 5.0,
+    "status": "pass",
+    "turn_id": "turn1"
+  },
+  {
+    "artifact": "run.outputs.turn1.result",
+    "check_id": "metro_t1_seal_match_slide1",
+    "depends_on": [
+      "metro_t1_file_exists"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 3.0,
+    "evaluator": "pptx_image_match",
+    "evidence": {
+      "best_image": {
+        "bbox": {
+          "x": 0.02700000221456711,
+          "x_max": 0.060000004921260244,
+          "y": 0.013333333333333334,
+          "y_max": 0.072
+        },
+        "content_type": "image/png",
+        "sha256": "0858e030cabe5de8554c99dbce4bc2711264caf07ea5f2274cbfd62a3fea8149",
+        "shape_name": "Picture 2",
+        "slide": 1
+      },
+      "best_similarity": 1.0,
+      "candidate_count": 1,
+      "failures": [],
+      "min_similarity": 0.98,
+      "region": {
+        "slide": 1,
+        "x_max": 0.07,
+        "x_min": 0.02,
+        "y_max": 0.09,
+        "y_min": 0.0
+      },
+      "selector": {
+        "slide": 1
+      },
+      "source": "/home/top321902/code/snupi/cuif/output/runs/ralph_public_template_compliance_deck_judge_public/task/artifacts/inputs/metro_civic_seal.png",
+      "tolerance": 0.01
+    },
+    "message": "Image match check passed",
+    "optional": false,
+    "points": 3.0,
+    "status": "pass",
+    "turn_id": "turn1"
+  },
+  {
+    "artifact": "run.outputs.turn1.result",
+    "check_id": "metro_t1_title_region",
+    "depends_on": [
+      "metro_t1_required_texts"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 2.0,
+    "evaluator": "pptx_bbox_region",
+    "evidence": {
+      "region": {
+        "slide": 1,
+        "x_max": 0.68,
+        "x_min": 0.06,
+        "y_max": 0.08,
+        "y_min": 0.0
+      },
+      "selector": {
+        "slide": 1,
+        "text_contains": "Metro Civic Grants: FY26 Oversight"
+      },
+      "shape": {
+        "slide": 1,
+        "text": "Metro Civic Grants: FY26 Oversight",
+        "x": 0.07050000578248079,
+        "x_max": 0.6330000519192956,
+        "y": 0.018666666666666668,
+        "y_max": 0.064
+      },
+      "tolerance": 0.02
+    },
+    "message": "Shape bbox is inside requested region",
+    "optional": false,
+    "points": 2.0,
+    "status": "pass",
+    "turn_id": "turn1"
+  },
+  {
+    "artifact": "run.outputs.turn1.result",
+    "check_id": "metro_t1_section_band_region",
+    "depends_on": [
+      "metro_t1_required_texts"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 2.0,
+    "evaluator": "pptx_bbox_region",
+    "evidence": {
+      "region": {
+        "slide": 1,
+        "x_max": 0.96,
+        "x_min": 0.03,
+        "y_max": 0.18,
+        "y_min": 0.1
+      },
+      "selector": {
+        "slide": 1,
+        "text_contains": "PROGRAM STATUS BRIEFING"
+      },
+      "shape": {
+        "slide": 1,
+        "text": "PROGRAM STATUS BRIEFING",
+        "x": 0.0480000039370082,
+        "x_max": 0.5055000414616175,
+        "y": 0.13066666666666665,
+        "y_max": 0.15466666666666665
+      },
+      "tolerance": 0.02
+    },
+    "message": "Shape bbox is inside requested region",
+    "optional": false,
+    "points": 2.0,
+    "status": "pass",
+    "turn_id": "turn1"
+  },
+  {
+    "artifact": "run.outputs.turn1.result",
+    "check_id": "metro_t1_program_card_region",
+    "depends_on": [
+      "metro_t1_required_texts"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 2.0,
+    "evaluator": "pptx_bbox_region",
+    "evidence": {
+      "region": {
+        "slide": 1,
+        "x_max": 0.33,
+        "x_min": 0.04,
+        "y_max": 0.31,
+        "y_min": 0.2
+      },
+      "selector": {
+        "slide": 1,
+        "text_contains": "Program health"
+      },
+      "shape": {
+        "slide": 1,
+        "text": "Program health",
+        "x": 0.06600000541338627,
+        "x_max": 0.28350002325295465,
+        "y": 0.23466666666666666,
+        "y_max": 0.26666666666666666
+      },
+      "tolerance": 0.03
+    },
+    "message": "Shape bbox is inside requested region",
+    "optional": false,
+    "points": 2.0,
+    "status": "pass",
+    "turn_id": "turn1"
+  },
+  {
+    "artifact": "run.outputs.turn1.result",
+    "check_id": "metro_t1_funding_card_region",
+    "depends_on": [
+      "metro_t1_required_texts"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 2.0,
+    "evaluator": "pptx_bbox_region",
+    "evidence": {
+      "region": {
+        "slide": 1,
+        "x_max": 0.64,
+        "x_min": 0.35,
+        "y_max": 0.31,
+        "y_min": 0.2
+      },
+      "selector": {
+        "slide": 1,
+        "text_contains": "Funding status"
+      },
+      "shape": {
+        "slide": 1,
+        "text": "Funding status",
+        "x": 0.38550003161909707,
+        "x_max": 0.6030000494586655,
+        "y": 0.23466666666666666,
+        "y_max": 0.26666666666666666
+      },
+      "tolerance": 0.03
+    },
+    "message": "Shape bbox is inside requested region",
+    "optional": false,
+    "points": 2.0,
+    "status": "pass",
+    "turn_id": "turn1"
+  },
+  {
+    "artifact": "run.outputs.turn1.result",
+    "check_id": "metro_t1_timeline_card_region",
+    "depends_on": [
+      "metro_t1_required_texts"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 2.0,
+    "evaluator": "pptx_bbox_region",
+    "evidence": {
+      "region": {
+        "slide": 1,
+        "x_max": 0.95,
+        "x_min": 0.66,
+        "y_max": 0.31,
+        "y_min": 0.2
+      },
+      "selector": {
+        "slide": 1,
+        "text_contains": "Timeline"
+      },
+      "shape": {
+        "slide": 1,
+        "text": "Timeline",
+        "x": 0.7049999758038038,
+        "x_max": 0.9224999936433722,
+        "y": 0.23466666666666666,
+        "y_max": 0.26666666666666666
+      },
+      "tolerance": 0.03
+    },
+    "message": "Shape bbox is inside requested region",
+    "optional": false,
+    "points": 2.0,
+    "status": "pass",
+    "turn_id": "turn1"
+  },
+  {
+    "artifact": "run.outputs.turn1.result",
+    "check_id": "metro_t1_compliance_table_region",
+    "depends_on": [
+      "metro_t1_required_texts"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 2.0,
+    "evaluator": "pptx_bbox_region",
+    "evidence": {
+      "region": {
+        "slide": 2,
+        "x_max": 0.32,
+        "x_min": 0.04,
+        "y_max": 0.32,
+        "y_min": 0.2
+      },
+      "selector": {
+        "slide": 2,
+        "text_contains": "Compliance table"
+      },
+      "shape": {
+        "slide": 2,
+        "text": "Compliance table",
+        "x": 0.06900000565944929,
+        "x_max": 0.2415000198080725,
+        "y": 0.22666666666666666,
+        "y_max": 0.25866666666666666
+      },
+      "tolerance": 0.03
+    },
+    "message": "Shape bbox is inside requested region",
+    "optional": false,
+    "points": 2.0,
+    "status": "pass",
+    "turn_id": "turn1"
+  },
+  {
+    "artifact": "run.outputs.turn1.result",
+    "check_id": "metro_t1_title_style",
+    "depends_on": [
+      "metro_t1_required_texts"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 3.0,
+    "evaluator": "pptx_style_check",
+    "evidence": {
+      "actual": {
+        "bold": [
+          true
+        ],
+        "font_color": [
+          "#FFFFFF"
+        ],
+        "font_size_pt": [
+          22.0
+        ]
+      },
+      "failures": [],
+      "selector": {
+        "slide": 1,
+        "text_contains": "Metro Civic Grants: FY26 Oversight"
+      }
+    },
+    "message": "Style check passed",
+    "optional": false,
+    "points": 3.0,
+    "status": "pass",
+    "turn_id": "turn1"
+  },
+  {
+    "artifact": "run.outputs.turn1.result",
+    "check_id": "metro_t1_footer_style",
+    "depends_on": [
+      "metro_t1_required_texts"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 2.0,
+    "evaluator": "pptx_style_check",
+    "evidence": {
+      "actual": {
+        "bold": [
+          true
+        ],
+        "font_color": [
+          "#FFFFFF"
+        ],
+        "font_size_pt": [
+          9.0
+        ]
+      },
+      "failures": [],
+      "selector": {
+        "slide": 1,
+        "text_contains": "PUBLIC TEMPLATE"
+      }
+    },
+    "message": "Style check passed",
+    "optional": false,
+    "points": 2.0,
+    "status": "pass",
+    "turn_id": "turn1"
+  },
+  {
+    "artifact": "run.outputs.turn1.result",
+    "check_id": "metro_t1_legal_notice_preserved",
+    "depends_on": [
+      "metro_t1_slide_count"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 3.0,
+    "evaluator": "pptx_preservation_diff",
+    "evidence": {
+      "candidate": "/home/top321902/code/snupi/cuif/output/runs/ralph_public_template_compliance_deck_judge_public/outputs/turn1/result.pptx",
+      "match": true,
+      "mismatches": [],
+      "reference": "/home/top321902/code/snupi/cuif/output/runs/ralph_public_template_compliance_deck_judge_public/task/artifacts/seed.pptx"
+    },
+    "message": "Protected content/layout preserved",
+    "optional": false,
+    "points": 3.0,
+    "status": "pass",
+    "turn_id": "turn1"
+  },
+  {
+    "artifact": "run.outputs.turn1.result",
+    "check_id": "metro_t1_audit_notice_preserved",
+    "depends_on": [
+      "metro_t1_slide_count"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 3.0,
+    "evaluator": "pptx_preservation_diff",
+    "evidence": {
+      "candidate": "/home/top321902/code/snupi/cuif/output/runs/ralph_public_template_compliance_deck_judge_public/outputs/turn1/result.pptx",
+      "match": true,
+      "mismatches": [],
+      "reference": "/home/top321902/code/snupi/cuif/output/runs/ralph_public_template_compliance_deck_judge_public/task/artifacts/seed.pptx"
+    },
+    "message": "Protected content/layout preserved",
+    "optional": false,
+    "points": 3.0,
+    "status": "pass",
+    "turn_id": "turn1"
+  },
+  {
+    "artifact": "run.outputs.turn1.result",
+    "check_id": "metro_t1_rendered_review",
+    "depends_on": [],
+    "description": null,
+    "diagnostic": true,
+    "earned_points": 0.0,
+    "evaluator": "rendered_layout_review",
+    "evidence": {
+      "html": "/home/top321902/code/snupi/cuif/output/runs/ralph_public_template_compliance_deck_judge_public/previews/scoring_turn1_metro_t1_rendered_review/summary.html",
+      "images": [
+        "/home/top321902/code/snupi/cuif/output/runs/ralph_public_template_compliance_deck_judge_public/previews/scoring_turn1_metro_t1_rendered_review/slide-1.png",
+        "/home/top321902/code/snupi/cuif/output/runs/ralph_public_template_compliance_deck_judge_public/previews/scoring_turn1_metro_t1_rendered_review/slide-2.png"
+      ],
+      "libreoffice_profile": "isolated_temp",
+      "page_renderer": "/usr/bin/pdftoppm",
+      "pdftoppm_stderr": "",
+      "pdftoppm_stdout": "",
+      "renderer": "/usr/bin/soffice",
+      "status": "rendered",
+      "stderr": "",
+      "stdout": "convert /home/top321902/code/snupi/cuif/output/runs/ralph_public_template_compliance_deck_judge_public/outputs/turn1/result.pptx as a Impress document -> /home/top321902/code/snupi/cuif/output/runs/ralph_public_template_compliance_deck_judge_public/previews/scoring_turn1_metro_t1_rendered_review/result.pdf using filter : impress_pdf_Export\n",
+      "summary": "/home/top321902/code/snupi/cuif/output/runs/ralph_public_template_compliance_deck_judge_public/previews/scoring_turn1_metro_t1_rendered_review/summary.json"
+    },
+    "message": "Rendered preview generated for layout review",
+    "optional": true,
+    "points": 0.0,
+    "status": "pass",
+    "turn_id": "turn1"
+  },
+  {
+    "artifact": "run.outputs.final.result",
+    "check_id": "metro_final_file_exists",
+    "depends_on": [],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 1.0,
+    "evaluator": "file_exists",
+    "evidence": {
+      "exists": true,
+      "path": "/home/top321902/code/snupi/cuif/output/runs/ralph_public_template_compliance_deck_judge_public/outputs/final/result.pptx"
+    },
+    "message": "File exists: /home/top321902/code/snupi/cuif/output/runs/ralph_public_template_compliance_deck_judge_public/outputs/final/result.pptx",
+    "optional": false,
+    "points": 1.0,
+    "status": "pass",
+    "turn_id": "final"
+  },
+  {
+    "artifact": "run.outputs.final.result",
+    "check_id": "metro_final_slide_count",
+    "depends_on": [
+      "metro_final_file_exists"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 1.0,
+    "evaluator": "pptx_slide_count",
+    "evidence": {
+      "actual": 2,
+      "expected": 2,
+      "path": "/home/top321902/code/snupi/cuif/output/runs/ralph_public_template_compliance_deck_judge_public/outputs/final/result.pptx"
+    },
+    "message": "Slide count 2 matched expected 2",
+    "optional": false,
+    "points": 1.0,
+    "status": "pass",
+    "turn_id": "final"
+  },
+  {
+    "artifact": "run.outputs.final.result",
+    "check_id": "metro_final_required_texts",
+    "depends_on": [
+      "metro_final_file_exists"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 5.0,
+    "evaluator": "pptx_text_contains",
+    "evidence": {
+      "missing_texts": [],
+      "path": "/home/top321902/code/snupi/cuif/output/runs/ralph_public_template_compliance_deck_judge_public/outputs/final/result.pptx",
+      "required_texts": [
+        "Metro Civic Grants: FY26 Oversight",
+        "Program health",
+        "Funding status",
+        "Timeline",
+        "Oversight callout: add procurement review checkpoint by May 24.",
+        "COMPLIANCE MONITORING",
+        "Compliance table",
+        "Reporting",
+        "Procurement",
+        "Equity review",
+        "Protected legal notice: FY26 allocations remain preliminary until council adoption.",
+        "Do not edit: Metro Civic audit trail invariant."
+      ]
+    },
+    "message": "All required PPTX text was present",
+    "optional": false,
+    "points": 5.0,
+    "status": "pass",
+    "turn_id": "final"
+  },
+  {
+    "artifact": "run.outputs.final.result",
+    "check_id": "metro_final_title_style",
+    "depends_on": [
+      "metro_final_required_texts"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 4.0,
+    "evaluator": "pptx_style_check",
+    "evidence": {
+      "actual": {
+        "bold": [
+          true
+        ],
+        "font_color": [
+          "#F5C542"
+        ],
+        "font_size_pt": [
+          24.0
+        ]
+      },
+      "failures": [],
+      "selector": {
+        "slide": 1,
+        "text_contains": "Metro Civic Grants: FY26 Oversight"
+      }
+    },
+    "message": "Style check passed",
+    "optional": false,
+    "points": 4.0,
+    "status": "pass",
+    "turn_id": "final"
+  },
+  {
+    "artifact": "run.outputs.final.result",
+    "check_id": "metro_final_section_header_style",
+    "depends_on": [
+      "metro_final_required_texts"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 3.0,
+    "evaluator": "pptx_style_check",
+    "evidence": {
+      "actual": {
+        "bold": [
+          true
+        ],
+        "font_color": [
+          "#F5C542"
+        ],
+        "font_size_pt": [
+          13.0
+        ]
+      },
+      "failures": [],
+      "selector": {
+        "slide": 2,
+        "text_contains": "COMPLIANCE MONITORING"
+      }
+    },
+    "message": "Style check passed",
+    "optional": false,
+    "points": 3.0,
+    "status": "pass",
+    "turn_id": "final"
+  },
+  {
+    "artifact": "run.outputs.final.result",
+    "check_id": "metro_final_callout_region",
+    "depends_on": [
+      "metro_final_required_texts"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 3.0,
+    "evaluator": "pptx_bbox_region",
+    "evidence": {
+      "region": {
+        "slide": 1,
+        "x_max": 0.96,
+        "x_min": 0.6,
+        "y_max": 0.88,
+        "y_min": 0.72
+      },
+      "selector": {
+        "slide": 1,
+        "text_contains": "Oversight callout"
+      },
+      "shape": {
+        "slide": 1,
+        "text": "Oversight callout: add procurement review checkpoint by May 24.",
+        "x": 0.6269999694061654,
+        "x_max": 0.9104999926591201,
+        "y": 0.776,
+        "y_max": 0.8133333333333334
+      },
+      "tolerance": 0.03
+    },
+    "message": "Shape bbox is inside requested region",
+    "optional": false,
+    "points": 3.0,
+    "status": "pass",
+    "turn_id": "final"
+  },
+  {
+    "artifact": "run.outputs.final.result",
+    "check_id": "metro_final_seal_match_slide1",
+    "depends_on": [
+      "metro_final_file_exists"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 2.0,
+    "evaluator": "pptx_image_match",
+    "evidence": {
+      "best_image": {
+        "bbox": {
+          "x": 0.02700000221456711,
+          "x_max": 0.060000004921260244,
+          "y": 0.013333333333333334,
+          "y_max": 0.072
+        },
+        "content_type": "image/png",
+        "sha256": "0858e030cabe5de8554c99dbce4bc2711264caf07ea5f2274cbfd62a3fea8149",
+        "shape_name": "Picture 2",
+        "slide": 1
+      },
+      "best_similarity": 1.0,
+      "candidate_count": 1,
+      "failures": [],
+      "min_similarity": 0.98,
+      "region": {
+        "slide": 1,
+        "x_max": 0.07,
+        "x_min": 0.02,
+        "y_max": 0.09,
+        "y_min": 0.0
+      },
+      "selector": {
+        "slide": 1
+      },
+      "source": "/home/top321902/code/snupi/cuif/output/runs/ralph_public_template_compliance_deck_judge_public/task/artifacts/inputs/metro_civic_seal.png",
+      "tolerance": 0.01
+    },
+    "message": "Image match check passed",
+    "optional": false,
+    "points": 2.0,
+    "status": "pass",
+    "turn_id": "final"
+  },
+  {
+    "artifact": "run.outputs.final.result",
+    "check_id": "metro_final_footer_style",
+    "depends_on": [
+      "metro_final_required_texts"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 3.0,
+    "evaluator": "pptx_style_check",
+    "evidence": {
+      "actual": {
+        "bold": [
+          true
+        ],
+        "font_color": [
+          "#FFFFFF"
+        ],
+        "font_size_pt": [
+          9.0
+        ]
+      },
+      "failures": [],
+      "selector": {
+        "slide": 1,
+        "text_contains": "PUBLIC TEMPLATE"
+      }
+    },
+    "message": "Style check passed",
+    "optional": false,
+    "points": 3.0,
+    "status": "pass",
+    "turn_id": "final"
+  },
+  {
+    "artifact": "run.outputs.final.result",
+    "check_id": "metro_final_program_card_layout_preserved",
+    "depends_on": [
+      "metro_final_slide_count"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 2.0,
+    "evaluator": "pptx_preservation_diff",
+    "evidence": {
+      "candidate": "/home/top321902/code/snupi/cuif/output/runs/ralph_public_template_compliance_deck_judge_public/outputs/final/result.pptx",
+      "match": true,
+      "mismatches": [],
+      "reference": "/home/top321902/code/snupi/cuif/output/runs/ralph_public_template_compliance_deck_judge_public/outputs/turn1/result.pptx"
+    },
+    "message": "Protected content/layout preserved",
+    "optional": false,
+    "points": 2.0,
+    "status": "pass",
+    "turn_id": "final"
+  },
+  {
+    "artifact": "run.outputs.final.result",
+    "check_id": "metro_final_funding_card_layout_preserved",
+    "depends_on": [
+      "metro_final_slide_count"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 2.0,
+    "evaluator": "pptx_preservation_diff",
+    "evidence": {
+      "candidate": "/home/top321902/code/snupi/cuif/output/runs/ralph_public_template_compliance_deck_judge_public/outputs/final/result.pptx",
+      "match": true,
+      "mismatches": [],
+      "reference": "/home/top321902/code/snupi/cuif/output/runs/ralph_public_template_compliance_deck_judge_public/outputs/turn1/result.pptx"
+    },
+    "message": "Protected content/layout preserved",
+    "optional": false,
+    "points": 2.0,
+    "status": "pass",
+    "turn_id": "final"
+  },
+  {
+    "artifact": "run.outputs.final.result",
+    "check_id": "metro_final_timeline_card_layout_preserved",
+    "depends_on": [
+      "metro_final_slide_count"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 2.0,
+    "evaluator": "pptx_preservation_diff",
+    "evidence": {
+      "candidate": "/home/top321902/code/snupi/cuif/output/runs/ralph_public_template_compliance_deck_judge_public/outputs/final/result.pptx",
+      "match": true,
+      "mismatches": [],
+      "reference": "/home/top321902/code/snupi/cuif/output/runs/ralph_public_template_compliance_deck_judge_public/outputs/turn1/result.pptx"
+    },
+    "message": "Protected content/layout preserved",
+    "optional": false,
+    "points": 2.0,
+    "status": "pass",
+    "turn_id": "final"
+  },
+  {
+    "artifact": "run.outputs.final.result",
+    "check_id": "metro_final_slide1_footer_layout_preserved",
+    "depends_on": [
+      "metro_final_slide_count"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 2.0,
+    "evaluator": "pptx_preservation_diff",
+    "evidence": {
+      "candidate": "/home/top321902/code/snupi/cuif/output/runs/ralph_public_template_compliance_deck_judge_public/outputs/final/result.pptx",
+      "match": true,
+      "mismatches": [],
+      "reference": "/home/top321902/code/snupi/cuif/output/runs/ralph_public_template_compliance_deck_judge_public/outputs/turn1/result.pptx"
+    },
+    "message": "Protected content/layout preserved",
+    "optional": false,
+    "points": 2.0,
+    "status": "pass",
+    "turn_id": "final"
+  },
+  {
+    "artifact": "run.outputs.final.result",
+    "check_id": "metro_final_slide2_preserved",
+    "depends_on": [
+      "metro_final_slide_count"
+    ],
+    "description": null,
+    "diagnostic": false,
+    "earned_points": 3.0,
+    "evaluator": "pptx_preservation_diff",
+    "evidence": {
+      "candidate": "/home/top321902/code/snupi/cuif/output/runs/ralph_public_template_compliance_deck_judge_public/outputs/final/result.pptx",
+      "match": true,
+      "mismatches": [],
+      "reference": "/home/top321902/code/snupi/cuif/output/runs/ralph_public_template_compliance_deck_judge_public/outputs/turn1/result.pptx"
+    },
+    "message": "Protected content/layout preserved",
+    "optional": false,
+    "points": 3.0,
+    "status": "pass",
+    "turn_id": "final"
+  },
+  {
+    "artifact": "run.outputs.final.result",
+    "check_id": "metro_final_optional_vlm_template_judge",
+    "depends_on": [],
+    "description": null,
+    "diagnostic": true,
+    "earned_points": 0.0,
+    "evaluator": "vlm_layout_rubric",
+    "evidence": {
+      "artifact_summary": {
+        "chart_count": 0,
+        "image_count": 2,
+        "images": [
+          {
+            "bbox": {
+              "x": 0.02700000221456711,
+              "x_max": 0.060000004921260244,
+              "y": 0.013333333333333334,
+              "y_max": 0.072
+            },
+            "content_type": "image/png",
+            "sha256": "0858e030cabe5de8554c99dbce4bc2711264caf07ea5f2274cbfd62a3fea8149",
+            "shape_name": "Picture 2",
+            "slide": 1
+          },
+          {
+            "bbox": {
+              "x": 0.02700000221456711,
+              "x_max": 0.060000004921260244,
+              "y": 0.013333333333333334,
+              "y_max": 0.072
+            },
+            "content_type": "image/png",
+            "sha256": "0858e030cabe5de8554c99dbce4bc2711264caf07ea5f2274cbfd62a3fea8149",
+            "shape_name": "Picture 2",
+            "slide": 2
+          }
+        ],
+        "path": "/home/top321902/code/snupi/cuif/output/runs/ralph_public_template_compliance_deck_judge_public/outputs/final/result.pptx",
+        "shape_count": 62,
+        "slide_count": 2,
+        "slides": [
+          {
+            "slide": 1,
+            "text": [
+              "Metro Civic Grants: FY26 Oversight",
+              "METRO CIVIC GRANTS OFFICE",
+              "PUBLIC TEMPLATE \u2022 Metro Civic Grants Office \u2022 Confidential draft",
+              "Template margin: 0.42 in minimum",
+              "PROGRAM STATUS BRIEFING",
+              "Program health",
+              "On track: 14 active grants 2 require technical assistance",
+              "Funding status",
+              "$42.8M obligated 91% reporting complete",
+              "Timeline",
+              "Council packet due May 24 Award letters by June 7",
+              "Risk watch",
+              "Procurement timing is the main exposure. Mitigation: publish pre-award checklist and hold weekly review.",
+              "Council checkpoint",
+              "Decision memo \u2022 Finance sign-off \u2022 District appendix",
+              "Template rule: cards align to 0.42 in grid and stay clear of protected notices.",
+              "Oversight callout: add procurement review checkpoint by May 24.",
+              "Protected legal notice: FY26 allocations remain preliminary until council adoption."
+            ]
+          },
+          {
+            "slide": 2,
+            "text": [
+              "Metro Civic Grants: FY26 Oversight",
+              "METRO CIVIC GRANTS OFFICE",
+              "PUBLIC TEMPLATE \u2022 Metro Civic Grants Office \u2022 Confidential draft",
+              "Template margin: 0.42 in minimum",
+              "COMPLIANCE MONITORING",
+              "Compliance table",
+              "Area",
+              "Status",
+              "Owner",
+              "Next step",
+              "Reporting",
+              "Green",
+              "M. Chen",
+              "Publish dashboard",
+              "Procurement",
+              "Amber",
+              "R. Alvarez",
+              "Review checklist",
+              "Equity review",
+              "Green",
+              "T. Malik",
+              "Archive scorecards",
+              "Template note",
+              "Keep headers in teal, body text Aptos 10.5 pt, and table inside the grid.",
+              "Protected footer region",
+              "Footer and audit sentinel must not move into slide content.",
+              "Do not edit: Metro Civic audit trail invariant."
+            ]
+          }
+        ]
+      },
+      "cache": {
+        "hit": false,
+        "key": "4355abe39dcb3d70f6c28bdf78529c96d00958a928612b5f5210490bb69594ae",
+        "path": "/home/top321902/code/snupi/cuif/output/runs/ralph_public_template_compliance_deck_judge_public/judge_cache/4355abe39dcb3d70f6c28bdf78529c96d00958a928612b5f5210490bb69594ae.json"
+      },
+      "parsed": {
+        "pass": true,
+        "rationale": "Both slides appear compliant with the public template. Navy header/footer are present on both slides, the embedded seal appears in the top-left on both, and protected notice/footer regions are visibly preserved. Slide 1 keeps the teal section band with white label, uses aligned card layout within margins, and places the oversight callout in the lower-right approved callout zone. Slide 2 keeps the teal section band and intentionally restyles the COMPLIANCE MONITORING label to gold as requested. Table and content are aligned to the grid and do not overlap protected regions. No off-template layout, missing seal, missing protected regions, overlap, or arbitrary styling contradiction is evident. Minor deduction only because exact 0.42-inch measurement cannot be strictly verified from the rendered summary alone, though it appears visually respected.",
+        "score": 97.0
+      },
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": null,
+            "index": 0,
+            "message": {
+              "content": "{\"pass\":true,\"score\":97,\"rationale\":\"Both slides appear compliant with the public template. Navy header/footer are present on both slides, the embedded seal appears in the top-left on both, and protected notice/footer regions are visibly preserved. Slide 1 keeps the teal section band with white label, uses aligned card layout within margins, and places the oversight callout in the lower-right approved callout zone. Slide 2 keeps the teal section band and intentionally restyles the COMPLIANCE MONITORING label to gold as requested. Table and content are aligned to the grid and do not overlap protected regions. No off-template layout, missing seal, missing protected regions, overlap, or arbitrary styling contradiction is evident. Minor deduction only because exact 0.42-inch measurement cannot be strictly verified from the rendered summary alone, though it appears visually respected.\"}",
+              "role": "assistant"
+            }
+          }
+        ],
+        "created": 1777899360,
+        "id": "chatcmpl_60710c38-99a6-4e16-923e-0b917ab9bde0",
+        "model": "gpt-5.4",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 0,
+          "prompt_tokens": 0,
+          "total_tokens": 0
+        }
+      },
+      "rendered_preview": {
+        "html": "/home/top321902/code/snupi/cuif/output/runs/ralph_public_template_compliance_deck_judge_public/previews/judge_final_metro_final_optional_vlm_template_judge/summary.html",
+        "images": [
+          "/home/top321902/code/snupi/cuif/output/runs/ralph_public_template_compliance_deck_judge_public/previews/judge_final_metro_final_optional_vlm_template_judge/slide-1.png",
+          "/home/top321902/code/snupi/cuif/output/runs/ralph_public_template_compliance_deck_judge_public/previews/judge_final_metro_final_optional_vlm_template_judge/slide-2.png"
+        ],
+        "libreoffice_profile": "isolated_temp",
+        "page_renderer": "/usr/bin/pdftoppm",
+        "pdftoppm_stderr": "",
+        "pdftoppm_stdout": "",
+        "renderer": "/usr/bin/soffice",
+        "status": "rendered",
+        "stderr": "",
+        "stdout": "convert /home/top321902/code/snupi/cuif/output/runs/ralph_public_template_compliance_deck_judge_public/outputs/final/result.pptx as a Impress document -> /home/top321902/code/snupi/cuif/output/runs/ralph_public_template_compliance_deck_judge_public/previews/judge_final_metro_final_optional_vlm_template_judge/result.pdf using filter : impress_pdf_Export\n",
+        "summary": "/home/top321902/code/snupi/cuif/output/runs/ralph_public_template_compliance_deck_judge_public/previews/judge_final_metro_final_optional_vlm_template_judge/summary.json"
+      },
+      "request": {
+        "artifact_paths": [
+          "/home/top321902/code/snupi/cuif/output/runs/ralph_public_template_compliance_deck_judge_public/outputs/final/result.pptx"
+        ],
+        "endpoint": "/chat/completions",
+        "image_count": 2,
+        "image_paths": [
+          "/home/top321902/code/snupi/cuif/output/runs/ralph_public_template_compliance_deck_judge_public/previews/judge_final_metro_final_optional_vlm_template_judge/slide-1.png",
+          "/home/top321902/code/snupi/cuif/output/runs/ralph_public_template_compliance_deck_judge_public/previews/judge_final_metro_final_optional_vlm_template_judge/slide-2.png"
+        ],
+        "image_urls": [
+          "https://vast-ways-wink.loca.lt/previews/judge_final_metro_final_optional_vlm_template_judge/slide-1.png",
+          "https://vast-ways-wink.loca.lt/previews/judge_final_metro_final_optional_vlm_template_judge/slide-2.png"
+        ],
+        "model": "gpt-5.4"
+      }
+    },
+    "message": "Both slides appear compliant with the public template. Navy header/footer are present on both slides, the embedded seal appears in the top-left on both, and protected notice/footer regions are visibly preserved. Slide 1 keeps the teal section band with white label, uses aligned card layout within margins, and places the oversight callout in the lower-right approved callout zone. Slide 2 keeps the teal section band and intentionally restyles the COMPLIANCE MONITORING label to gold as requested. Table and content are aligned to the grid and do not overlap protected regions. No off-template layout, missing seal, missing protected regions, overlap, or arbitrary styling contradiction is evident. Minor deduction only because exact 0.42-inch measurement cannot be strictly verified from the rendered summary alone, though it appears visually respected.",
+    "optional": true,
+    "points": 0.0,
+    "status": "pass",
+    "turn_id": "final"
+  }
+]

@@ -1,0 +1,78 @@
+=== hook stop fresh verification ===
+2026-05-04T13:19:38Z
+=== git diff --check ===
+=== validate annotated_layout_repair_deck ===
+OK: annotated_layout_repair_deck (2 turns)
+=== point-distribution annotated_layout_repair_deck ===
+Task: annotated_layout_repair_deck
+Thesis-heavy share: 45.00/53.00 (84.9%)
+Threshold: 60.0%; meets threshold: True
+Excluded points: 4.00 (boilerplate + diagnostic previews)
+Buckets:
+- boilerplate: 4.00
+- content_source: 8.00
+- diagnostic: 0.00
+- layout_template_style: 22.00
+- preservation_regression: 23.00
+Evaluators:
+- file_exists: 2.00
+- llm_text_rubric: 0.00
+- pptx_bbox_region: 18.00
+- pptx_preservation_diff: 23.00
+- pptx_slide_count: 2.00
+- pptx_style_check: 4.00
+- pptx_text_contains: 8.00
+- rendered_layout_review: 0.00
+- vlm_layout_rubric: 0.00
+=== validate public_template_compliance_deck ===
+OK: public_template_compliance_deck (2 turns)
+=== point-distribution public_template_compliance_deck ===
+Task: public_template_compliance_deck
+Thesis-heavy share: 52.00/62.00 (83.9%)
+Threshold: 60.0%; meets threshold: True
+Excluded points: 4.00 (boilerplate + diagnostic previews)
+Buckets:
+- boilerplate: 4.00
+- content_source: 10.00
+- diagnostic: 0.00
+- layout_template_style: 35.00
+- preservation_regression: 17.00
+Evaluators:
+- file_exists: 2.00
+- pptx_bbox_region: 15.00
+- pptx_image_match: 5.00
+- pptx_preservation_diff: 17.00
+- pptx_slide_count: 2.00
+- pptx_style_check: 15.00
+- pptx_text_contains: 10.00
+- rendered_layout_review: 0.00
+- vlm_layout_rubric: 0.00
+=== validate native_chart_style_deck ===
+OK: native_chart_style_deck (2 turns)
+=== point-distribution native_chart_style_deck ===
+Task: native_chart_style_deck
+Thesis-heavy share: 48.00/67.00 (71.6%)
+Threshold: 60.0%; meets threshold: True
+Excluded points: 4.00 (boilerplate + diagnostic previews)
+Buckets:
+- boilerplate: 4.00
+- content_source: 15.00
+- diagnostic: 0.00
+- layout_template_style: 21.00
+- native_editability: 15.00
+- other: 4.00
+- preservation_regression: 12.00
+Evaluators:
+- file_exists: 2.00
+- pptx_bbox_region: 16.00
+- pptx_chart_data: 15.00
+- pptx_image_count: 4.00
+- pptx_preservation_diff: 12.00
+- pptx_slide_count: 2.00
+- pptx_style_check: 5.00
+- pptx_text_contains: 15.00
+- rendered_layout_review: 0.00
+- vlm_layout_rubric: 0.00
+=== pytest ===
+......................................................                   [100%]
+54 passed in 3.83s

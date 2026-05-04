@@ -1,0 +1,104 @@
+=== git diff --check ===
+=== validate annotated_layout_repair_deck ===
+OK: annotated_layout_repair_deck (2 turns)
+=== point-distribution annotated_layout_repair_deck ===
+Task: annotated_layout_repair_deck
+Thesis-heavy share: 45.00/53.00 (84.9%)
+Threshold: 60.0%; meets threshold: True
+Excluded points: 4.00 (boilerplate + diagnostic previews)
+Buckets:
+- boilerplate: 4.00
+- content_source: 8.00
+- diagnostic: 0.00
+- layout_template_style: 22.00
+- preservation_regression: 23.00
+Evaluators:
+- file_exists: 2.00
+- llm_text_rubric: 0.00
+- pptx_bbox_region: 18.00
+- pptx_preservation_diff: 23.00
+- pptx_slide_count: 2.00
+- pptx_style_check: 4.00
+- pptx_text_contains: 8.00
+- rendered_layout_review: 0.00
+- vlm_layout_rubric: 0.00
+=== mock annotated_layout_repair_deck ===
+Run directory: /home/top321902/code/snupi/cuif/output/runs/ralph_final2_annotated_layout_repair_deck_mock
+Adapter status: succeeded
+Final score: 57.00/57.00 (100.0%)
+=== validate public_template_compliance_deck ===
+OK: public_template_compliance_deck (2 turns)
+=== point-distribution public_template_compliance_deck ===
+Task: public_template_compliance_deck
+Thesis-heavy share: 52.00/62.00 (83.9%)
+Threshold: 60.0%; meets threshold: True
+Excluded points: 4.00 (boilerplate + diagnostic previews)
+Buckets:
+- boilerplate: 4.00
+- content_source: 10.00
+- diagnostic: 0.00
+- layout_template_style: 35.00
+- preservation_regression: 17.00
+Evaluators:
+- file_exists: 2.00
+- pptx_bbox_region: 15.00
+- pptx_image_match: 5.00
+- pptx_preservation_diff: 17.00
+- pptx_slide_count: 2.00
+- pptx_style_check: 15.00
+- pptx_text_contains: 10.00
+- rendered_layout_review: 0.00
+- vlm_layout_rubric: 0.00
+=== mock public_template_compliance_deck ===
+Run directory: /home/top321902/code/snupi/cuif/output/runs/ralph_final2_public_template_compliance_deck_mock
+Adapter status: succeeded
+Final score: 66.00/66.00 (100.0%)
+=== validate native_chart_style_deck ===
+OK: native_chart_style_deck (2 turns)
+=== point-distribution native_chart_style_deck ===
+Task: native_chart_style_deck
+Thesis-heavy share: 48.00/67.00 (71.6%)
+Threshold: 60.0%; meets threshold: True
+Excluded points: 4.00 (boilerplate + diagnostic previews)
+Buckets:
+- boilerplate: 4.00
+- content_source: 15.00
+- diagnostic: 0.00
+- layout_template_style: 21.00
+- native_editability: 15.00
+- other: 4.00
+- preservation_regression: 12.00
+Evaluators:
+- file_exists: 2.00
+- pptx_bbox_region: 16.00
+- pptx_chart_data: 15.00
+- pptx_image_count: 4.00
+- pptx_preservation_diff: 12.00
+- pptx_slide_count: 2.00
+- pptx_style_check: 5.00
+- pptx_text_contains: 15.00
+- rendered_layout_review: 0.00
+- vlm_layout_rubric: 0.00
+=== mock native_chart_style_deck ===
+Run directory: /home/top321902/code/snupi/cuif/output/runs/ralph_final2_native_chart_style_deck_mock
+Adapter status: succeeded
+Final score: 71.00/71.00 (100.0%)
+=== negative fixture checks ===
+Run directory: /home/top321902/code/snupi/cuif/output/runs/ralph_final2_annotated_layout_repair_deck_negative_seed
+Adapter status: succeeded
+Final score: 27.00/57.00 (47.4%)
+Run directory: /home/top321902/code/snupi/cuif/output/runs/ralph_final2_public_template_compliance_deck_negative_seed
+Adapter status: succeeded
+Final score: 21.00/66.00 (31.8%)
+Run directory: /home/top321902/code/snupi/cuif/output/runs/ralph_final2_native_chart_style_deck_negative_screenshot
+Adapter status: succeeded
+Final score: 40.00/71.00 (56.3%)
+=== compile scripts ===
+Listing 'poc/tasks/_layout_constraint_evidence/scripts'...
+Compiling 'poc/tasks/_layout_constraint_evidence/scripts/build_negative_fixtures.py'...
+Compiling 'poc/tasks/_layout_constraint_evidence/scripts/run_codex_baselines.py'...
+Compiling 'poc/tasks/_layout_constraint_evidence/scripts/run_live_vlm_judges.py'...
+Compiling 'tests/test_bundles.py'...
+=== pytest ===
+......................................................                   [100%]
+54 passed in 3.91s

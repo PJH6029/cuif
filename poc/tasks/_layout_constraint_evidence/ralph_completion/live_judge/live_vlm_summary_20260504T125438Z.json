@@ -1,0 +1,258 @@
+{
+  "asset_review_results": [
+    {
+      "image_urls": [
+        "https://shy-tires-speak.loca.lt/input_assets_montage.png",
+        "https://shy-tires-speak.loca.lt/gold_turn1_montage.png",
+        "https://shy-tires-speak.loca.lt/gold_final_montage.png"
+      ],
+      "parsed": {
+        "pass": true,
+        "rationale": "The benchmark appears valid. The input assets provide concrete visual/layout constraints: the annotated reference explicitly specifies three top metric chips, a large left service-health trend panel, and a lower-right callout on slide 2, while the seed screenshot shows the messy source arrangement those constraints refer to. The gold turn-1 deck visibly instantiates these constraints on slide 2: the three KPI cards are aligned across the top, the trend panel is enlarged and placed on the left, and a right-side lower callout is added; styling is coherent and there are no obvious overlaps. The final gold deck preserves slides 1, 3, and 4 unchanged as instructed and keeps the repaired slide-2 layout while revising the right-side upper card content from repair notes to action owners, consistent with a plausible second-turn refinement. No obvious arbitrary styling contradictions are visible. Minor caveat: the lower-right callout in the final deck is slightly more bottom-centered/right than strictly matching the annotation, and the exact red-labeled 'lower-right risk callout' wording is instantiated as a hotspot/checkout latency card rather than literally that label, but the intended layout constraint is still clearly satisfied.",
+        "score": 0.92
+      },
+      "review": "/home/top321902/code/snupi/cuif/poc/tasks/annotated_layout_repair_deck/evidence/vlm_gold_asset_review_ralph.json",
+      "task_id": "annotated_layout_repair_deck"
+    },
+    {
+      "image_urls": [
+        "https://olive-walls-look.loca.lt/input_assets_montage.png",
+        "https://olive-walls-look.loca.lt/gold_turn1_montage.png",
+        "https://olive-walls-look.loca.lt/gold_final_montage.png"
+      ],
+      "parsed": {
+        "pass": true,
+        "rationale": "The task passes. The visual input montage provides concrete, specific constraints: a clear layout grid with header bands, three aligned top cards, a designated final-callout location, normalized margins and protected footer area; a logo/seal asset; and a style reference specifying navy/teal/gold palette, all-caps section band, typography, margins, and protected legal/footer region. The gold_turn1 deck visibly instantiates these constraints: both slides use the branded top header and teal section band, maintain the footer/protected region, and place content into rounded cards aligned to the indicated upper row/grid without obvious overlap. The gold_final deck preserves the same layout and styling while revising slide 1 as instructed by adding the gold-bordered callout in the designated lower-right area; this matches the layout-grid note that the final callout must stay there and is stylistically consistent with the reference. No obvious overlaps, margin violations, or arbitrary styling contradictions are visible.",
+        "score": 0.95
+      },
+      "review": "/home/top321902/code/snupi/cuif/poc/tasks/public_template_compliance_deck/evidence/vlm_gold_asset_review_ralph.json",
+      "task_id": "public_template_compliance_deck"
+    },
+    {
+      "image_urls": [
+        "https://tiny-poems-kneel.loca.lt/input_assets_montage.png",
+        "https://tiny-poems-kneel.loca.lt/gold_turn1_montage.png",
+        "https://tiny-poems-kneel.loca.lt/gold_final_montage.png"
+      ],
+      "parsed": {
+        "pass": true,
+        "rationale": "The input-assets montage provides concrete, visually specific constraints: a title zone, large native clustered column chart area, badge area, right observation rail, and bottom insight strip, plus a clear style reference specifying cream canvas, dark title blue, light demand bars, deeper capacity bars, and a teal-outlined right rail. The gold_turn1 deck visibly instantiates these constraints: slide 1 uses the prescribed chart-led layout and matching palette with a bottom insight strip; slide 2 uses the right-rail treatment and overall style; slide 3 preserves the benchmark context separately without contradicting the task. The gold_final deck preserves and appropriately revises the layout: slide 1 adds the badge and right observation rail while keeping the chart and insight strip in the intended positions and style, and slide 2 remains consistent. No obvious overlaps, crowding, or arbitrary styling contradictions are visible. Minor deviation: turn1 slide 1 lacks the badge/right rail from the reference, but the final deck clearly resolves this in line with the expected progression.",
+        "score": 0.95
+      },
+      "review": "/home/top321902/code/snupi/cuif/poc/tasks/native_chart_style_deck/evidence/vlm_gold_asset_review_ralph.json",
+      "task_id": "native_chart_style_deck"
+    }
+  ],
+  "base_url": "http://127.0.0.1:10561/v1",
+  "completed_at": "2026-05-04T12:54:38.877404+00:00",
+  "manifest_judge_results": [
+    {
+      "exit_code": 0,
+      "judge_checks": [],
+      "log": "/home/top321902/code/snupi/cuif/poc/tasks/annotated_layout_repair_deck/evidence/live_judge_public_ralph.log",
+      "public_url": "https://shiny-pigs-help.loca.lt",
+      "report": "/home/top321902/code/snupi/cuif/output/runs/ralph_annotated_layout_repair_deck_judge_public/report.json",
+      "summary": {
+        "blocked_checks": [],
+        "earned_points": 57.0,
+        "final_score": 1.0,
+        "lost_points": 0.0,
+        "per_turn": {
+          "final": {
+            "checks": [
+              "taska_final_file_exists",
+              "taska_final_slide_count",
+              "taska_final_title_style",
+              "taska_final_handoff_texts",
+              "taska_final_caption_region",
+              "taska_final_action_owners_region",
+              "taska_final_risk_lower_right",
+              "taska_final_trend_layout_preserved",
+              "taska_final_checkout_layout_preserved",
+              "taska_final_slide1_preserved",
+              "taska_final_slide3_preserved",
+              "taska_final_slide4_preserved",
+              "taska_optional_llm_repair_judge",
+              "taska_optional_vlm_layout_judge"
+            ],
+            "earned_points": 30.0,
+            "possible_points": 30.0,
+            "score": 1.0,
+            "status_counts": {
+              "pass": 14
+            }
+          },
+          "turn1": {
+            "checks": [
+              "taska_t1_file_exists",
+              "taska_t1_slide_count",
+              "taska_t1_core_texts",
+              "taska_t1_checkout_top_left",
+              "taska_t1_backlog_top_center",
+              "taska_t1_fatigue_top_right",
+              "taska_t1_trend_panel_region",
+              "taska_t1_risk_lower_right",
+              "taska_t1_slide1_preserved",
+              "taska_t1_slide3_preserved",
+              "taska_t1_slide4_preserved",
+              "taska_t1_rendered_review"
+            ],
+            "earned_points": 27.0,
+            "possible_points": 27.0,
+            "score": 1.0,
+            "status_counts": {
+              "pass": 12
+            }
+          }
+        },
+        "possible_points": 57.0,
+        "preservation_failures": [],
+        "regressions": [],
+        "status_counts": {
+          "pass": 26
+        }
+      },
+      "task_id": "annotated_layout_repair_deck"
+    },
+    {
+      "exit_code": 0,
+      "judge_checks": [],
+      "log": "/home/top321902/code/snupi/cuif/poc/tasks/public_template_compliance_deck/evidence/live_judge_public_ralph.log",
+      "public_url": "https://some-toes-arrive.loca.lt",
+      "report": "/home/top321902/code/snupi/cuif/output/runs/ralph_public_template_compliance_deck_judge_public/report.json",
+      "summary": {
+        "blocked_checks": [],
+        "earned_points": 66.0,
+        "final_score": 1.0,
+        "lost_points": 0.0,
+        "per_turn": {
+          "final": {
+            "checks": [
+              "metro_final_file_exists",
+              "metro_final_slide_count",
+              "metro_final_required_texts",
+              "metro_final_title_style",
+              "metro_final_section_header_style",
+              "metro_final_callout_region",
+              "metro_final_seal_match_slide1",
+              "metro_final_footer_style",
+              "metro_final_program_card_layout_preserved",
+              "metro_final_funding_card_layout_preserved",
+              "metro_final_timeline_card_layout_preserved",
+              "metro_final_slide1_footer_layout_preserved",
+              "metro_final_slide2_preserved",
+              "metro_final_optional_vlm_template_judge"
+            ],
+            "earned_points": 33.0,
+            "possible_points": 33.0,
+            "score": 1.0,
+            "status_counts": {
+              "fail": 1,
+              "pass": 13
+            }
+          },
+          "turn1": {
+            "checks": [
+              "metro_t1_file_exists",
+              "metro_t1_slide_count",
+              "metro_t1_required_texts",
+              "metro_t1_seal_match_slide1",
+              "metro_t1_title_region",
+              "metro_t1_section_band_region",
+              "metro_t1_program_card_region",
+              "metro_t1_funding_card_region",
+              "metro_t1_timeline_card_region",
+              "metro_t1_compliance_table_region",
+              "metro_t1_title_style",
+              "metro_t1_footer_style",
+              "metro_t1_legal_notice_preserved",
+              "metro_t1_audit_notice_preserved",
+              "metro_t1_rendered_review"
+            ],
+            "earned_points": 33.0,
+            "possible_points": 33.0,
+            "score": 1.0,
+            "status_counts": {
+              "pass": 15
+            }
+          }
+        },
+        "possible_points": 66.0,
+        "preservation_failures": [],
+        "regressions": [],
+        "status_counts": {
+          "fail": 1,
+          "pass": 28
+        }
+      },
+      "task_id": "public_template_compliance_deck"
+    },
+    {
+      "exit_code": 0,
+      "judge_checks": [],
+      "log": "/home/top321902/code/snupi/cuif/poc/tasks/native_chart_style_deck/evidence/live_judge_public_ralph.log",
+      "public_url": "https://calm-beans-matter.loca.lt",
+      "report": "/home/top321902/code/snupi/cuif/output/runs/ralph_native_chart_style_deck_judge_public/report.json",
+      "summary": {
+        "blocked_checks": [],
+        "earned_points": 71.0,
+        "final_score": 1.0,
+        "lost_points": 0.0,
+        "per_turn": {
+          "final": {
+            "checks": [
+              "native_chart_final_file_exists",
+              "native_chart_final_slide_count",
+              "native_chart_final_title_style",
+              "native_chart_final_chart_data_preserved",
+              "native_chart_final_chart_left_region",
+              "native_chart_final_badge_region",
+              "native_chart_final_rail_texts",
+              "native_chart_final_rail_region",
+              "native_chart_final_insight_text",
+              "native_chart_final_no_slide1_raster_shortcut",
+              "native_chart_final_source_audit_preserved",
+              "native_chart_final_protected_slide_preserved",
+              "optional_vlm_native_chart_layout_judge"
+            ],
+            "earned_points": 41.0,
+            "possible_points": 41.0,
+            "score": 1.0,
+            "status_counts": {
+              "pass": 13
+            }
+          },
+          "turn1": {
+            "checks": [
+              "native_chart_t1_file_exists",
+              "native_chart_t1_slide_count",
+              "native_chart_t1_core_texts",
+              "native_chart_t1_chart_data",
+              "native_chart_t1_chart_region",
+              "native_chart_t1_title_region",
+              "native_chart_t1_source_audit_values",
+              "native_chart_t1_no_slide1_raster_shortcut",
+              "native_chart_t1_protected_slide_preserved",
+              "native_chart_t1_rendered_review"
+            ],
+            "earned_points": 30.0,
+            "possible_points": 30.0,
+            "score": 1.0,
+            "status_counts": {
+              "pass": 10
+            }
+          }
+        },
+        "possible_points": 71.0,
+        "preservation_failures": [],
+        "regressions": [],
+        "status_counts": {
+          "pass": 23
+        }
+      },
+      "task_id": "native_chart_style_deck"
+    }
+  ],
+  "model": "gpt-5.4",
+  "openai_oauth_log": "/home/top321902/code/snupi/cuif/poc/tasks/_layout_constraint_evidence/ralph_completion/live_judge/openai_oauth_20260504T125116Z.log"
+}

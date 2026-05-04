@@ -146,7 +146,7 @@ turns:
         evaluator: pptx_image_count
         artifact: run.outputs.turn1.result
         points: 2
-        depends_on: [native_chart_t1_chart_data]
+        depends_on: [native_chart_t1_file_exists]
         params:
           selector: {slide: 1}
           count: 0
@@ -270,7 +270,7 @@ turns:
         evaluator: pptx_image_count
         artifact: run.outputs.final.result
         points: 2
-        depends_on: [native_chart_final_chart_data_preserved]
+        depends_on: [native_chart_final_file_exists]
         params:
           selector: {slide: 1}
           count: 0

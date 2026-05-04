@@ -1,0 +1,179 @@
+# Ralph final gates 2026-05-04T13:03:18+00:00
+## git diff --check
+## annotated_layout_repair_deck task-card
+task_card exists
+## annotated_layout_repair_deck validate
+OK: annotated_layout_repair_deck (2 turns)
+## annotated_layout_repair_deck point-distribution
+Task: annotated_layout_repair_deck
+Thesis-heavy share: 45.00/53.00 (84.9%)
+Threshold: 60.0%; meets threshold: True
+Excluded points: 4.00 (boilerplate + diagnostic previews)
+Buckets:
+- boilerplate: 4.00
+- content_source: 8.00
+- diagnostic: 0.00
+- layout_template_style: 22.00
+- preservation_regression: 23.00
+Evaluators:
+- file_exists: 2.00
+- llm_text_rubric: 0.00
+- pptx_bbox_region: 18.00
+- pptx_preservation_diff: 23.00
+- pptx_slide_count: 2.00
+- pptx_style_check: 4.00
+- pptx_text_contains: 8.00
+- rendered_layout_review: 0.00
+- vlm_layout_rubric: 0.00
+## annotated_layout_repair_deck mock
+Run directory: /home/top321902/code/snupi/cuif/output/runs/ralph_final_annotated_layout_repair_deck_mock
+Adapter status: succeeded
+Final score: 57.00/57.00 (100.0%)
+## public_template_compliance_deck task-card
+task_card exists
+## public_template_compliance_deck validate
+OK: public_template_compliance_deck (2 turns)
+## public_template_compliance_deck point-distribution
+Task: public_template_compliance_deck
+Thesis-heavy share: 52.00/62.00 (83.9%)
+Threshold: 60.0%; meets threshold: True
+Excluded points: 4.00 (boilerplate + diagnostic previews)
+Buckets:
+- boilerplate: 4.00
+- content_source: 10.00
+- diagnostic: 0.00
+- layout_template_style: 35.00
+- preservation_regression: 17.00
+Evaluators:
+- file_exists: 2.00
+- pptx_bbox_region: 15.00
+- pptx_image_match: 5.00
+- pptx_preservation_diff: 17.00
+- pptx_slide_count: 2.00
+- pptx_style_check: 15.00
+- pptx_text_contains: 10.00
+- rendered_layout_review: 0.00
+- vlm_layout_rubric: 0.00
+## public_template_compliance_deck mock
+Run directory: /home/top321902/code/snupi/cuif/output/runs/ralph_final_public_template_compliance_deck_mock
+Adapter status: succeeded
+Final score: 66.00/66.00 (100.0%)
+## native_chart_style_deck task-card
+task_card exists
+## native_chart_style_deck validate
+OK: native_chart_style_deck (2 turns)
+## native_chart_style_deck point-distribution
+Task: native_chart_style_deck
+Thesis-heavy share: 48.00/67.00 (71.6%)
+Threshold: 60.0%; meets threshold: True
+Excluded points: 4.00 (boilerplate + diagnostic previews)
+Buckets:
+- boilerplate: 4.00
+- content_source: 15.00
+- diagnostic: 0.00
+- layout_template_style: 21.00
+- native_editability: 15.00
+- other: 4.00
+- preservation_regression: 12.00
+Evaluators:
+- file_exists: 2.00
+- pptx_bbox_region: 16.00
+- pptx_chart_data: 15.00
+- pptx_image_count: 4.00
+- pptx_preservation_diff: 12.00
+- pptx_slide_count: 2.00
+- pptx_style_check: 5.00
+- pptx_text_contains: 15.00
+- rendered_layout_review: 0.00
+- vlm_layout_rubric: 0.00
+## native_chart_style_deck mock
+Run directory: /home/top321902/code/snupi/cuif/output/runs/ralph_final_native_chart_style_deck_mock
+Adapter status: succeeded
+Final score: 71.00/71.00 (100.0%)
+## live judge status extraction
+annotated_layout_repair_deck [('taska_optional_llm_repair_judge', 'llm_text_rubric', 'pass'), ('taska_optional_vlm_layout_judge', 'vlm_layout_rubric', 'pass')]
+annotated_layout_repair_deck asset_review {'pass': True, 'rationale': "The benchmark appears valid. The input assets provide concrete visual/layout constraints: the annotated reference explicitly specifies three top metric chips, a large left service-health trend panel, and a lower-right callout on slide 2, while the seed screenshot shows the messy source arrangement those constraints refer to. The gold turn-1 deck visibly instantiates these constraints on slide 2: the three KPI cards are aligned across the top, the trend panel is enlarged and placed on the left, and a right-side lower callout is added; styling is coherent and there are no obvious overlaps. The final gold deck preserves slides 1, 3, and 4 unchanged as instructed and keeps the repaired slide-2 layout while revising the right-side upper card content from repair notes to action owners, consistent with a plausible second-turn refinement. No obvious arbitrary styling contradictions are visible. Minor caveat: the lower-right callout in the final deck is slightly more bottom-centered/right than strictly matching the annotation, and the exact red-labeled 'lower-right risk callout' wording is instantiated as a hotspot/checkout latency card rather than literally that label, but the intended layout constraint is still clearly satisfied.", 'score': 0.92}
+public_template_compliance_deck [('metro_final_optional_vlm_template_judge', 'vlm_layout_rubric', 'pass')]
+public_template_compliance_deck asset_review {'pass': True, 'rationale': 'The benchmark appears valid and visually concrete. The input montage provides clear, actionable constraints: a layout grid with three aligned top cards, a designated final-callout position, normalized margins and protected footer; a style reference specifying navy/teal/gold palette, all-caps white section band, typography/margins, and protected footer notice; plus a concrete civic seal/logo asset. The gold_turn1 deck visibly instantiates these constraints: both slides use the navy title bar, teal section band, consistent card styling, aligned top-row cards, generous margins, and preserved footer region without overlaps. The gold_final deck preserves the same structure and styling while making an instructed-looking revision: slide 1 adds the gold outlined callout in the specified lower-right area, matching the layout grid note and style reference. No obvious overlaps, margin violations, or arbitrary style contradictions are visible. Minor caveat: the exact three-top-card constraint is most directly realized on slide 1 rather than universally across all slides, but overall compliance is strong and coherent.', 'score': 0.96}
+native_chart_style_deck [('optional_vlm_native_chart_layout_judge', 'vlm_layout_rubric', 'pass')]
+native_chart_style_deck asset_review {'pass': True, 'rationale': 'The input-assets montage provides concrete, visually specific constraints: a title zone, large native clustered column chart area, badge area, right observation rail, and bottom insight strip, plus a clear style reference specifying cream canvas, dark title blue, light demand bars, deeper capacity bars, and a teal-outlined right rail. The gold_turn1 deck visibly instantiates these constraints: slide 1 uses the prescribed chart-led layout and matching palette with a bottom insight strip; slide 2 uses the right-rail treatment and overall style; slide 3 preserves the benchmark context separately without contradicting the task. The gold_final deck preserves and appropriately revises the layout: slide 1 adds the badge and right observation rail while keeping the chart and insight strip in the intended positions and style, and slide 2 remains consistent. No obvious overlaps, crowding, or arbitrary styling contradictions are visible. Minor deviation: turn1 slide 1 lacks the badge/right rail from the reference, but the final deck clearly resolves this in line with the expected progression.', 'score': 0.95}
+## negative evidence status extraction
+annotated_layout_repair_deck score=27.0/57.0 (47.4%) status_counts= {'blocked': 8, 'fail': 3, 'pass': 13, 'skipped': 2}
+public_template_compliance_deck score=21.0/66.0 (31.8%) status_counts= {'blocked': 12, 'fail': 4, 'pass': 12, 'skipped': 1}
+native_chart_style_deck score=40.0/71.0 (56.3%) status_counts= {'blocked': 2, 'fail': 5, 'pass': 15, 'skipped': 1}
+native shortcut checks [('native_chart_t1_chart_data', 'fail', "No PPTX chart matched selector {'slide': 1, 'name': 'support_capacity_clustered_chart'}"), ('native_chart_t1_no_slide1_raster_shortcut', 'fail', 'Found 1 images; expected exactly 0'), ('native_chart_final_chart_data_preserved', 'fail', "No PPTX chart matched selector {'slide': 1, 'name': 'support_capacity_clustered_chart'}"), ('native_chart_final_no_slide1_raster_shortcut', 'fail', 'Found 1 images; expected exactly 0')]
+## codex baseline summary
+poc/tasks/_layout_constraint_evidence/ralph_completion/baselines/codex_baseline_summary_20260504T130212Z.json
+annotated_layout_repair_deck exit 0 report output/runs/ralph_baseline/annotated_layout_repair_deck_20260504T125731Z/report.json score 55.0/57.0 (96.5%)
+public_template_compliance_deck exit 0 report output/runs/ralph_baseline/public_template_compliance_deck_20260504T125857Z/report.json score 26.0/66.0 (39.4%)
+native_chart_style_deck exit 0 report output/runs/ralph_baseline/native_chart_style_deck_20260504T130035Z/report.json score 63.0/71.0 (88.7%)
+## pytest
+......F...............................................                   [100%]
+=================================== FAILURES ===================================
+__________ test_stage_bundle_turn_reveals_only_that_turns_new_inputs ___________
+
+tmp_path = PosixPath('/tmp/pytest-of-top321902/pytest-8/test_stage_bundle_turn_reveals0')
+
+    def test_stage_bundle_turn_reveals_only_that_turns_new_inputs(tmp_path):
+        task = tmp_path / "turn_input_task"
+        repo_root = Path(__file__).resolve().parents[1]
+>       shutil.copytree(repo_root / "poc" / "tasks" / "aurora_paper_review_deck", task)
+
+tests/test_bundles.py:52:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+src = PosixPath('/home/top321902/code/snupi/cuif/poc/tasks/aurora_paper_review_deck')
+dst = PosixPath('/tmp/pytest-of-top321902/pytest-8/test_stage_bundle_turn_reveals0/turn_input_task')
+symlinks = False, ignore = None
+copy_function = <function copy2 at 0x705af940a020>
+ignore_dangling_symlinks = False, dirs_exist_ok = False
+
+    def copytree(src, dst, symlinks=False, ignore=None, copy_function=copy2,
+                 ignore_dangling_symlinks=False, dirs_exist_ok=False):
+        """Recursively copy a directory tree and return the destination directory.
+
+        If exception(s) occur, an Error is raised with a list of reasons.
+
+        If the optional symlinks flag is true, symbolic links in the
+        source tree result in symbolic links in the destination tree; if
+        it is false, the contents of the files pointed to by symbolic
+        links are copied. If the file pointed by the symlink doesn't
+        exist, an exception will be added in the list of errors raised in
+        an Error exception at the end of the copy process.
+
+        You can set the optional ignore_dangling_symlinks flag to true if you
+        want to silence this exception. Notice that this has no effect on
+        platforms that don't support os.symlink.
+
+        The optional ignore argument is a callable. If given, it
+        is called with the `src` parameter, which is the directory
+        being visited by copytree(), and `names` which is the list of
+        `src` contents, as returned by os.listdir():
+
+            callable(src, names) -> ignored_names
+
+        Since copytree() is called recursively, the callable will be
+        called once for each directory that is copied. It returns a
+        list of names relative to the `src` directory that should
+        not be copied.
+
+        The optional copy_function argument is a callable that will be used
+        to copy each file. It will be called with the source path and the
+        destination path as arguments. By default, copy2() is used, but any
+        function that supports the same signature (like copy()) can be used.
+
+        If dirs_exist_ok is false (the default) and `dst` already exists, a
+        `FileExistsError` is raised. If `dirs_exist_ok` is true, the copying
+        operation will continue if it encounters existing directories, and files
+        within the `dst` tree will be overwritten by corresponding files from the
+        `src` tree.
+        """
+        sys.audit("shutil.copytree", src, dst)
+>       with os.scandir(src) as itr:
+             ^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/top321902/code/snupi/cuif/poc/tasks/aurora_paper_review_deck'
+
+/usr/lib/python3.12/shutil.py:598: FileNotFoundError
+=========================== short test summary info ============================
+FAILED tests/test_bundles.py::test_stage_bundle_turn_reveals_only_that_turns_new_inputs
+1 failed, 53 passed in 3.93s

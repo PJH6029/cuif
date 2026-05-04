@@ -1,0 +1,329 @@
+### annotated_layout_repair_deck validate
+OK: annotated_layout_repair_deck (2 turns)
+### annotated_layout_repair_deck point-distribution
+Task: annotated_layout_repair_deck
+Thesis-heavy share: 45.00/53.00 (84.9%)
+Threshold: 60.0%; meets threshold: True
+Excluded points: 4.00 (boilerplate + diagnostic previews)
+Buckets:
+- boilerplate: 4.00
+- content_source: 8.00
+- diagnostic: 0.00
+- layout_template_style: 22.00
+- preservation_regression: 23.00
+Evaluators:
+- file_exists: 2.00
+- llm_text_rubric: 0.00
+- pptx_bbox_region: 18.00
+- pptx_preservation_diff: 23.00
+- pptx_slide_count: 2.00
+- pptx_style_check: 4.00
+- pptx_text_contains: 8.00
+- rendered_layout_review: 0.00
+- vlm_layout_rubric: 0.00
+### annotated_layout_repair_deck mock
+Run directory: /home/top321902/code/snupi/cuif/output/runs/ralph_annotated_layout_repair_deck_mock
+Adapter status: succeeded
+Final score: 57.00/57.00 (100.0%)
+### public_template_compliance_deck validate
+OK: public_template_compliance_deck (2 turns)
+### public_template_compliance_deck point-distribution
+Task: public_template_compliance_deck
+Thesis-heavy share: 52.00/62.00 (83.9%)
+Threshold: 60.0%; meets threshold: True
+Excluded points: 4.00 (boilerplate + diagnostic previews)
+Buckets:
+- boilerplate: 4.00
+- content_source: 10.00
+- diagnostic: 0.00
+- layout_template_style: 35.00
+- preservation_regression: 17.00
+Evaluators:
+- file_exists: 2.00
+- pptx_bbox_region: 15.00
+- pptx_image_match: 5.00
+- pptx_preservation_diff: 17.00
+- pptx_slide_count: 2.00
+- pptx_style_check: 15.00
+- pptx_text_contains: 10.00
+- rendered_layout_review: 0.00
+- vlm_layout_rubric: 0.00
+### public_template_compliance_deck mock
+Run directory: /home/top321902/code/snupi/cuif/output/runs/ralph_public_template_compliance_deck_mock
+Adapter status: succeeded
+Final score: 66.00/66.00 (100.0%)
+### native_chart_style_deck validate
+OK: native_chart_style_deck (2 turns)
+### native_chart_style_deck point-distribution
+Task: native_chart_style_deck
+Thesis-heavy share: 48.00/67.00 (71.6%)
+Threshold: 60.0%; meets threshold: True
+Excluded points: 4.00 (boilerplate + diagnostic previews)
+Buckets:
+- boilerplate: 4.00
+- content_source: 15.00
+- diagnostic: 0.00
+- layout_template_style: 21.00
+- native_editability: 15.00
+- other: 4.00
+- preservation_regression: 12.00
+Evaluators:
+- file_exists: 2.00
+- pptx_bbox_region: 16.00
+- pptx_chart_data: 15.00
+- pptx_image_count: 4.00
+- pptx_preservation_diff: 12.00
+- pptx_slide_count: 2.00
+- pptx_style_check: 5.00
+- pptx_text_contains: 15.00
+- rendered_layout_review: 0.00
+- vlm_layout_rubric: 0.00
+### native_chart_style_deck mock
+Run directory: /home/top321902/code/snupi/cuif/output/runs/ralph_native_chart_style_deck_mock
+Adapter status: succeeded
+Final score: 71.00/71.00 (100.0%)
+### annotated negative seed
+Run directory: /home/top321902/code/snupi/cuif/output/runs/ralph_annotated_layout_repair_deck_negative_seed
+Adapter status: succeeded
+Final score: 27.00/57.00 (47.4%)
+{
+  "blocked_checks": [
+    "taska_t1_checkout_top_left",
+    "taska_t1_backlog_top_center",
+    "taska_t1_fatigue_top_right",
+    "taska_t1_trend_panel_region",
+    "taska_t1_risk_lower_right",
+    "taska_final_caption_region",
+    "taska_final_action_owners_region",
+    "taska_final_risk_lower_right"
+  ],
+  "earned_points": 27.0,
+  "final_score": 0.47368421052631576,
+  "lost_points": 30.0,
+  "per_turn": {
+    "final": {
+      "checks": [
+        "taska_final_file_exists",
+        "taska_final_slide_count",
+        "taska_final_title_style",
+        "taska_final_handoff_texts",
+        "taska_final_caption_region",
+        "taska_final_action_owners_region",
+        "taska_final_risk_lower_right",
+        "taska_final_trend_layout_preserved",
+        "taska_final_checkout_layout_preserved",
+        "taska_final_slide1_preserved",
+        "taska_final_slide3_preserved",
+        "taska_final_slide4_preserved",
+        "taska_optional_llm_repair_judge",
+        "taska_optional_vlm_layout_judge"
+      ],
+      "earned_points": 16.0,
+      "possible_points": 30.0,
+      "score": 0.5333333333333333,
+      "status_counts": {
+        "blocked": 3,
+        "fail": 2,
+        "pass": 7,
+        "skipped": 2
+      }
+    },
+    "turn1": {
+      "checks": [
+        "taska_t1_file_exists",
+        "taska_t1_slide_count",
+        "taska_t1_core_texts",
+        "taska_t1_checkout_top_left",
+        "taska_t1_backlog_top_center",
+        "taska_t1_fatigue_top_right",
+        "taska_t1_trend_panel_region",
+        "taska_t1_risk_lower_right",
+        "taska_t1_slide1_preserved",
+        "taska_t1_slide3_preserved",
+        "taska_t1_slide4_preserved",
+        "taska_t1_rendered_review"
+      ],
+      "earned_points": 11.0,
+      "possible_points": 27.0,
+      "score": 0.4074074074074074,
+      "status_counts": {
+        "blocked": 5,
+        "fail": 1,
+        "pass": 6
+      }
+    }
+  },
+  "possible_points": 57.0,
+  "preservation_failures": [],
+  "regressions": [],
+  "status_counts": {
+    "blocked": 8,
+    "fail": 3,
+    "pass": 13,
+    "skipped": 2
+  }
+}
+### public negative seed
+Run directory: /home/top321902/code/snupi/cuif/output/runs/ralph_public_template_compliance_deck_negative_seed
+Adapter status: succeeded
+Final score: 21.00/66.00 (31.8%)
+{
+  "blocked_checks": [
+    "metro_t1_title_region",
+    "metro_t1_section_band_region",
+    "metro_t1_program_card_region",
+    "metro_t1_funding_card_region",
+    "metro_t1_timeline_card_region",
+    "metro_t1_compliance_table_region",
+    "metro_t1_title_style",
+    "metro_t1_footer_style",
+    "metro_final_title_style",
+    "metro_final_section_header_style",
+    "metro_final_callout_region",
+    "metro_final_footer_style"
+  ],
+  "earned_points": 21.0,
+  "final_score": 0.3181818181818182,
+  "lost_points": 45.0,
+  "per_turn": {
+    "final": {
+      "checks": [
+        "metro_final_file_exists",
+        "metro_final_slide_count",
+        "metro_final_required_texts",
+        "metro_final_title_style",
+        "metro_final_section_header_style",
+        "metro_final_callout_region",
+        "metro_final_seal_match_slide1",
+        "metro_final_footer_style",
+        "metro_final_program_card_layout_preserved",
+        "metro_final_funding_card_layout_preserved",
+        "metro_final_timeline_card_layout_preserved",
+        "metro_final_slide1_footer_layout_preserved",
+        "metro_final_slide2_preserved",
+        "metro_final_optional_vlm_template_judge"
+      ],
+      "earned_points": 13.0,
+      "possible_points": 33.0,
+      "score": 0.3939393939393939,
+      "status_counts": {
+        "blocked": 4,
+        "fail": 2,
+        "pass": 7,
+        "skipped": 1
+      }
+    },
+    "turn1": {
+      "checks": [
+        "metro_t1_file_exists",
+        "metro_t1_slide_count",
+        "metro_t1_required_texts",
+        "metro_t1_seal_match_slide1",
+        "metro_t1_title_region",
+        "metro_t1_section_band_region",
+        "metro_t1_program_card_region",
+        "metro_t1_funding_card_region",
+        "metro_t1_timeline_card_region",
+        "metro_t1_compliance_table_region",
+        "metro_t1_title_style",
+        "metro_t1_footer_style",
+        "metro_t1_legal_notice_preserved",
+        "metro_t1_audit_notice_preserved",
+        "metro_t1_rendered_review"
+      ],
+      "earned_points": 8.0,
+      "possible_points": 33.0,
+      "score": 0.24242424242424243,
+      "status_counts": {
+        "blocked": 8,
+        "fail": 2,
+        "pass": 5
+      }
+    }
+  },
+  "possible_points": 66.0,
+  "preservation_failures": [],
+  "regressions": [],
+  "status_counts": {
+    "blocked": 12,
+    "fail": 4,
+    "pass": 12,
+    "skipped": 1
+  }
+}
+### native negative screenshot
+Run directory: /home/top321902/code/snupi/cuif/output/runs/ralph_native_chart_style_deck_negative_screenshot
+Adapter status: succeeded
+Final score: 40.00/71.00 (56.3%)
+{
+  "blocked_checks": [
+    "native_chart_t1_chart_region",
+    "native_chart_final_chart_left_region"
+  ],
+  "earned_points": 40.0,
+  "final_score": 0.5633802816901409,
+  "lost_points": 31.0,
+  "per_turn": {
+    "final": {
+      "checks": [
+        "native_chart_final_file_exists",
+        "native_chart_final_slide_count",
+        "native_chart_final_title_style",
+        "native_chart_final_chart_data_preserved",
+        "native_chart_final_chart_left_region",
+        "native_chart_final_badge_region",
+        "native_chart_final_rail_texts",
+        "native_chart_final_rail_region",
+        "native_chart_final_insight_text",
+        "native_chart_final_no_slide1_raster_shortcut",
+        "native_chart_final_source_audit_preserved",
+        "native_chart_final_protected_slide_preserved",
+        "optional_vlm_native_chart_layout_judge"
+      ],
+      "earned_points": 28.0,
+      "possible_points": 41.0,
+      "score": 0.6829268292682927,
+      "status_counts": {
+        "blocked": 1,
+        "fail": 2,
+        "pass": 9,
+        "skipped": 1
+      }
+    },
+    "turn1": {
+      "checks": [
+        "native_chart_t1_file_exists",
+        "native_chart_t1_slide_count",
+        "native_chart_t1_core_texts",
+        "native_chart_t1_chart_data",
+        "native_chart_t1_chart_region",
+        "native_chart_t1_title_region",
+        "native_chart_t1_source_audit_values",
+        "native_chart_t1_no_slide1_raster_shortcut",
+        "native_chart_t1_protected_slide_preserved",
+        "native_chart_t1_rendered_review"
+      ],
+      "earned_points": 12.0,
+      "possible_points": 30.0,
+      "score": 0.4,
+      "status_counts": {
+        "blocked": 1,
+        "fail": 3,
+        "pass": 6
+      }
+    }
+  },
+  "possible_points": 71.0,
+  "preservation_failures": [
+    "native_chart_t1_protected_slide_preserved"
+  ],
+  "regressions": [
+    "native_chart_t1_protected_slide_preserved"
+  ],
+  "status_counts": {
+    "blocked": 2,
+    "fail": 5,
+    "pass": 15,
+    "skipped": 1
+  }
+}
