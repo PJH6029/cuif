@@ -1,0 +1,1 @@
+Repair slide 2 only. Align Checkout SLA 97.2%, Queue backlog 42, and Alert fatigue 18% across the top row. Expand Service health trend into the large left-middle region. Move Hotspot: checkout latency into the lower-right. Preserve slides 1, 3, and 4 exactly, including all Do not edit sentinel strings.

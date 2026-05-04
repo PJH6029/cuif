@@ -1,0 +1,330 @@
+manifest_version: "0.1"
+id: annotated_layout_repair_deck
+title: Annotated dashboard layout repair deck
+primary_artifact_family: pptx
+artifact_families: [pptx]
+tracks: [open_tool, gui]
+scoring:
+  policy: sum_points
+judge:
+  api_key_env: OPENAI_API_KEY
+artifacts:
+  package:
+    seed:
+      path: artifacts/seed.pptx
+      type: pptx
+      role: seed
+    annotated_repair_reference:
+      path: artifacts/inputs/annotated_repair_reference.svg
+      type: svg
+      role: instruction_input
+    slide2_seed_screenshot:
+      path: artifacts/inputs/slide2_seed_screenshot.png
+      type: png
+      role: source_input
+    repair_notes:
+      path: artifacts/inputs/repair_notes.txt
+      type: txt
+      role: source_input
+    gold_turn1:
+      path: artifacts/gold/turn1.pptx
+      type: pptx
+      role: gold
+    gold_final:
+      path: artifacts/gold/final.pptx
+      type: pptx
+      role: gold
+  expected_outputs:
+    turn1:
+      result:
+        path: result.pptx
+        type: pptx
+    final:
+      result:
+        path: result.pptx
+        type: pptx
+turns:
+  - id: turn1
+    new_inputs:
+      textual:
+        - package.repair_notes
+      visual:
+        - package.annotated_repair_reference
+        - package.slide2_seed_screenshot
+    instruction: >-
+      Using the seed deck, repair_notes.txt, slide2_seed_screenshot.png, and
+      annotated_repair_reference.svg, revise only slide 2 of the Atlas reliability
+      deck. Follow the annotated visual reference exactly: align the editable
+      metric tiles "Checkout SLA 97.2%", "Queue backlog 42", and "Alert fatigue
+      18%" across the top row; expand "Service health trend" into the large
+      left-middle panel; and move "Hotspot: checkout latency" into the lower-right
+      callout while keeping the exact lines "Escalation owner missing" and
+      "Route rollback owner by Friday". Preserve slides 1, 3, and 4 exactly
+      because they contain benchmark invariants.
+    expected_output: result
+    checks:
+      - id: taska_t1_file_exists
+        evaluator: file_exists
+        artifact: run.outputs.turn1.result
+        points: 1
+      - id: taska_t1_slide_count
+        evaluator: pptx_slide_count
+        artifact: run.outputs.turn1.result
+        points: 1
+        depends_on: [taska_t1_file_exists]
+        params: {count: 4}
+      - id: taska_t1_core_texts
+        evaluator: pptx_text_contains
+        artifact: run.outputs.turn1.result
+        points: 4
+        depends_on: [taska_t1_file_exists]
+        params:
+          texts:
+            - "Service Reliability Dashboard"
+            - "Checkout SLA 97.2%"
+            - "Queue backlog 42"
+            - "Alert fatigue 18%"
+            - "Service health trend"
+            - "Hotspot: checkout latency"
+            - "Escalation owner missing"
+            - "Route rollback owner by Friday"
+      - id: taska_t1_checkout_top_left
+        evaluator: pptx_bbox_region
+        artifact: run.outputs.turn1.result
+        points: 2
+        depends_on: [taska_t1_core_texts]
+        params:
+          selector: {slide: 2, text_contains: "Checkout SLA 97.2%"}
+          region: {slide: 2, x_min: 0.04, y_min: 0.13, x_max: 0.34, y_max: 0.32}
+          tolerance: 0.03
+      - id: taska_t1_backlog_top_center
+        evaluator: pptx_bbox_region
+        artifact: run.outputs.turn1.result
+        points: 2
+        depends_on: [taska_t1_core_texts]
+        params:
+          selector: {slide: 2, text_contains: "Queue backlog 42"}
+          region: {slide: 2, x_min: 0.34, y_min: 0.13, x_max: 0.67, y_max: 0.32}
+          tolerance: 0.03
+      - id: taska_t1_fatigue_top_right
+        evaluator: pptx_bbox_region
+        artifact: run.outputs.turn1.result
+        points: 2
+        depends_on: [taska_t1_core_texts]
+        params:
+          selector: {slide: 2, text_contains: "Alert fatigue 18%"}
+          region: {slide: 2, x_min: 0.64, y_min: 0.13, x_max: 0.98, y_max: 0.32}
+          tolerance: 0.03
+      - id: taska_t1_trend_panel_region
+        evaluator: pptx_bbox_region
+        artifact: run.outputs.turn1.result
+        points: 3
+        depends_on: [taska_t1_core_texts]
+        params:
+          selector: {slide: 2, text_contains: "Service health trend"}
+          region: {slide: 2, x_min: 0.04, y_min: 0.28, x_max: 0.66, y_max: 0.76}
+          tolerance: 0.03
+      - id: taska_t1_risk_lower_right
+        evaluator: pptx_bbox_region
+        artifact: run.outputs.turn1.result
+        points: 3
+        depends_on: [taska_t1_core_texts]
+        params:
+          selector: {slide: 2, text_contains: "Hotspot: checkout latency"}
+          region: {slide: 2, x_min: 0.64, y_min: 0.60, x_max: 0.98, y_max: 0.90}
+          tolerance: 0.03
+      - id: taska_t1_slide1_preserved
+        evaluator: pptx_preservation_diff
+        artifact: run.outputs.turn1.result
+        points: 3
+        depends_on: [taska_t1_slide_count]
+        params:
+          reference: package.seed
+          compare: exact_slide_text
+          slides: [1]
+          protected_texts: ["Do not edit: Task A context invariant"]
+      - id: taska_t1_slide3_preserved
+        evaluator: pptx_preservation_diff
+        artifact: run.outputs.turn1.result
+        points: 3
+        depends_on: [taska_t1_slide_count]
+        params:
+          reference: package.seed
+          compare: exact_slide_text
+          slides: [3]
+          protected_texts: ["Do not edit: runbook evidence invariant"]
+      - id: taska_t1_slide4_preserved
+        evaluator: pptx_preservation_diff
+        artifact: run.outputs.turn1.result
+        points: 3
+        depends_on: [taska_t1_slide_count]
+        params:
+          reference: package.seed
+          compare: exact_slide_text
+          slides: [4]
+          protected_texts: ["Do not edit: annotated repair benchmark invariant"]
+      - id: taska_t1_rendered_review
+        evaluator: rendered_layout_review
+        artifact: run.outputs.turn1.result
+        points: 0
+        optional: true
+        diagnostic: true
+        params:
+          note: Optional rendered preview for annotated repair placement on slide 2.
+  - id: final
+    new_inputs:
+      textual: []
+      visual: []
+    instruction: >-
+      Revise the turn 1 deck for executive handoff without regressing the layout
+      repair. On slide 2, style the title "Service Reliability Dashboard" as
+      CUIF blue #1F4E79, bold, and 32 pt. Keep the three metric tiles aligned
+      across the top row and keep the "Service health trend" panel in the
+      large left-middle region. Add the caption "Caption: checkout latency risk
+      is concentrated in owner-routing gaps." directly below the trend panel.
+      Add a right-side owner list with the exact header "Action owners" and the
+      exact entries "SRE: Priya", "Support: Marcus", and "Comms: Lina". Keep
+      the "Hotspot: checkout latency" callout in the lower-right region. Preserve
+      slides 1, 3, and 4 exactly from turn 1.
+    expected_output: result
+    checks:
+      - id: taska_final_file_exists
+        evaluator: file_exists
+        artifact: run.outputs.final.result
+        points: 1
+      - id: taska_final_slide_count
+        evaluator: pptx_slide_count
+        artifact: run.outputs.final.result
+        points: 1
+        depends_on: [taska_final_file_exists]
+        params: {count: 4}
+      - id: taska_final_title_style
+        evaluator: pptx_style_check
+        artifact: run.outputs.final.result
+        points: 4
+        depends_on: [taska_final_file_exists]
+        params:
+          selector: {slide: 2, text_contains: "Service Reliability Dashboard"}
+          font_color: "#1F4E79"
+          font_size_pt: 32
+          font_size_tolerance: 0.25
+          bold: true
+      - id: taska_final_handoff_texts
+        evaluator: pptx_text_contains
+        artifact: run.outputs.final.result
+        points: 4
+        depends_on: [taska_final_file_exists]
+        params:
+          texts:
+            - "Caption: checkout latency risk is concentrated in owner-routing gaps."
+            - "Action owners"
+            - "SRE: Priya"
+            - "Support: Marcus"
+            - "Comms: Lina"
+            - "Hotspot: checkout latency"
+            - "Route rollback owner by Friday"
+      - id: taska_final_caption_region
+        evaluator: pptx_bbox_region
+        artifact: run.outputs.final.result
+        points: 2
+        depends_on: [taska_final_handoff_texts]
+        params:
+          selector: {slide: 2, text_contains: "Caption: checkout latency risk is concentrated in owner-routing gaps."}
+          region: {slide: 2, x_min: 0.05, y_min: 0.73, x_max: 0.66, y_max: 0.86}
+          tolerance: 0.03
+      - id: taska_final_action_owners_region
+        evaluator: pptx_bbox_region
+        artifact: run.outputs.final.result
+        points: 2
+        depends_on: [taska_final_handoff_texts]
+        params:
+          selector: {slide: 2, text_contains: "Action owners"}
+          region: {slide: 2, x_min: 0.65, y_min: 0.31, x_max: 0.98, y_max: 0.56}
+          tolerance: 0.03
+      - id: taska_final_risk_lower_right
+        evaluator: pptx_bbox_region
+        artifact: run.outputs.final.result
+        points: 2
+        depends_on: [taska_final_handoff_texts]
+        params:
+          selector: {slide: 2, text_contains: "Hotspot: checkout latency"}
+          region: {slide: 2, x_min: 0.64, y_min: 0.60, x_max: 0.98, y_max: 0.90}
+          tolerance: 0.03
+      - id: taska_final_trend_layout_preserved
+        evaluator: pptx_preservation_diff
+        artifact: run.outputs.final.result
+        points: 3
+        depends_on: [taska_final_slide_count]
+        params:
+          reference: run.outputs.turn1.result
+          selector: {slide: 2, text_contains: "Service health trend"}
+          tolerance: 0.03
+      - id: taska_final_checkout_layout_preserved
+        evaluator: pptx_preservation_diff
+        artifact: run.outputs.final.result
+        points: 2
+        depends_on: [taska_final_slide_count]
+        params:
+          reference: run.outputs.turn1.result
+          selector: {slide: 2, text_contains: "Checkout SLA 97.2%"}
+          tolerance: 0.03
+      - id: taska_final_slide1_preserved
+        evaluator: pptx_preservation_diff
+        artifact: run.outputs.final.result
+        points: 3
+        depends_on: [taska_final_slide_count]
+        params:
+          reference: run.outputs.turn1.result
+          compare: exact_slide_text
+          slides: [1]
+          protected_texts: ["Do not edit: Task A context invariant"]
+      - id: taska_final_slide3_preserved
+        evaluator: pptx_preservation_diff
+        artifact: run.outputs.final.result
+        points: 3
+        depends_on: [taska_final_slide_count]
+        params:
+          reference: run.outputs.turn1.result
+          compare: exact_slide_text
+          slides: [3]
+          protected_texts: ["Do not edit: runbook evidence invariant"]
+      - id: taska_final_slide4_preserved
+        evaluator: pptx_preservation_diff
+        artifact: run.outputs.final.result
+        points: 3
+        depends_on: [taska_final_slide_count]
+        params:
+          reference: run.outputs.turn1.result
+          compare: exact_slide_text
+          slides: [4]
+          protected_texts: ["Do not edit: annotated repair benchmark invariant"]
+      - id: taska_optional_llm_repair_judge
+        evaluator: llm_text_rubric
+        artifact: run.outputs.final.result
+        points: 0
+        optional: true
+        diagnostic: true
+        params:
+          prompt: "Check whether the final deck follows the annotated layout-repair task and preserves non-target slides."
+          rubric: "Pass if slide 2 keeps the repaired top metric row, dominant left-middle trend panel, lower-right checkout latency callout, caption, and owner list while preserving slides 1, 3, and 4."
+      - id: taska_optional_vlm_layout_judge
+        evaluator: vlm_layout_rubric
+        artifact: run.outputs.final.result
+        points: 0
+        optional: true
+        diagnostic: true
+        params:
+          prompt: "Inspect the rendered final Task A deck against the annotated repair reference."
+          rubric: "Pass if the three metrics are aligned across the top row, the trend panel occupies the large left-middle area, the checkout latency callout is lower-right, and no protected slide appears changed."
+review:
+  comparison_targets:
+    - label: seed deck
+      artifact: package.seed
+    - label: turn 1 gold
+      artifact: package.gold_turn1
+    - label: turn 1 output
+      artifact: run.outputs.turn1.result
+    - label: final gold
+      artifact: package.gold_final
+    - label: final output
+      artifact: run.outputs.final.result
