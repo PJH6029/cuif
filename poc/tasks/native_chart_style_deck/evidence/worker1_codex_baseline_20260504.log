@@ -1,0 +1,2 @@
+===== native_chart_style_deck worker1 codex-exec bounded baseline 2026-05-04T20:42:34+09:00 =====
+$ timeout --kill-after=10s 90s uv run cuif-eval run-and-evaluate --task poc/tasks/native_chart_style_deck --bundle output/bundles/native_chart_style_deck_worker1_codex --run output/runs/native_chart_style_deck_worker1_codex --agent codex-exec --overwrite-bundle --skip-judges
