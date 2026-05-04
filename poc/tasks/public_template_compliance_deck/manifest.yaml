@@ -321,6 +321,42 @@ turns:
           font_size_pt: 9
           font_size_tolerance: 0.25
           bold: true
+      - id: metro_final_program_card_layout_preserved
+        evaluator: pptx_preservation_diff
+        artifact: run.outputs.final.result
+        points: 2
+        depends_on: [metro_final_slide_count]
+        params:
+          reference: run.outputs.turn1.result
+          selector: {slide: 1, text_contains: "Program health"}
+          tolerance: 0.01
+      - id: metro_final_funding_card_layout_preserved
+        evaluator: pptx_preservation_diff
+        artifact: run.outputs.final.result
+        points: 2
+        depends_on: [metro_final_slide_count]
+        params:
+          reference: run.outputs.turn1.result
+          selector: {slide: 1, text_contains: "Funding status"}
+          tolerance: 0.01
+      - id: metro_final_timeline_card_layout_preserved
+        evaluator: pptx_preservation_diff
+        artifact: run.outputs.final.result
+        points: 2
+        depends_on: [metro_final_slide_count]
+        params:
+          reference: run.outputs.turn1.result
+          selector: {slide: 1, text_contains: "Timeline"}
+          tolerance: 0.01
+      - id: metro_final_slide1_footer_layout_preserved
+        evaluator: pptx_preservation_diff
+        artifact: run.outputs.final.result
+        points: 2
+        depends_on: [metro_final_slide_count]
+        params:
+          reference: run.outputs.turn1.result
+          selector: {slide: 1, text_contains: "PUBLIC TEMPLATE"}
+          tolerance: 0.01
       - id: metro_final_slide2_preserved
         evaluator: pptx_preservation_diff
         artifact: run.outputs.final.result
@@ -347,3 +383,15 @@ turns:
             embedded seal, visible 0.42 inch-style margins, aligned card/table
             grid, protected notice regions, and the final lower-right oversight
             callout without overlap or arbitrary styling.
+review:
+  comparison_targets:
+    - label: seed deck
+      artifact: package.seed
+    - label: turn 1 gold
+      artifact: package.gold_turn1
+    - label: turn 1 output
+      artifact: run.outputs.turn1.result
+    - label: final gold
+      artifact: package.gold_final
+    - label: final output
+      artifact: run.outputs.final.result

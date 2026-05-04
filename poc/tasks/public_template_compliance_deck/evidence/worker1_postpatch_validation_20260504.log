@@ -1,0 +1,29 @@
+===== public_template_compliance_deck worker1 postpatch validation 2026-05-04T20:35:42+09:00 =====
+$ uv run cuif-eval validate poc/tasks/public_template_compliance_deck/manifest.yaml --skip-judges
+OK: public_template_compliance_deck (2 turns)
+exit_code=0
+
+$ uv run cuif-eval point-distribution poc/tasks/public_template_compliance_deck/manifest.yaml --fail-below-threshold
+Task: public_template_compliance_deck
+Thesis-heavy share: 52.00/62.00 (83.9%)
+Threshold: 60.0%; meets threshold: True
+Excluded points: 4.00 (boilerplate + diagnostic previews)
+Buckets:
+- boilerplate: 4.00
+- content_source: 10.00
+- diagnostic: 0.00
+- layout_template_style: 35.00
+- preservation_regression: 17.00
+Evaluators:
+- file_exists: 2.00
+- pptx_bbox_region: 15.00
+- pptx_image_match: 5.00
+- pptx_preservation_diff: 17.00
+- pptx_slide_count: 2.00
+- pptx_style_check: 15.00
+- pptx_text_contains: 10.00
+- rendered_layout_review: 0.00
+- vlm_layout_rubric: 0.00
+exit_code=0
+
+$ uv run cuif-eval run --task poc/tasks/public_template_compliance_deck --adapter mock --out output/runs/public_template_compliance_deck_worker1_postpatch_mock --skip-judges

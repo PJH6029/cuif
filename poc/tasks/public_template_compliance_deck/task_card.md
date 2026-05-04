@@ -47,9 +47,9 @@ Point budget by capability bucket:
 - Boilerplate: 4 points (`file_exists`, `pptx_slide_count`).
 - Content/source: 10 points (`pptx_text_contains`).
 - Layout/template/style/image fidelity: 35 points (`pptx_bbox_region`, `pptx_style_check`, `pptx_image_match`).
-- Preservation/regression: 9 points (`pptx_preservation_diff`).
+- Preservation/regression: 17 points (`pptx_preservation_diff`, including final-turn slide-1 card/footer geometry locks against turn 1).
 - Diagnostic-only rendered/VLM checks: 0 points.
 
-Evaluator adequacy verdict: Existing evaluators are sufficient for this Task B package. Style fidelity is covered by targeted text style checks; template/layout fidelity is covered by bbox checks on header/footer/cards/table/callout plus seal image match. Remaining aesthetic nuance is documented as a VLM diagnostic blind spot rather than converted into content-heavy scoring.
+Evaluator adequacy verdict: Existing evaluators are sufficient for this Task B package. Style fidelity is covered by targeted text style checks; template/layout fidelity is covered by bbox checks on header/footer/cards/table/callout plus seal image match. Final-turn preservation checks now lock the slide-1 card/footer geometry and slide-2 table text against turn 1. Remaining aesthetic nuance is documented as a VLM diagnostic blind spot rather than converted into content-heavy scoring.
 
 Negative shortcut case: A flattened screenshot-only deck or arbitrary styling should fail because the seal must be an embedded matching image, text runs must expose required font style/color/size, and required text boxes must sit in normalized template regions.
