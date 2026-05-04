@@ -1,0 +1,13 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='1280' height='720' viewBox='0 0 1280 720'>
+  <rect width='1280' height='720' fill='#FFFFFF'/>
+  <rect x='40' y='40' width='1200' height='640' fill='none' stroke='#112A4A' stroke-width='3'/>
+  <line x1='40' y1='84' x2='1240' y2='84' stroke='#006F80' stroke-width='3'/>
+  <line x1='40' y1='124' x2='1240' y2='124' stroke='#006F80' stroke-width='2'/>
+  <rect x='65' y='150' width='330' height='128' fill='none' stroke='#1F4E79' stroke-width='3'/>
+  <rect x='474' y='150' width='330' height='128' fill='none' stroke='#1F4E79' stroke-width='3'/>
+  <rect x='884' y='150' width='330' height='128' fill='none' stroke='#1F4E79' stroke-width='3'/>
+  <rect x='655' y='534' width='410' height='88' fill='none' stroke='#F5C542' stroke-width='4'/>
+  <text x='70' y='192' font-family='Aptos, Arial' font-size='19' fill='#112A4A'>Three top cards align to this row</text>
+  <text x='660' y='582' font-family='Aptos, Arial' font-size='19' fill='#112A4A'>Final callout must stay here</text>
+  <text x='52' y='702' font-family='Aptos, Arial' font-size='14' fill='#5B6B80'>Normalized margins: x 0.04-0.96; footer reserved at bottom.</text>
+</svg>
