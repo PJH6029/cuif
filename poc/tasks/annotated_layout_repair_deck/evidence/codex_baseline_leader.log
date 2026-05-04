@@ -1,0 +1,3 @@
+===== annotated_layout_repair_deck codex baseline =====
+$ timeout 420s uv run cuif-eval run-and-evaluate --task poc/tasks/annotated_layout_repair_deck --bundle output/bundles/annotated_layout_repair_deck_codex --run output/runs/annotated_layout_repair_deck_codex --agent codex-exec --overwrite-bundle --skip-judges
+exit_code=124
