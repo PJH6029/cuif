@@ -11,8 +11,28 @@ This note summarizes the leader-side final integration review for the new layout
 | Task | Package path | Core thesis target | Mock score | Thesis-heavy share |
 | --- | --- | --- | ---: | ---: |
 | A | `poc/tasks/annotated_layout_repair_deck` | Annotated visual layout repair + protected-content preservation | 57/57 | 45/53 (84.9%) |
-| B | `poc/tasks/public_template_compliance_deck` | Strict template/style/brand compliance with concrete visual assets | 58/58 | 44/54 (81.5%) |
+| B | `poc/tasks/public_template_compliance_deck` | Strict template/style/brand compliance with concrete visual assets | 66/66 | 52/62 (83.9%) |
 | C | `poc/tasks/native_chart_style_deck` | Cross-file data-to-deck task with native editable PowerPoint chart | 71/71 | 48/67 (71.6%) |
+
+## Worker-1 rerun/fix pass
+
+Worker-1 reran the layout-constraint implementation against the PRD/test spec and integrated two read-only subagent critiques:
+
+- Added explicit review comparison targets to Tasks B and C so their reports render seed, turn-1 gold, turn-1 output, final gold, and final output like Task A.
+- Tightened Task B's final-turn regression coverage with scored `pptx_preservation_diff` checks for slide-1 status-card and footer geometry against the turn-1 output.
+- Kept VLM checks optional/diagnostic in the manifests because the live OAuth endpoint can run the checks but currently rejects local data-URL/localhost image delivery; mandatory multimodal review is therefore recorded as runtime evidence/attempt logs rather than a deterministic package gate.
+
+Fresh evidence logs from this rerun:
+
+- `poc/tasks/annotated_layout_repair_deck/evidence/worker1_validation_20260504.log`
+- `poc/tasks/public_template_compliance_deck/evidence/worker1_postpatch_validation_20260504.log`
+- `poc/tasks/native_chart_style_deck/evidence/worker1_postpatch_validation_20260504.log`
+- `poc/tasks/annotated_layout_repair_deck/evidence/worker1_live_judge_dataurl_20260504.log`
+- `poc/tasks/public_template_compliance_deck/evidence/worker1_live_judge_dataurl_20260504.log`
+- `poc/tasks/native_chart_style_deck/evidence/worker1_live_judge_dataurl_20260504.log`
+- `poc/tasks/annotated_layout_repair_deck/evidence/worker1_codex_baseline_20260504.log`
+- `poc/tasks/public_template_compliance_deck/evidence/worker1_codex_baseline_20260504.log`
+- `poc/tasks/native_chart_style_deck/evidence/worker1_codex_baseline_20260504.log`
 
 ## Final deterministic validation
 
@@ -52,7 +72,7 @@ Evidence logs:
 - `poc/tasks/public_template_compliance_deck/evidence/live_judge_leader.log`
 - `poc/tasks/native_chart_style_deck/evidence/live_judge_leader.log`
 
-Outcome: deterministic scores remained 100%. Task A's LLM judge passed. Optional VLM judges were attempted but upstream image fetching could not download localhost URLs (`407`), so the optional zero-point VLM checks are recorded as live-attempt errors rather than deterministic scoring blockers. Data-URL retry logs are also stored in each task's `evidence/` directory.
+Outcome: deterministic scores remained 100%. Task A's LLM judge passed. Optional VLM judges were attempted but upstream image fetching could not download localhost URLs (`407`), so the optional zero-point VLM checks are recorded as live-attempt errors rather than deterministic scoring blockers. Data-URL retry logs are also stored in each task's `evidence/` directory. Worker-1 reran the data-URL path through `npx -y openai-oauth --models gpt-5.4 --port 10641`; the endpoint became ready and each evaluator run completed with a 100% deterministic score, while each optional VLM check logged `URL scheme must be http or https, got data:`.
 
 ## Codex baseline evidence
 
