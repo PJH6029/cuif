@@ -4,3 +4,13 @@ bundle=output/bundles/worker4_task6/annotated_layout_repair_deck_codex_20260504T
 run=output/runs/worker4_task6/annotated_layout_repair_deck_codex_20260504T113455Z
 claim_token=159b4e72-cb11-47a4-a2ff-96548631b92f
 $ timeout 140s uv run cuif-eval run-and-evaluate --task poc/tasks/annotated_layout_repair_deck --bundle output/bundles/worker4_task6/annotated_layout_repair_deck_codex_20260504T113455Z --run output/runs/worker4_task6/annotated_layout_repair_deck_codex_20260504T113455Z --agent codex-exec --agent-arg=--model --agent-arg=gpt-5.3-codex-spark --overwrite-bundle --skip-judges
+Bundle directory: /home/top321902/code/snupi/cuif/.omx/team/rerun-layout-constraint-task-i/worktrees/worker-4/output/bundles/worker4_task6/annotated_layout_repair_deck_codex_20260504T113455Z
+Agent workspace: /home/top321902/code/snupi/cuif/.omx/team/rerun-layout-constraint-task-i/worktrees/worker-4/output/bundles/worker4_task6/annotated_layout_repair_deck_codex_20260504T113455Z/current
+Run directory: /home/top321902/code/snupi/cuif/.omx/team/rerun-layout-constraint-task-i/worktrees/worker-4/output/runs/worker4_task6/annotated_layout_repair_deck_codex_20260504T113455Z
+Agent logs: /home/top321902/code/snupi/cuif/.omx/team/rerun-layout-constraint-task-i/worktrees/worker-4/output/bundles/worker4_task6/annotated_layout_repair_deck_codex_20260504T113455Z/.cuif_bundle/agent_run_logs/codex-exec
+Final score: 57.00/57.00 (100.0%)
+
+exit_code=0
+finished_at=2026-05-04T11:39:57Z
+agent_summary=output/bundles/worker4_task6/annotated_layout_repair_deck_codex_20260504T113455Z/.cuif_bundle/agent_run_logs/codex-exec/agent_run_summary.json
+report=output/runs/worker4_task6/annotated_layout_repair_deck_codex_20260504T113455Z/report.json
