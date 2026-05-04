@@ -137,10 +137,10 @@ turns:
           selector: {slide: 1, text_contains: "PROGRAM STATUS BRIEFING"}
           region: {slide: 1, x_min: 0.03, y_min: 0.10, x_max: 0.96, y_max: 0.18}
           tolerance: 0.02
-      - id: metro_t1_card_grid_regions
+      - id: metro_t1_program_card_region
         evaluator: pptx_bbox_region
         artifact: run.outputs.turn1.result
-        points: 6
+        points: 2
         depends_on: [metro_t1_required_texts]
         params:
           selector: {slide: 1, text_contains: "Program health"}
@@ -149,10 +149,8 @@ turns:
       - id: metro_t1_funding_card_region
         evaluator: pptx_bbox_region
         artifact: run.outputs.turn1.result
-        points: 0
-        depends_on: [metro_t1_card_grid_regions]
-        diagnostic: true
-        optional: true
+        points: 2
+        depends_on: [metro_t1_required_texts]
         params:
           selector: {slide: 1, text_contains: "Funding status"}
           region: {slide: 1, x_min: 0.35, y_min: 0.20, x_max: 0.64, y_max: 0.31}
@@ -160,10 +158,8 @@ turns:
       - id: metro_t1_timeline_card_region
         evaluator: pptx_bbox_region
         artifact: run.outputs.turn1.result
-        points: 0
-        depends_on: [metro_t1_card_grid_regions]
-        diagnostic: true
-        optional: true
+        points: 2
+        depends_on: [metro_t1_required_texts]
         params:
           selector: {slide: 1, text_contains: "Timeline"}
           region: {slide: 1, x_min: 0.66, y_min: 0.20, x_max: 0.95, y_max: 0.31}
