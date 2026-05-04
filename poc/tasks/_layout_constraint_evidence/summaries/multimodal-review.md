@@ -14,15 +14,15 @@ Scope: Task 5, mandatory multimodal/VLM critique of new A/B/C visual inputs, see
 
 ## Repo-level evidence assets
 
-- Cross-task contact sheet: `poc/layout_constraint_multimodal_review_contact_sheet.png`
-- Data URL VLM response: `poc/layout_constraint_multimodal_review_vlm_response.json`
-- Data URL curl stderr: `poc/layout_constraint_multimodal_review_vlm_curl.err`
-- HTTP image VLM response: `poc/layout_constraint_multimodal_review_vlm_http_response.json`
-- HTTP image curl stderr: `poc/layout_constraint_multimodal_review_vlm_http_curl.err`
+- Cross-task contact sheet: `poc/tasks/_layout_constraint_evidence/multimodal_review/contact_sheet.png`
+- Data URL VLM response: `poc/tasks/_layout_constraint_evidence/multimodal_review/vlm_response.json`
+- Data URL curl stderr: `poc/tasks/_layout_constraint_evidence/multimodal_review/vlm_curl.err`
+- HTTP image VLM response: `poc/tasks/_layout_constraint_evidence/multimodal_review/vlm_http_response.json`
+- HTTP image curl stderr: `poc/tasks/_layout_constraint_evidence/multimodal_review/vlm_http_curl.err`
 - OAuth server logs:
-  - `poc/layout_constraint_multimodal_review_oauth_server.log`
-  - `poc/layout_constraint_multimodal_review_oauth_http_server.log`
-  - `poc/layout_constraint_multimodal_review_contact_http_server.log`
+  - `poc/tasks/_layout_constraint_evidence/multimodal_review/oauth_server.log`
+  - `poc/tasks/_layout_constraint_evidence/multimodal_review/oauth_http_server.log`
+  - `poc/tasks/_layout_constraint_evidence/multimodal_review/contact_http_server.log`
 
 ## Package-local evidence notes
 
@@ -39,7 +39,7 @@ Each package also contains contact sheets for visual inputs, seed previews, gold
 Image submission attempts:
 
 1. Data URL image payload to `/v1/chat/completions` failed with: `URL scheme must be http or https, got data:`.
-2. HTTP-served local contact sheet payload failed with: `Error while downloading http://127.0.0.1:8765/poc/layout_constraint_multimodal_review_contact_sheet.png. Upstream status code: 407.`
+2. HTTP-served local contact sheet payload failed with: `Error while downloading http://127.0.0.1:8765/poc/tasks/_layout_constraint_evidence/multimodal_review/contact_sheet.png. Upstream status code: 407.`
 
 Conclusion: the model endpoint was available, but image transport was blocked. Per the task instruction, contact sheets were created and preserved for orchestrator multimodal inspection.
 

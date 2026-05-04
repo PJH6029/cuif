@@ -63,3 +63,9 @@ uv run cuif-eval run \
   --judge-model <model> \
   --judge-image-url-base https://<public-host>/toy_pptx_layout_judge
 ```
+
+## Evidence organization
+
+Task packages live under `poc/tasks/<task_id>/`. Repo-level layout-constraint
+rerun logs and summaries live under `poc/tasks/_layout_constraint_evidence/`
+so the `poc/` root stays limited to stable PoC documentation.

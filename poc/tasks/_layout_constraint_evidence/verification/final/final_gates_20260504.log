@@ -129,8 +129,8 @@ OK poc/tasks/native_chart_style_deck/evidence/multimodal_review/gold_final_monta
 OK poc/tasks/native_chart_style_deck/evidence/worker4_live_judge_dataurl_20260504T113455Z.log
 OK poc/tasks/native_chart_style_deck/evidence/worker4_openai_oauth_probe_20260504T113455Z.log
 OK poc/tasks/native_chart_style_deck/evidence/worker4_openai_oauth_https_probe_20260504T113455Z.log
-OK poc/layout-constraint-multimodal-review.md
-OK poc/layout_constraint_task6_worker4_evidence.md
-OK poc/layout-constraint-task-evidence.md
-OK poc/layout_constraint_task7_verification/pytest.log
+OK poc/tasks/_layout_constraint_evidence/summaries/multimodal-review.md
+OK poc/tasks/_layout_constraint_evidence/summaries/task6-worker4-evidence.md
+OK poc/tasks/_layout_constraint_evidence/summaries/task-evidence.md
+OK poc/tasks/_layout_constraint_evidence/verification/task7/pytest.log
 final_gates_exit=0

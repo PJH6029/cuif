@@ -1,5 +1,5 @@
 ===== public_template_compliance_deck worker1 live judge data-url rerun 2026-05-04T20:37:49+09:00 =====
-server_log=poc/layout_constraint_worker1_openai_oauth_20260504.log
+server_log=poc/tasks/_layout_constraint_evidence/worker_logs/worker1_openai_oauth_20260504.log
 $ timeout 360s uv run cuif-eval run --task poc/tasks/public_template_compliance_deck --adapter mock --out output/runs/public_template_compliance_deck_worker1_judge_dataurl --judge-base-url http://127.0.0.1:10641/v1 --judge-model gpt-5.4 --refresh-judge-cache
 Run directory: /home/top321902/code/snupi/cuif/.omx/team/rerun-layout-constraint-task-i/worktrees/worker-1/output/runs/public_template_compliance_deck_worker1_judge_dataurl
 Adapter status: succeeded
