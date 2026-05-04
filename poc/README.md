@@ -23,6 +23,16 @@ uv run cuif-eval run --task poc/tasks/toy_pptx_layout --adapter mock --out outpu
 
 The mock adapter copies `mock_outputs/<turn>/result.pptx` into the isolated run workspace, then the evaluator runs deterministic PPTX checks, optional renderer fallback, skipped judge diagnostics, and static report generation.
 
+For layout-constraint task review, summarize scoring allocation before
+acceptance:
+
+```bash
+uv run cuif-eval point-distribution poc/tasks/<task_id>/manifest.yaml --fail-below-threshold
+```
+
+See [layout-heavy evaluator verification templates](evaluator-verification-templates.md)
+for point-distribution, live `gpt-5.4` judge, and Codex baseline evidence commands.
+
 ## Adapter contracts
 
 - `mock`: copies deterministic fixture outputs for CI and local smoke tests.

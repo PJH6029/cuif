@@ -362,7 +362,7 @@ Current supported evaluator names:
 | `pptx_slide_count` | Require exact slide count. | `count` |
 | `pptx_text_contains` | Require one or more exact/near-exact strings. | `text` or `texts`, optional `case_sensitive` |
 | `pptx_bbox_region` | Require a shape/text box to stay inside a normalized slide region. | `selector`, `region`, optional `tolerance` |
-| `pptx_style_check` | Require font color, size, and/or bold on selected text. | `selector`, `font_color`, `font_size_pt`, `font_size_tolerance`, `bold` |
+| `pptx_style_check` | Require font color, size, and/or bold on selected text, or shape-level fill/line colors for template bands/cards. | `selector`, `font_color`, `font_size_pt`, `font_size_tolerance`, `bold`, `fill_color`, `line_color` |
 | `pptx_chart_data` | Require a native PowerPoint chart to contain expected chart type, categories, series names, and values. | `selector`, optional `chart_type`, `categories`, `series`, `value_tolerance` |
 | `pptx_image_count` | Require one or more embedded raster images on a slide. | `selector`, optional `count` or `min_count` |
 | `pptx_image_match` | Require an embedded raster image to visually match a package reference crop and optionally sit in a region. | `source`, `selector`, optional `min_similarity`, `region`, `tolerance` |
@@ -447,6 +447,17 @@ Suggested distribution:
 | Style constraints | 2--4 total |
 | Preservation / collateral damage | 3--6 total |
 | Optional rendered or judge diagnostics | 0 initially |
+
+For layout-constraint flagship tasks, run the scoring allocation utility and
+keep layout/style/template/preservation/native-editability checks at a majority
+of non-boilerplate points:
+
+```bash
+uv run cuif-eval point-distribution poc/tasks/<task_id>/manifest.yaml --fail-below-threshold
+```
+
+The review denominator excludes `file_exists`, `pptx_slide_count`, and
+diagnostic preview-only checks such as `rendered_layout_review`.
 
 Dependency pattern:
 
