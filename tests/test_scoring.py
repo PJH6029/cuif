@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+from cuif_eval.schema import load_manifest
 from cuif_eval.scoring import aggregate_results
+from cuif_eval.scoring import point_distribution
 from cuif_eval.types import CheckResult
 
 
@@ -26,3 +28,23 @@ def test_preservation_failures_are_visible_as_regressions():
     summary = aggregate_results([result("preserve", "final", "fail", 3, 0, evaluator="pptx_preservation_diff")])
     assert summary["preservation_failures"] == ["preserve"]
     assert summary["regressions"] == ["preserve"]
+
+
+def test_point_distribution_excludes_boilerplate_and_diagnostic_preview(mutate_manifest):
+    def add_diagnostic_points(data):
+        for turn in data["turns"]:
+            for check in turn["checks"]:
+                if check["id"] == "turn1_rendered_review":
+                    check["points"] = 5
+
+    manifest = load_manifest(mutate_manifest(add_diagnostic_points), skip_judges=True)
+    distribution = point_distribution(manifest)
+
+    assert distribution["buckets"]["boilerplate"] == 4
+    assert distribution["buckets"]["diagnostic"] == 5
+    assert distribution["review_points"] == 15
+    assert distribution["thesis_heavy_points"] == 10
+    assert distribution["thesis_heavy_share"] == 10 / 15
+    assert distribution["meets_threshold"] is True
+    rendered = next(check for check in distribution["checks"] if check["check_id"] == "turn1_rendered_review")
+    assert rendered["excluded_from_review_denominator"] is True

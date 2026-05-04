@@ -88,3 +88,10 @@ def test_run_and_evaluate_parser_contract():
     )
     assert args.command == "run-and-evaluate"
     assert args.agent == "codex-exec"
+
+
+def test_point_distribution_parser_contract():
+    args = build_parser().parse_args(["point-distribution", "poc/tasks/toy_pptx_layout/manifest.yaml", "--json"])
+    assert args.command == "point-distribution"
+    assert args.manifest == "poc/tasks/toy_pptx_layout/manifest.yaml"
+    assert args.json is True

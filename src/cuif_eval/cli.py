@@ -7,8 +7,8 @@ import sys
 from .agent_runners import DEFAULT_AGENT, DEFAULT_PROMPT_TEMPLATE, run_agent_on_bundle, run_and_evaluate_bundle
 from .bundles import evaluate_bundle_outputs, export_task_bundle, stage_bundle_turn
 from .runner import evaluate_run, regenerate_report, run_task
-from .schema import ManifestValidationError, validate_manifest
-from .scoring import aggregate_results
+from .schema import ManifestValidationError, load_manifest, validate_manifest
+from .scoring import aggregate_results, point_distribution
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -92,6 +92,13 @@ def build_parser() -> argparse.ArgumentParser:
 
     report = sub.add_parser("report", help="print existing report summary")
     report.add_argument("--run", required=True)
+
+    distribution = sub.add_parser("point-distribution", help="summarize manifest point allocation by evaluator and thesis-heavy bucket")
+    distribution.add_argument("manifest")
+    distribution.add_argument("--threshold", type=float, default=0.60, help="minimum thesis-heavy share after excluded checks are removed")
+    distribution.add_argument("--json", action="store_true", help="print machine-readable JSON")
+    distribution.add_argument("--fail-below-threshold", action="store_true", help="exit 2 when thesis-heavy share is below threshold")
+    distribution.add_argument("--require-live-judges", action="store_true", help="require live judge model/base_url config while loading manifest")
     return parser
 
 
@@ -229,6 +236,23 @@ def main(argv: list[str] | None = None) -> int:
             report = regenerate_report(args.run)
             print(json.dumps(report["summary"], indent=2, sort_keys=True))
             return 0
+        if args.command == "point-distribution":
+            manifest = load_manifest(args.manifest, skip_judges=not args.require_live_judges)
+            distribution = point_distribution(manifest, threshold=args.threshold)
+            if args.json:
+                print(json.dumps(distribution, indent=2, sort_keys=True))
+            else:
+                print(f"Task: {manifest.id}")
+                print(f"Thesis-heavy share: {distribution['thesis_heavy_points']:.2f}/{distribution['review_points']:.2f} ({distribution['thesis_heavy_share']:.1%})")
+                print(f"Threshold: {distribution['threshold']:.1%}; meets threshold: {distribution['meets_threshold']}")
+                print(f"Excluded points: {distribution['excluded_points']:.2f} (boilerplate + diagnostic previews)")
+                print("Buckets:")
+                for bucket, points in distribution["buckets"].items():
+                    print(f"- {bucket}: {points:.2f}")
+                print("Evaluators:")
+                for evaluator, points in distribution["evaluators"].items():
+                    print(f"- {evaluator}: {points:.2f}")
+            return 2 if args.fail_below_threshold and not distribution["meets_threshold"] else 0
     except ManifestValidationError as exc:
         print(str(exc), file=sys.stderr)
         return 1

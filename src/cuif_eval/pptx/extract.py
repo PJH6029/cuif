@@ -26,6 +26,8 @@ class ShapeInfo:
     w: float
     h: float
     runs: list[TextRunInfo]
+    fill_color: str | None = None
+    line_color: str | None = None
 
     @property
     def x_max(self) -> float:
@@ -102,6 +104,20 @@ def _rgb_to_hex(value: Any) -> str | None:
     return f"#{str(rgb).upper()}"
 
 
+def _shape_fill_color(shape: Any) -> str | None:
+    try:
+        return _rgb_to_hex(shape.fill.fore_color)
+    except Exception:
+        return None
+
+
+def _shape_line_color(shape: Any) -> str | None:
+    try:
+        return _rgb_to_hex(shape.line.color)
+    except Exception:
+        return None
+
+
 def _shape_runs(shape: Any) -> list[TextRunInfo]:
     runs: list[TextRunInfo] = []
     if not getattr(shape, "has_text_frame", False):
@@ -144,6 +160,8 @@ def extract_shapes(path: str | Path) -> list[ShapeInfo]:
                     w=sw / width if width else 0.0,
                     h=sh / height if height else 0.0,
                     runs=_shape_runs(shape),
+                    fill_color=_shape_fill_color(shape),
+                    line_color=_shape_line_color(shape),
                 )
             )
     return shapes

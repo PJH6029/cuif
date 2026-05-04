@@ -4,9 +4,11 @@ import shutil
 
 from PIL import Image, ImageDraw
 import yaml
+from pptx.dml.color import RGBColor
 from pptx import Presentation
 from pptx.chart.data import CategoryChartData
 from pptx.enum.chart import XL_CHART_TYPE
+from pptx.enum.shapes import MSO_SHAPE
 from pptx.util import Inches
 
 from cuif_eval.runner import run_task
@@ -46,6 +48,17 @@ def _write_reference_image(path):
     draw.text((54, 52), "Encoder", fill="#172033")
     draw.text((240, 52), "Decoder", fill="#172033")
     image.save(path)
+
+
+def _write_template_shape_deck(path):
+    prs = Presentation()
+    slide = prs.slides.add_slide(prs.slide_layouts[6])
+    band = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(0.4), Inches(0.3), Inches(9.2), Inches(0.8))
+    band.name = "brand_header_band"
+    band.fill.solid()
+    band.fill.fore_color.rgb = RGBColor(0x1F, 0x4E, 0x79)
+    band.line.color.rgb = RGBColor(0xFF, 0xBF, 0x00)
+    prs.save(path)
 
 
 def test_pptx_extraction_reads_slide_text_bbox_and_style(toy_task):
@@ -198,6 +211,68 @@ def test_pptx_image_and_formula_checks(tmp_path):
     assert statuses["figure_count"] == "pass"
     assert statuses["figure_match"] == "pass"
     assert statuses["formula_present"] == "pass"
+
+
+def test_pptx_style_check_scores_shape_fill_and_line_colors(tmp_path):
+    task = tmp_path / "shape_style_task"
+    (task / "artifacts").mkdir(parents=True)
+    (task / "mock_outputs" / "turn1").mkdir(parents=True)
+    _write_template_shape_deck(task / "artifacts" / "seed.pptx")
+    shutil.copy2(task / "artifacts" / "seed.pptx", task / "mock_outputs" / "turn1" / "result.pptx")
+    (task / "manifest.yaml").write_text(
+        yaml.safe_dump(
+            {
+                "manifest_version": "0.1",
+                "id": "shape_style_task",
+                "title": "Shape style smoke task",
+                "primary_artifact_family": "pptx",
+                "artifact_families": ["pptx"],
+                "tracks": ["open_tool"],
+                "artifacts": {
+                    "package": {"seed": {"path": "artifacts/seed.pptx", "type": "pptx", "role": "seed"}},
+                    "expected_outputs": {"turn1": {"result": {"path": "result.pptx", "type": "pptx"}}},
+                },
+                "turns": [
+                    {
+                        "id": "turn1",
+                        "instruction": "Keep the template header band style.",
+                        "expected_output": "result",
+                        "checks": [
+                            {"id": "exists", "evaluator": "file_exists", "artifact": "run.outputs.turn1.result", "points": 1},
+                            {
+                                "id": "header_band_style",
+                                "evaluator": "pptx_style_check",
+                                "artifact": "run.outputs.turn1.result",
+                                "points": 4,
+                                "params": {
+                                    "selector": {"slide": 1, "name": "brand_header_band"},
+                                    "fill_color": "#1F4E79",
+                                    "line_color": "#FFBF00",
+                                },
+                            },
+                            {
+                                "id": "header_band_wrong_fill",
+                                "evaluator": "pptx_style_check",
+                                "artifact": "run.outputs.turn1.result",
+                                "points": 1,
+                                "params": {
+                                    "selector": {"slide": 1, "name": "brand_header_band"},
+                                    "fill_color": "#FFFFFF",
+                                },
+                            },
+                        ],
+                    }
+                ],
+            },
+            sort_keys=False,
+        ),
+        encoding="utf-8",
+    )
+
+    result = run_task(task, adapter_name="mock", out=tmp_path / "run", skip_judges=True)
+    statuses = {r.check_id: r.status for r in result["results"]}
+    assert statuses["header_band_style"] == "pass"
+    assert statuses["header_band_wrong_fill"] == "fail"
 
 
 def test_passing_toy_task_has_required_pptx_checks_pass(toy_task, tmp_path):

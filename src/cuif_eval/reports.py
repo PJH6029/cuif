@@ -8,7 +8,7 @@ from typing import Any
 
 from .artifacts import RunWorkspace, output_reference, read_run_metadata, resolve_artifact_ref
 from .pptx.render import render_pptx_previews
-from .scoring import aggregate_results
+from .scoring import aggregate_results, point_distribution
 from .types import CheckResult, Manifest, TurnSpec
 
 
@@ -314,6 +314,7 @@ def build_report_data(manifest: Manifest, workspace: RunWorkspace, results: list
     review_assets = collect_review_assets(manifest, workspace)
     review_trajectory = collect_review_trajectory(manifest, workspace)
     summary = aggregate_results(results)
+    distribution = point_distribution(manifest)
     artifact_links: dict[str, str] = {}
     for name in manifest.package_artifacts:
         ref = f"package.{name}"
@@ -328,6 +329,7 @@ def build_report_data(manifest: Manifest, workspace: RunWorkspace, results: list
         "task": {"id": manifest.id, "title": manifest.title, "manifest": manifest_link},
         "run": metadata,
         "summary": summary,
+        "point_distribution": distribution,
         "checks": _portable([result.to_json() for result in results], manifest, workspace),
         "artifacts": _portable(artifact_links, manifest, workspace),
         "review_assets": _portable(review_assets, manifest, workspace),
@@ -359,6 +361,17 @@ def write_report_md(report_data: dict[str, Any], workspace: RunWorkspace) -> Pat
     ]
     for turn_id, turn_summary in summary["per_turn"].items():
         lines.append(f"| {turn_id} | {turn_summary['earned_points']:.2f} | {turn_summary['possible_points']:.2f} | {turn_summary['score']:.1%} | `{turn_summary['status_counts']}` |")
+    distribution = report_data.get("point_distribution", {})
+    if distribution:
+        lines += [
+            "",
+            "## Point distribution",
+            "",
+            f"- Thesis-heavy points: {distribution['thesis_heavy_points']:.2f} / {distribution['review_points']:.2f} ({distribution['thesis_heavy_share']:.1%})",
+            f"- Threshold: {distribution['threshold']:.0%}; meets threshold: `{distribution['meets_threshold']}`",
+            f"- Excluded points: {distribution['excluded_points']:.2f} (`file_exists`, `pptx_slide_count`, and diagnostic preview checks)",
+            f"- Buckets: `{distribution['buckets']}`",
+        ]
     lines += ["", "## Checks", "", "| Turn | Check | Evaluator | Status | Points | Message |", "| --- | --- | --- | --- | ---: | --- |"]
     for check in report_data["checks"]:
         lines.append(f"| {check['turn_id']} | {check['check_id']} | {check['evaluator']} | {check['status']} | {check['earned_points']:.2f}/{check['points']:.2f} | {check['message']} |")
@@ -487,6 +500,7 @@ def _render_trajectory_comparison(report_data: dict[str, Any]) -> str:
 def write_review_html(report_data: dict[str, Any], workspace: RunWorkspace) -> Path:
     path = workspace.review_dir / "index.html"
     summary = report_data["summary"]
+    distribution = report_data.get("point_distribution", {})
     check_rows = "".join(
         "<tr>"
         f"<td>{html.escape(c['turn_id'])}</td><td>{html.escape(c['check_id'])}</td><td>{html.escape(c['evaluator'])}</td>"
@@ -545,7 +559,7 @@ th, td {{ border: 1px solid #ddd; padding: .4rem; vertical-align: top; }}
 .pass {{ color: #087f23; font-weight: 700; }} .fail, .error {{ color: #b00020; font-weight: 700; }} .blocked {{ color: #9a6700; font-weight: 700; }} .skipped {{ color: #5f6368; }}
 </style>
 <h1>CUIF Human Review</h1>
-<div class="summary"><strong>Score:</strong> {summary['earned_points']:.2f} / {summary['possible_points']:.2f} ({summary['final_score']:.1%})<br><strong>Status counts:</strong> {html.escape(str(summary['status_counts']))}</div>
+<div class="summary"><strong>Score:</strong> {summary['earned_points']:.2f} / {summary['possible_points']:.2f} ({summary['final_score']:.1%})<br><strong>Status counts:</strong> {html.escape(str(summary['status_counts']))}<br><strong>Thesis-heavy point share:</strong> {html.escape(f"{distribution.get('thesis_heavy_points', 0.0):.2f} / {distribution.get('review_points', 0.0):.2f} ({distribution.get('thesis_heavy_share', 0.0):.1%})")}</div>
 {trajectory_html}
 {legacy_html}
 <h2>Check Results</h2>

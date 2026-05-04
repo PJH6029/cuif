@@ -314,6 +314,18 @@ def pptx_style_check(spec: CheckSpec, turn: TurnSpec, manifest: Manifest, worksp
         actual["bold"] = bolds
         if expected_bold not in bolds:
             failures.append(f"bold expected {expected_bold}, got {bolds}")
+    if "fill_color" in spec.params:
+        expected_fill = _normalize_color(spec.params.get("fill_color"))
+        actual_fill = _normalize_color(shape.fill_color)
+        actual["fill_color"] = actual_fill
+        if actual_fill != expected_fill:
+            failures.append(f"fill_color expected {expected_fill}, got {actual_fill}")
+    if "line_color" in spec.params:
+        expected_line = _normalize_color(spec.params.get("line_color"))
+        actual_line = _normalize_color(shape.line_color)
+        actual["line_color"] = actual_line
+        if actual_line != expected_line:
+            failures.append(f"line_color expected {expected_line}, got {actual_line}")
     ok = not failures
     return make_result(spec, turn, "pass" if ok else "fail", earned=spec.points, evidence={"selector": spec.params.get("selector", {}), "actual": actual, "failures": failures}, message="Style check passed" if ok else "; ".join(failures))
 

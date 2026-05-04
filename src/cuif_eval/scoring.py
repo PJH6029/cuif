@@ -7,6 +7,93 @@ from .checks.registry import get_check
 from .types import CheckResult, CheckSpec, Manifest, TurnSpec
 from .artifacts import RunWorkspace
 
+DEFAULT_THESIS_HEAVY_THRESHOLD = 0.60
+
+BOILERPLATE_EVALUATORS = {"file_exists", "pptx_slide_count"}
+DIAGNOSTIC_LAYOUT_EVALUATORS = {"rendered_layout_review", "rendered_image_similarity"}
+THESIS_HEAVY_BUCKETS = {"layout_template_style", "native_editability", "preservation_regression"}
+EVALUATOR_BUCKETS = {
+    "pptx_text_contains": "content_source",
+    "pptx_formula_present": "content_source",
+    "llm_text_rubric": "content_source",
+    "pptx_bbox_region": "layout_template_style",
+    "pptx_style_check": "layout_template_style",
+    "pptx_image_match": "layout_template_style",
+    "vlm_layout_rubric": "layout_template_style",
+    "pptx_chart_data": "native_editability",
+    "pptx_preservation_diff": "preservation_regression",
+    "pptx_image_count": "other",
+}
+
+
+def _bucket_for_check(spec: CheckSpec) -> str:
+    if spec.evaluator in BOILERPLATE_EVALUATORS:
+        return "boilerplate"
+    if spec.diagnostic or spec.evaluator in DIAGNOSTIC_LAYOUT_EVALUATORS:
+        return "diagnostic"
+    return EVALUATOR_BUCKETS.get(spec.evaluator, "other")
+
+
+def point_distribution(manifest: Manifest, *, threshold: float = DEFAULT_THESIS_HEAVY_THRESHOLD) -> dict[str, Any]:
+    """Summarize manifest point allocation for layout-constraint task review.
+
+    The thesis-heavy share deliberately excludes boilerplate file/slide checks and
+    diagnostic-only rendered preview checks from the denominator. This keeps
+    layout/style/template/preservation/native-editability points from being
+    diluted or inflated by task-plumbing checks.
+    """
+
+    by_bucket: defaultdict[str, float] = defaultdict(float)
+    by_evaluator: defaultdict[str, float] = defaultdict(float)
+    checks: list[dict[str, Any]] = []
+    total_points = 0.0
+    excluded_points = 0.0
+    thesis_heavy_points = 0.0
+
+    for turn in manifest.turns:
+        for spec in turn.checks:
+            points = float(spec.points)
+            bucket = _bucket_for_check(spec)
+            excluded = bucket in {"boilerplate", "diagnostic"}
+            thesis_heavy = bucket in THESIS_HEAVY_BUCKETS
+            total_points += points
+            by_bucket[bucket] += points
+            by_evaluator[spec.evaluator] += points
+            if excluded:
+                excluded_points += points
+            elif thesis_heavy:
+                thesis_heavy_points += points
+            checks.append(
+                {
+                    "turn_id": turn.id,
+                    "check_id": spec.id,
+                    "evaluator": spec.evaluator,
+                    "points": points,
+                    "bucket": bucket,
+                    "excluded_from_review_denominator": excluded,
+                    "thesis_heavy": thesis_heavy and not excluded,
+                    "diagnostic": spec.diagnostic,
+                    "optional": spec.optional,
+                }
+            )
+
+    review_points = total_points - excluded_points
+    thesis_heavy_share = thesis_heavy_points / review_points if review_points else 1.0
+    return {
+        "threshold": float(threshold),
+        "meets_threshold": thesis_heavy_share >= float(threshold),
+        "total_points": total_points,
+        "excluded_points": excluded_points,
+        "review_points": review_points,
+        "thesis_heavy_points": thesis_heavy_points,
+        "thesis_heavy_share": thesis_heavy_share,
+        "buckets": dict(sorted(by_bucket.items())),
+        "evaluators": dict(sorted(by_evaluator.items())),
+        "thesis_heavy_buckets": sorted(THESIS_HEAVY_BUCKETS),
+        "excluded_buckets": ["boilerplate", "diagnostic"],
+        "checks": checks,
+    }
+
 
 def blocked_result(spec: CheckSpec, turn: TurnSpec, blocked_by: list[str]) -> CheckResult:
     return CheckResult(
