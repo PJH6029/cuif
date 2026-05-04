@@ -31,3 +31,78 @@ exit_code=0
 
 ### annotated_layout_repair_deck mock smoke
 $ uv run cuif-eval run --task poc/tasks/annotated_layout_repair_deck --adapter mock --out output/runs/annotated_layout_repair_deck_worker1_final_mock --skip-judges
+Run directory: /home/top321902/code/snupi/cuif/.omx/team/rerun-layout-constraint-task-i/worktrees/worker-1/output/runs/annotated_layout_repair_deck_worker1_final_mock
+Adapter status: succeeded
+Final score: 57.00/57.00 (100.0%)
+exit_code=0
+
+### public_template_compliance_deck validate
+$ uv run cuif-eval validate poc/tasks/public_template_compliance_deck/manifest.yaml --skip-judges
+OK: public_template_compliance_deck (2 turns)
+exit_code=0
+
+### public_template_compliance_deck point distribution
+$ uv run cuif-eval point-distribution poc/tasks/public_template_compliance_deck/manifest.yaml --fail-below-threshold
+Task: public_template_compliance_deck
+Thesis-heavy share: 52.00/62.00 (83.9%)
+Threshold: 60.0%; meets threshold: True
+Excluded points: 4.00 (boilerplate + diagnostic previews)
+Buckets:
+- boilerplate: 4.00
+- content_source: 10.00
+- diagnostic: 0.00
+- layout_template_style: 35.00
+- preservation_regression: 17.00
+Evaluators:
+- file_exists: 2.00
+- pptx_bbox_region: 15.00
+- pptx_image_match: 5.00
+- pptx_preservation_diff: 17.00
+- pptx_slide_count: 2.00
+- pptx_style_check: 15.00
+- pptx_text_contains: 10.00
+- rendered_layout_review: 0.00
+- vlm_layout_rubric: 0.00
+exit_code=0
+
+### public_template_compliance_deck mock smoke
+$ uv run cuif-eval run --task poc/tasks/public_template_compliance_deck --adapter mock --out output/runs/public_template_compliance_deck_worker1_final_mock --skip-judges
+Run directory: /home/top321902/code/snupi/cuif/.omx/team/rerun-layout-constraint-task-i/worktrees/worker-1/output/runs/public_template_compliance_deck_worker1_final_mock
+Adapter status: succeeded
+Final score: 66.00/66.00 (100.0%)
+exit_code=0
+
+### native_chart_style_deck validate
+$ uv run cuif-eval validate poc/tasks/native_chart_style_deck/manifest.yaml --skip-judges
+OK: native_chart_style_deck (2 turns)
+exit_code=0
+
+### native_chart_style_deck point distribution
+$ uv run cuif-eval point-distribution poc/tasks/native_chart_style_deck/manifest.yaml --fail-below-threshold
+Task: native_chart_style_deck
+Thesis-heavy share: 48.00/67.00 (71.6%)
+Threshold: 60.0%; meets threshold: True
+Excluded points: 4.00 (boilerplate + diagnostic previews)
+Buckets:
+- boilerplate: 4.00
+- content_source: 15.00
+- diagnostic: 0.00
+- layout_template_style: 21.00
+- native_editability: 15.00
+- other: 4.00
+- preservation_regression: 12.00
+Evaluators:
+- file_exists: 2.00
+- pptx_bbox_region: 16.00
+- pptx_chart_data: 15.00
+- pptx_image_count: 4.00
+- pptx_preservation_diff: 12.00
+- pptx_slide_count: 2.00
+- pptx_style_check: 5.00
+- pptx_text_contains: 15.00
+- rendered_layout_review: 0.00
+- vlm_layout_rubric: 0.00
+exit_code=0
+
+### native_chart_style_deck mock smoke
+$ uv run cuif-eval run --task poc/tasks/native_chart_style_deck --adapter mock --out output/runs/native_chart_style_deck_worker1_final_mock --skip-judges
