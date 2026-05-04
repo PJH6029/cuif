@@ -1,0 +1,353 @@
+manifest_version: "0.1"
+id: public_template_compliance_deck
+title: Metro Civic public template compliance deck
+primary_artifact_family: pptx
+artifact_families: [pptx]
+tracks: [open_tool, gui]
+scoring:
+  policy: sum_points
+judge:
+  api_key_env: OPENAI_API_KEY
+artifacts:
+  package:
+    seed:
+      path: artifacts/seed.pptx
+      type: pptx
+      role: seed
+    style_reference:
+      path: artifacts/inputs/style_reference.svg
+      type: svg
+      role: style_input
+    layout_grid:
+      path: artifacts/inputs/layout_grid.svg
+      type: svg
+      role: instruction_input
+    metro_civic_seal:
+      path: artifacts/inputs/metro_civic_seal.png
+      type: png
+      role: style_input
+    template_rules:
+      path: artifacts/inputs/template_rules.txt
+      type: txt
+      role: source_input
+    gold_turn1:
+      path: artifacts/gold/turn1.pptx
+      type: pptx
+      role: gold
+    gold_final:
+      path: artifacts/gold/final.pptx
+      type: pptx
+      role: gold
+  expected_outputs:
+    turn1:
+      result:
+        path: result.pptx
+        type: pptx
+    final:
+      result:
+        path: result.pptx
+        type: pptx
+turns:
+  - id: turn1
+    new_inputs:
+      textual:
+        - package.template_rules
+      visual:
+        - package.style_reference
+        - package.layout_grid
+        - package.metro_civic_seal
+    instruction: >-
+      Using the seed deck, template_rules.txt, style_reference.svg,
+      layout_grid.svg, and metro_civic_seal.png, convert the rough Metro Civic
+      Grants notes into a two-slide editable PowerPoint briefing that follows
+      the strict public template. Every slide must use the navy #112A4A header
+      and footer bands, the Metro Civic seal in the upper-left header, and the
+      footer text "PUBLIC TEMPLATE • Metro Civic Grants Office • Confidential
+      draft". Slide 1 must be titled "Metro Civic Grants: FY26 Oversight", use
+      the teal all-caps section band "PROGRAM STATUS BRIEFING", and place three
+      aligned status cards labeled "Program health", "Funding status", and
+      "Timeline" across the top row inside the template grid. Include the
+      panels "Risk watch" and "Council checkpoint" below the cards. Slide 2
+      must use the section band "COMPLIANCE MONITORING" and include an editable
+      compliance table with the headers "Area", "Status", "Owner", and "Next
+      step" plus the rows for Reporting, Procurement, and Equity review. Preserve
+      exactly the protected legal notice "Protected legal notice: FY26
+      allocations remain preliminary until council adoption." and the audit
+      sentinel "Do not edit: Metro Civic audit trail invariant." without moving
+      them into content regions.
+    expected_output: result
+    checks:
+      - id: metro_t1_file_exists
+        evaluator: file_exists
+        artifact: run.outputs.turn1.result
+        points: 1
+      - id: metro_t1_slide_count
+        evaluator: pptx_slide_count
+        artifact: run.outputs.turn1.result
+        points: 1
+        depends_on: [metro_t1_file_exists]
+        params: {count: 2}
+      - id: metro_t1_required_texts
+        evaluator: pptx_text_contains
+        artifact: run.outputs.turn1.result
+        points: 5
+        depends_on: [metro_t1_file_exists]
+        params:
+          texts:
+            - "Metro Civic Grants: FY26 Oversight"
+            - "PROGRAM STATUS BRIEFING"
+            - "Program health"
+            - "Funding status"
+            - "Timeline"
+            - "Risk watch"
+            - "Council checkpoint"
+            - "COMPLIANCE MONITORING"
+            - "Compliance table"
+            - "Reporting"
+            - "Procurement"
+            - "Equity review"
+            - "Protected legal notice: FY26 allocations remain preliminary until council adoption."
+            - "Do not edit: Metro Civic audit trail invariant."
+      - id: metro_t1_seal_match_slide1
+        evaluator: pptx_image_match
+        artifact: run.outputs.turn1.result
+        points: 3
+        depends_on: [metro_t1_file_exists]
+        params:
+          source: package.metro_civic_seal
+          selector: {slide: 1}
+          min_similarity: 0.98
+          region: {slide: 1, x_min: 0.02, y_min: 0.00, x_max: 0.07, y_max: 0.09}
+          tolerance: 0.01
+      - id: metro_t1_title_region
+        evaluator: pptx_bbox_region
+        artifact: run.outputs.turn1.result
+        points: 2
+        depends_on: [metro_t1_required_texts]
+        params:
+          selector: {slide: 1, text_contains: "Metro Civic Grants: FY26 Oversight"}
+          region: {slide: 1, x_min: 0.06, y_min: 0.00, x_max: 0.68, y_max: 0.08}
+          tolerance: 0.02
+      - id: metro_t1_section_band_region
+        evaluator: pptx_bbox_region
+        artifact: run.outputs.turn1.result
+        points: 2
+        depends_on: [metro_t1_required_texts]
+        params:
+          selector: {slide: 1, text_contains: "PROGRAM STATUS BRIEFING"}
+          region: {slide: 1, x_min: 0.03, y_min: 0.10, x_max: 0.96, y_max: 0.18}
+          tolerance: 0.02
+      - id: metro_t1_card_grid_regions
+        evaluator: pptx_bbox_region
+        artifact: run.outputs.turn1.result
+        points: 6
+        depends_on: [metro_t1_required_texts]
+        params:
+          selector: {slide: 1, text_contains: "Program health"}
+          region: {slide: 1, x_min: 0.04, y_min: 0.20, x_max: 0.33, y_max: 0.31}
+          tolerance: 0.03
+      - id: metro_t1_funding_card_region
+        evaluator: pptx_bbox_region
+        artifact: run.outputs.turn1.result
+        points: 0
+        depends_on: [metro_t1_card_grid_regions]
+        diagnostic: true
+        optional: true
+        params:
+          selector: {slide: 1, text_contains: "Funding status"}
+          region: {slide: 1, x_min: 0.35, y_min: 0.20, x_max: 0.64, y_max: 0.31}
+          tolerance: 0.03
+      - id: metro_t1_timeline_card_region
+        evaluator: pptx_bbox_region
+        artifact: run.outputs.turn1.result
+        points: 0
+        depends_on: [metro_t1_card_grid_regions]
+        diagnostic: true
+        optional: true
+        params:
+          selector: {slide: 1, text_contains: "Timeline"}
+          region: {slide: 1, x_min: 0.66, y_min: 0.20, x_max: 0.95, y_max: 0.31}
+          tolerance: 0.03
+      - id: metro_t1_compliance_table_region
+        evaluator: pptx_bbox_region
+        artifact: run.outputs.turn1.result
+        points: 2
+        depends_on: [metro_t1_required_texts]
+        params:
+          selector: {slide: 2, text_contains: "Compliance table"}
+          region: {slide: 2, x_min: 0.04, y_min: 0.20, x_max: 0.32, y_max: 0.32}
+          tolerance: 0.03
+      - id: metro_t1_title_style
+        evaluator: pptx_style_check
+        artifact: run.outputs.turn1.result
+        points: 3
+        depends_on: [metro_t1_required_texts]
+        params:
+          selector: {slide: 1, text_contains: "Metro Civic Grants: FY26 Oversight"}
+          font_color: "#FFFFFF"
+          font_size_pt: 22
+          font_size_tolerance: 0.25
+          bold: true
+      - id: metro_t1_footer_style
+        evaluator: pptx_style_check
+        artifact: run.outputs.turn1.result
+        points: 2
+        depends_on: [metro_t1_required_texts]
+        params:
+          selector: {slide: 1, text_contains: "PUBLIC TEMPLATE"}
+          font_color: "#FFFFFF"
+          font_size_pt: 9
+          font_size_tolerance: 0.25
+          bold: true
+      - id: metro_t1_legal_notice_preserved
+        evaluator: pptx_preservation_diff
+        artifact: run.outputs.turn1.result
+        points: 3
+        depends_on: [metro_t1_slide_count]
+        params:
+          reference: package.seed
+          slides: [1]
+          protected_texts:
+            - "Protected legal notice: FY26 allocations remain preliminary until council adoption."
+      - id: metro_t1_audit_notice_preserved
+        evaluator: pptx_preservation_diff
+        artifact: run.outputs.turn1.result
+        points: 3
+        depends_on: [metro_t1_slide_count]
+        params:
+          reference: package.seed
+          slides: [2]
+          protected_texts:
+            - "Do not edit: Metro Civic audit trail invariant."
+      - id: metro_t1_rendered_review
+        evaluator: rendered_layout_review
+        artifact: run.outputs.turn1.result
+        points: 0
+        optional: true
+        diagnostic: true
+        params:
+          note: Optional rendered preview to inspect strict public template compliance after turn 1.
+  - id: final
+    new_inputs:
+      textual: []
+      visual: []
+    instruction: >-
+      Revise the turn 1 deck without breaking the public template. On slide 1,
+      restyle the title "Metro Civic Grants: FY26 Oversight" to gold #F5C542,
+      bold, and 24 pt while keeping it in the navy header. Add the exact lower
+      right callout "Oversight callout: add procurement review checkpoint by May
+      24." inside the approved callout zone from layout_grid.svg. On slide 2,
+      restyle the "COMPLIANCE MONITORING" section-band label to gold #F5C542,
+      bold, and 13 pt without moving the compliance table. Preserve the three
+      slide-1 status cards, both template footers, all slide-2 table text, and
+      both protected notices exactly from turn 1.
+    expected_output: result
+    checks:
+      - id: metro_final_file_exists
+        evaluator: file_exists
+        artifact: run.outputs.final.result
+        points: 1
+      - id: metro_final_slide_count
+        evaluator: pptx_slide_count
+        artifact: run.outputs.final.result
+        points: 1
+        depends_on: [metro_final_file_exists]
+        params: {count: 2}
+      - id: metro_final_required_texts
+        evaluator: pptx_text_contains
+        artifact: run.outputs.final.result
+        points: 5
+        depends_on: [metro_final_file_exists]
+        params:
+          texts:
+            - "Metro Civic Grants: FY26 Oversight"
+            - "Program health"
+            - "Funding status"
+            - "Timeline"
+            - "Oversight callout: add procurement review checkpoint by May 24."
+            - "COMPLIANCE MONITORING"
+            - "Compliance table"
+            - "Reporting"
+            - "Procurement"
+            - "Equity review"
+            - "Protected legal notice: FY26 allocations remain preliminary until council adoption."
+            - "Do not edit: Metro Civic audit trail invariant."
+      - id: metro_final_title_style
+        evaluator: pptx_style_check
+        artifact: run.outputs.final.result
+        points: 4
+        depends_on: [metro_final_required_texts]
+        params:
+          selector: {slide: 1, text_contains: "Metro Civic Grants: FY26 Oversight"}
+          font_color: "#F5C542"
+          font_size_pt: 24
+          font_size_tolerance: 0.25
+          bold: true
+      - id: metro_final_section_header_style
+        evaluator: pptx_style_check
+        artifact: run.outputs.final.result
+        points: 3
+        depends_on: [metro_final_required_texts]
+        params:
+          selector: {slide: 2, text_contains: "COMPLIANCE MONITORING"}
+          font_color: "#F5C542"
+          font_size_pt: 13
+          font_size_tolerance: 0.25
+          bold: true
+      - id: metro_final_callout_region
+        evaluator: pptx_bbox_region
+        artifact: run.outputs.final.result
+        points: 3
+        depends_on: [metro_final_required_texts]
+        params:
+          selector: {slide: 1, text_contains: "Oversight callout"}
+          region: {slide: 1, x_min: 0.60, y_min: 0.72, x_max: 0.96, y_max: 0.88}
+          tolerance: 0.03
+      - id: metro_final_seal_match_slide1
+        evaluator: pptx_image_match
+        artifact: run.outputs.final.result
+        points: 2
+        depends_on: [metro_final_file_exists]
+        params:
+          source: package.metro_civic_seal
+          selector: {slide: 1}
+          min_similarity: 0.98
+          region: {slide: 1, x_min: 0.02, y_min: 0.00, x_max: 0.07, y_max: 0.09}
+          tolerance: 0.01
+      - id: metro_final_footer_style
+        evaluator: pptx_style_check
+        artifact: run.outputs.final.result
+        points: 3
+        depends_on: [metro_final_required_texts]
+        params:
+          selector: {slide: 1, text_contains: "PUBLIC TEMPLATE"}
+          font_color: "#FFFFFF"
+          font_size_pt: 9
+          font_size_tolerance: 0.25
+          bold: true
+      - id: metro_final_slide2_preserved
+        evaluator: pptx_preservation_diff
+        artifact: run.outputs.final.result
+        points: 3
+        depends_on: [metro_final_slide_count]
+        params:
+          reference: run.outputs.turn1.result
+          compare: exact_slide_text
+          slides: [2]
+          selector: {slide: 2, text_contains: "Compliance table"}
+          tolerance: 0.01
+          protected_texts:
+            - "Do not edit: Metro Civic audit trail invariant."
+      - id: metro_final_optional_vlm_template_judge
+        evaluator: vlm_layout_rubric
+        artifact: run.outputs.final.result
+        points: 0
+        optional: true
+        diagnostic: true
+        params:
+          prompt: "Inspect the rendered Metro Civic final deck for strict public template compliance."
+          rubric: >-
+            Pass if both slides use the navy header/footer, teal section band,
+            embedded seal, visible 0.42 inch-style margins, aligned card/table
+            grid, protected notice regions, and the final lower-right oversight
+            callout without overlap or arbitrary styling.
