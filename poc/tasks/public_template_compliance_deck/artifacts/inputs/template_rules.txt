@@ -1,0 +1,9 @@
+Metro Civic public briefing template rules
+
+1. Use the Metro Civic seal in the upper-left header of every slide.
+2. Keep a navy #112A4A header and footer band on every slide.
+3. Use a teal #006F80 all-caps section band below the header.
+4. Use Aptos typography: title 22 pt white in turn 1, final title 24 pt gold #F5C542, section labels 13 pt bold.
+5. Keep the three slide-1 status cards aligned across the top row inside the 0.42 inch margin grid.
+6. Keep protected legal and audit notices in the bottom notice region; do not delete, restyle beyond template gray, or overlap them.
+7. The final-turn oversight callout must stay in the approved lower-right grid zone and must not cover footer/protected text.

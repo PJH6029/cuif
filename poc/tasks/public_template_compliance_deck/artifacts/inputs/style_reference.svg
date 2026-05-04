@@ -1,0 +1,15 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='1280' height='720' viewBox='0 0 1280 720'>
+  <rect width='1280' height='720' fill='#F8FAFC'/>
+  <rect x='0' y='0' width='1280' height='62' fill='#112A4A'/>
+  <rect x='0' y='680' width='1280' height='40' fill='#112A4A'/>
+  <circle cx='54' cy='31' r='22' fill='#FFFFFF' stroke='#F5C542' stroke-width='5'/>
+  <text x='92' y='39' font-family='Aptos, Arial' font-size='24' font-weight='700' fill='#FFFFFF'>Metro Civic Grants: FY26 Oversight</text>
+  <rect x='46' y='84' width='1188' height='40' fill='#006F80'/>
+  <text x='64' y='111' font-family='Aptos, Arial' font-size='18' font-weight='700' fill='#FFFFFF'>SECTION BAND: ALL CAPS WHITE / GOLD ON FINAL</text>
+  <rect x='64' y='150' width='330' height='128' fill='#FFFFFF' stroke='#B9C5D3'/>
+  <rect x='474' y='150' width='330' height='128' fill='#EAF3F9' stroke='#B9C5D3'/>
+  <rect x='884' y='150' width='330' height='128' fill='#E8F7F9' stroke='#B9C5D3'/>
+  <text x='64' y='338' font-family='Aptos, Arial' font-size='17' fill='#5B6B80'>Use navy #112A4A, teal #006F80, gold #F5C542, Aptos typography, and 0.42 inch margins.</text>
+  <rect x='64' y='612' width='760' height='30' fill='none' stroke='#B1363D' stroke-dasharray='8 6'/>
+  <text x='74' y='633' font-family='Aptos, Arial' font-size='15' font-weight='700' fill='#5B6B80'>Protected legal/audit notice region: do not edit or overlap.</text>
+</svg>
