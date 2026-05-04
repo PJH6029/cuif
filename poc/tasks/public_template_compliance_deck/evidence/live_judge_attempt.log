@@ -1,0 +1,5 @@
+$ timeout 20s npx -y openai-oauth
+OpenAI-compatible endpoint ready at http://127.0.0.1:10531/v1
+Use this as your OpenAI base URL. No API key is required.
+
+Available Models: gpt-5.5, gpt-5.4, gpt-5.4-mini, gpt-5.3-codex, gpt-5.3-codex-spark, gpt-5.2, codex-auto-review

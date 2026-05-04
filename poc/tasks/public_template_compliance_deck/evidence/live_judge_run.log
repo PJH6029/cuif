@@ -1,0 +1,1 @@
+$ uv run cuif-eval run --task poc/tasks/public_template_compliance_deck --adapter mock --out output/runs/public_template_compliance_deck_judge --judge-base-url http://127.0.0.1:10534/v1 --judge-model gpt-5.4 --refresh-judge-cache
