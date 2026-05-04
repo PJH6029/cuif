@@ -88,3 +88,18 @@ Pass:
 - Visual review does not show a screenshot-only shortcut; keep deterministic `pptx_chart_data` and `pptx_image_count` checks as enforcement.
 
 Revision request: none.
+
+## Worker-3 completion verification rerun
+
+Fresh verification run from worker-3 on 2026-05-04:
+
+- `uv run cuif-eval validate poc/tasks/annotated_layout_repair_deck/manifest.yaml --skip-judges` → PASS (`OK: annotated_layout_repair_deck (2 turns)`).
+- `uv run cuif-eval validate poc/tasks/public_template_compliance_deck/manifest.yaml --skip-judges` → PASS (`OK: public_template_compliance_deck (2 turns)`).
+- `uv run cuif-eval validate poc/tasks/native_chart_style_deck/manifest.yaml --skip-judges` → PASS (`OK: native_chart_style_deck (2 turns)`).
+- `uv run cuif-eval run --task poc/tasks/annotated_layout_repair_deck --adapter mock --out output/runs/annotated_layout_repair_deck_worker3_mock --skip-judges` → PASS (`57.00/57.00`).
+- `uv run cuif-eval run --task poc/tasks/public_template_compliance_deck --adapter mock --out output/runs/public_template_compliance_deck_worker3_mock --skip-judges` → PASS (`58.00/58.00`).
+- `uv run cuif-eval run --task poc/tasks/native_chart_style_deck --adapter mock --out output/runs/native_chart_style_deck_worker3_mock --skip-judges` → PASS (`71.00/71.00`).
+- `uv run pytest` → PASS (`54 passed`).
+- `uv run python -m compileall -q src tests` → PASS (no output).
+
+Completion note: this rerun confirms the package manifests and mock outputs are valid, but the multimodal verdict remains **Task A FAIL / revision requested** because the rendered trend-line/text overlap is a visual-quality issue not caught by current deterministic checks.
