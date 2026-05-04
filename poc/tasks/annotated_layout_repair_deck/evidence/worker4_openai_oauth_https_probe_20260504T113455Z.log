@@ -1,0 +1,40 @@
+===== worker-4 openai-oauth gpt-5.4 HTTPS image URL VLM probe =====
+server_log=output/runs/worker4_task6/openai_oauth_worker4_httpurl_20260504T113455Z.log
+direct_https_probe_log=output/runs/worker4_task6/direct_vlm_https_url_worker4_20260504T113455Z.log
+server_excerpt:
+worker4 task-6 openai-oauth server for https-url probe
+$ npx -y openai-oauth --host 127.0.0.1 --port 10542
+started_at=2026-05-04T11:37:24Z
+
+OpenAI-compatible endpoint ready at http://127.0.0.1:10542/v1
+Use this as your OpenAI base URL. No API key is required.
+
+Available Models: gpt-5.5, gpt-5.4, gpt-5.4-mini, gpt-5.3-codex, gpt-5.3-codex-spark, gpt-5.2, codex-auto-review
+https_probe_excerpt:
+===== Direct gpt-5.4 VLM HTTPS image URL probe =====
+started_at=2026-05-04T11:37:26Z
+server_log=output/runs/worker4_task6/openai_oauth_worker4_httpurl_20260504T113455Z.log
+server_ready=1
+image_url=https://www.w3.org/Icons/w3c_home.png
+$ curl -I --max-time 20 https://www.w3.org/Icons/w3c_home.png
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+HTTP/2 301 
+date: Mon, 04 May 2026 11:37:26 GMT
+content-length: 0
+location: https://www.w3.org/assets/logos/w3c-2025-transitional/w3c-72x48.png
+strict-transport-security: max-age=15552000; includeSubdomains; preload
+content-security-policy: frame-ancestors 'self' https://cms.w3.org/ https://cms-dev.w3.org/; upgrade-insecure-requests
+x-content-type-options: nosniff
+cf-cache-status: HIT
+vary: accept-encoding
+set-cookie: __cf_bm=SicfTiGoxyvx2.x0lvDErFSLr_78zqzySIXoQQYZkxA-1777894646.2458854-1.0.1.1-.kmPPp7RXYmr370VQaS5CcyiP9XuxzmkkOpUnU__8DWvfbpGlTWWKTHZQr82Dr_k3Rcl08Tg9PsDv_RRXQpNNT.iCTuo_Fn8VMkfU5.a3SU3l9zDXp36r4It0Y7k166a; HttpOnly; Secure; Path=/; Domain=w3.org; Expires=Mon, 04 May 2026 12:07:26 GMT
+server: cloudflare
+cf-ray: 9f6736a30efa62a2-ICN
+alt-svc: h3=":443"; ma=86400
+
+$ python3 - <<PY | timeout 180s curl --max-time 150 -sS -X POST http://127.0.0.1:10542/v1/chat/completions ...
+{"id":"chatcmpl_3fa3d513-abd3-4d23-ab27-f1b17d4e3ae6","object":"chat.completion","created":1777894648,"model":"gpt-5.4","choices":[{"index":0,"message":{"role":"assistant","content":"{\"pass\":true,\"score\":0.99,\"rationale\":\"The image shows a circular blue logo with the stylized text 'W3C' in the center, matching a visible W3C-style icon/logo.\"}"},"finish_reason":null}],"usage":{"prompt_tokens":0,"completion_tokens":0,"total_tokens":0}}
+exit_code=0
+finished_at=2026-05-04T11:37:28Z
