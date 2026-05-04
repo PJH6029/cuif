@@ -88,6 +88,7 @@ Report global score but also a capability dashboard:
 - [`agents_and_training_data.md`](agents_and_training_data.md): office-task agents, benchmark usage, methods, and datasets for training/scaling.
 - [`partial_multiturn_multimodal_eval.md`](partial_multiturn_multimodal_eval.md): partial credit, trajectory scoring, multi-turn, and multimodal evaluation patterns from broader agent benchmarks.
 - [`repo_audit_sources.md`](repo_audit_sources.md): audited repositories, commit hashes, important code paths, and source links.
+- [`layout_constraint_positioning.md`](layout_constraint_positioning.md): updated positioning around layout/template-constrained editable office artifacts, action-space comparisons, scaling strategy, and localized-artifact scope.
 
 ## Primary sources used
 

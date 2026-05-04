@@ -1,378 +1,351 @@
-# CUIF Research Direction Draft
+# CUIF research direction draft
 
-## Working thesis
+## Working title
 
-Current office-family computer-use benchmarks do not measure the most important capability needed for practical office work: **interactive production and revision of structured visual artifacts under evolving textual and visual constraints**.
+**CUIF: Evaluating multimodal constraint following for editable office artifacts**
 
-CUIF should evaluate whether agents can create and edit professional PPTX/DOCX/XLSX artifacts across multiple user turns, using multimodal task inputs such as templates, screenshots, sketches, annotated references, and source files, while receiving partial credit for each requirement and turn.
+Alternative title if the paper should sound narrower and sharper:
 
-The benchmark should not be framed as simply “OfficeBench but harder.” The core contribution should be an **evaluation paradigm**: multi-turn, multimodal, partial-credit office artifact evaluation with hybrid structured + rendered checks.
+**TemplateBench-Office: Per-turn partial-credit evaluation for layout-constrained office agents**
+
+## Updated thesis
+
+CUIF should be motivated around artifact constraint following rather than visual perception in isolation. GUI-only computer-use agents and open-tool/code agents can both consume visual inputs. The sharper research question is:
+
+> Can agents convert evolving textual and visual requirements into correct, editable PPTX/DOCX/XLSX artifacts while preserving templates, source data, prior-turn work, and non-target content?
+
+CUIF evaluates **visual/textual constraint grounding into structured office artifacts**, not visual perception in isolation.
+
+The benchmark should focus on:
+
+- layout and template following;
+- native editable object creation and editing;
+- source-data and source-figure fidelity;
+- multi-turn revision and regression tracking;
+- preservation/collateral-damage detection;
+- comparison of GUI-only and open-tool action spaces.
 
 ## Motivation
 
-Existing office-family and computer-use benchmarks cover useful slices, but leave a gap:
+Real office work is iterative document production under constraints. A user rarely asks only for a single primitive edit such as changing a font size. More often, they provide a partially specified goal, a source file, a company or government template, a visual example, a marked-up screenshot, and then follow up with revisions.
 
-- OfficeBench and OdysseyBench cover office workflows, but evaluation is mostly final-state file existence, keyword, or cell-value checks.
-- SpreadsheetBench and SheetCopilot evaluate Excel well, but mostly as final workbook tasks and rarely as multimodal/multi-turn office workflows.
-- PPTC/PPTC-R are multi-turn PowerPoint benchmarks, but tasks are relatively primitive/API-like and text-only.
-- PPTArena improves PowerPoint visual/rubric evaluation, but is still mostly final-artifact judging and does not cover the full PPTX/DOCX/XLSX office-family setting.
-- OSWorld and WindowsAgentArena include realistic GUI office tasks, but do not provide office-artifact-specific partial-credit/per-turn evaluation.
-- TheAgentCompany, Mind2Web, AppWorld, and tau2 show useful partial-credit or multi-turn evaluation patterns, but are not designed for office-family artifacts.
+Existing benchmarks cover important slices but leave a gap:
 
-Real office work is different from these benchmark slices:
+- Broad CUA benchmarks are strong on environment coverage and GUI action, but not on high-resolution office artifact scoring.
+- Real-work benchmarks are strong on economic realism, but their grading is often expensive or coarse and not designed to isolate layout/template/preservation failures.
+- Office workflow benchmarks are strong on cross-app planning and long-horizon context, but often use final-state rule checks rather than detailed artifact fidelity checks.
+- PowerPoint and spreadsheet benchmarks cover individual file families, but do not jointly emphasize multi-turn visual constraints, editable-object fidelity, cross-file consistency, and preservation.
 
-1. Users give partial and evolving requirements.
-2. Visual references matter: layout sketches, style targets, annotated screenshots, templates.
-3. Agents must preserve existing artifacts while making targeted edits.
-4. Office files are both structured objects and rendered visual documents.
-5. Failure is rarely all-or-nothing: a slide may have correct content but wrong layout, or a spreadsheet may compute correctly but lose formatting.
+The missing capability is **interactive production of structured visual artifacts under evolving multimodal constraints**.
+
+## Positioning against related work
+
+See [`literature_review/layout_constraint_positioning.md`](../literature_review/layout_constraint_positioning.md) for the updated positioning memo. The high-level map is:
+
+| Related work | Why it is strong | CUIF differentiation |
+|---|---|---|
+| [CUA-World / Gym-Anything](https://arxiv.org/abs/2604.06126) | Very broad software coverage and long-horizon tasks | CUIF is narrower but deeper on office artifact structure, layout/template fidelity, and per-turn deliverable diagnostics |
+| [GDPval](https://arxiv.org/abs/2510.04374) | Expert-authored economically valuable deliverables across occupations | CUIF targets automated, fine-grained office artifact constraints rather than broad expert preference over final deliverables |
+| [UI-Vision](https://arxiv.org/abs/2503.15661) | Desktop GUI perception/action annotations across many apps | CUIF evaluates produced editable artifacts and visual requirements, not generic GUI element grounding |
+| [OfficeBench](https://arxiv.org/abs/2407.19056) / [OdysseyBench](https://arxiv.org/abs/2508.09124) | Office workflows, app switching, and long-horizon context | CUIF adds deeper PPTX/DOCX/XLSX artifact scoring, multimodal template constraints, and per-turn partial credit |
+| [PPTArena](https://arxiv.org/abs/2512.03042) | Strong PPTX in-place editing with structural/rendered judging | CUIF adds multi-turn evolution, cross-file/family workflows, explicit preservation/regression scoring, and GUI-vs-open-tool comparisons |
+| [SpreadsheetBench](https://arxiv.org/abs/2406.14991) | Real-world spreadsheet manipulation and value-centric XLSX checks | CUIF connects spreadsheet data to visual deliverables and evaluates layout/style/template preservation |
+| [PPTC-R](https://arxiv.org/abs/2403.03788) | Robustness for PowerPoint task completion including multilingual and multi-turn stress | CUIF should use practical artifact workflows rather than primitive API-like operations |
+| [ParseBench](https://arxiv.org/abs/2604.08538) | Enterprise document parsing dimensions including tables/charts/semantic formatting | CUIF is about creating and revising editable artifacts, not only parsing them |
 
 ## Core contribution target
 
-CUIF should aim to contribute:
+A CUIF paper should claim four tightly connected contributions.
 
-1. **Benchmark scope**
-   - Practical office-family tasks over PPTX, DOCX, XLSX, and cross-file workflows.
-   - Multi-turn user tasking where later turns revise, correct, or add constraints.
-   - Multimodal instructions: visual templates, sketches, screenshots, style references, source figures/tables.
+### 1. Benchmark scope: layout/template-constrained office artifacts
 
-2. **Evaluation framework**
-   - Requirement-tree partial scoring.
-   - Per-turn evaluation and final evaluation.
-   - Hybrid deterministic, visual, semantic, and trajectory-aware checks.
-   - Explicit collateral-damage / preservation penalties.
+Tasks cover practical PPTX/DOCX/XLSX and cross-file workflows where the output must satisfy both user-facing visual quality and machine-checkable artifact structure.
 
-3. **Diagnostic analysis**
-   - Compare office-specific agents, general GUI agents, and code/OOXML agents.
-   - Report not only final success but also content, layout, style, multimodal adherence, turn-level progress, preservation, and cost.
+Representative tasks:
 
-4. **Scalable data path**
-   - Start with high-quality handmade tasks.
-   - Expand through executable task templates and evaluator generation.
-   - Eventually support training of an office-task-focused agent if data scale is sufficient.
+- edit a deck slide according to an annotated screenshot while preserving all non-target slides;
+- build a native PPTX chart from XLSX data and place it according to a layout reference;
+- extract a figure/table from a PDF or DOCX and embed it in a slide without flattening unrelated content;
+- apply a public-institution or company report template across multiple turns;
+- revise a memo/deck/spreadsheet after user feedback without regressing earlier constraints.
 
-## Benchmark philosophy
+### 2. Evaluation framework: per-turn requirement trees
 
-### Artifact-centric, not interface-exclusive
+CUIF grades tasks as a weighted tree/DAG of requirements. Each requirement is attached to a turn, an artifact, an evaluator, dependencies, and points.
 
-The benchmark should primarily evaluate **the produced artifact and interaction trajectory**, not mandate a single agent implementation style.
+Capability buckets:
 
-Recommended tracks:
+- **Content/source fidelity:** required text, summaries, figures, formulas, source data values.
+- **Layout fidelity:** bounding boxes, alignment, spacing, regions, visual hierarchy.
+- **Template/style fidelity:** fonts, colors, themes, masters, headings, captions.
+- **Native editability:** charts/tables/text boxes/formulas remain editable where required.
+- **Multimodal grounding:** sketches, screenshots, annotations, and style references are followed.
+- **Preservation:** non-target slides/pages/sheets, source files, notes, metadata, and previous-turn work remain intact.
+- **Turn regression:** requirements satisfied in earlier turns are retained unless explicitly superseded.
 
-1. **GUI-only track**
-   - Agent must operate through the office application GUI.
-   - Best for measuring computer-use systems directly.
-   - Comparable to OSWorld/WindowsAgentArena style agents.
+### 3. Hybrid structured + rendered artifact checks
 
-2. **Open-tool artifact track**
-   - Agent may use GUI, code, OOXML libraries, document parsers, or hybrid tools.
-   - Best for measuring the upper bound of office-task agents.
-   - Lets us compare GUI-only agents against structured-text/code agents.
+Office files are both structured data and visual documents. CUIF should use both views:
 
-This avoids overcommitting to pure GUI early. If a visual-input task is hard, structured agents may still fail because they need visual grounding, but we should empirically test that instead of assuming it.
+- **Structured checks:** OOXML/object tree, text runs, tables, formulas, charts, image hashes/similarity, style properties, slide masters/themes, named ranges, headers/footers.
+- **Rendered checks:** slide/page/sheet screenshots, region comparisons, image similarity, visual layout rubrics, VLM checks.
+- **Semantic checks:** LLM/VLM rubrics for open-ended summaries, visual design quality, or explanation correctness when deterministic checks are insufficient.
 
-### Practicality over toy tasks
+The key is not to replace deterministic checks with VLM judges. The strongest evaluator combines exact checks for what can be exact and visual/semantic checks for what cannot.
 
-Tasks should resemble actual office work:
+### 4. Action-space analysis: GUI-only vs open-tool agents
 
-- make a literature-review slide from paper content and a rough sketch;
-- revise a deck to follow a template while preserving content;
-- create a chart from spreadsheet data and place it into a slide/document;
-- modify a memo after user feedback;
-- format a spreadsheet report and export/share it;
-- align a figure/table according to an annotated visual instruction.
+CUIF should evaluate the same tasks under different action constraints.
 
-Avoid overly artificial instructions like “set title font to exactly 60 pt” unless they are part of a larger realistic request.
+- **GUI-only track:** screenshot observation plus mouse/keyboard actions. This reflects classic desktop CUA constraints and tests spatial manipulation, GUI discovery, and interaction efficiency.
+- **Open-tool artifact track:** code, OOXML, file parsers, renderers, and GUI tools are allowed. This measures the upper bound for office artifact agents and exposes structured-editing strengths/failures.
+- **Hybrid analysis:** many strong agents will use code for precise edits and rendered previews for visual self-checking. CUIF should make that visible rather than forcing a false choice.
 
-### Specific enough to grade, realistic enough to matter
+This reframes the original visual-perception concern: the comparison is not visual vs non-visual; it is how different action spaces satisfy the same artifact constraints.
 
-A key design tension:
+## Task design taxonomy
 
-- highly ambiguous tasks are realistic but hard to evaluate reliably;
-- highly specific tasks are easy to grade but can become toy benchmarks.
+### Constraint source
 
-Recommended compromise:
-
-- each task should have a realistic user-facing instruction;
-- hidden evaluator requirements can decompose the task into concrete checks;
-- visual/semantic rubrics handle open-ended portions;
-- deterministic checks cover exact constraints.
-
-## Task design axes
-
-A useful task taxonomy is a 2x2 axis:
-
-| Constraint type | Layout | Content |
+| Source | Examples | What it tests |
 |---|---|---|
-| **Textual instruction** | “Center the figure and make the title visually dominant.” | “Summarize the paper abstract in three bullets.” |
-| **Visual instruction** | “Follow this handwritten layout draft / annotated screenshot.” | “Import the correct chart/figure/table from this source image or PDF.” |
-
-CUIF tasks should sample across all four cells.
-
-### Example visual input types
-
-- handwritten slide layout draft;
-- screenshot with arrows or notes such as “move to here”;
-- PDF/JPG template to follow;
-- existing PPTX seed deck for editing;
-- source chart/table/figure image;
-- reference slide/document for style transfer;
-- annotated document page or spreadsheet screenshot.
-
-### Example artifact families
+| Textual instruction | exact content, requested revision, protected text, brand rule | instruction following and turn-state tracking |
+| Visual sketch/template | rough layout, style reference, target screenshot | layout/template grounding |
+| Source files | XLSX data, PDF figure, DOCX report, CSV/JSON notes | source fidelity and cross-file reasoning |
+| Existing artifact | seed deck, protected slides, prior turn output | preservation and collateral-damage avoidance |
+| User follow-up | move only one callout, change title style, keep chart data | multi-turn revision and regression control |
 
-#### PPTX
+### Requirement type
 
-Potential properties:
+| Type | Examples |
+|---|---|
+| Content | required strings, summary bullets, captions, citations, source lines |
+| Data | formula values, chart series, table rows, source workbook consistency |
+| Layout | object regions, alignment, spacing, z-order, slide/page geometry |
+| Style/template | font, color, theme, master layout, government/company form rules |
+| Native object | editable chart, editable text, real table, preserved formula, not flattened image |
+| Preservation | protected slide, non-target section, speaker notes, metadata, source file unchanged |
+| Export/cross-file | PDF export, XLSX-to-PPTX consistency, DOCX-to-PPTX figure/table transfer |
 
-- slide count/order;
-- text content and semantic summary;
-- font size/family/color/bold/italic;
-- shapes, images, icons, tables, charts;
-- alignment, bounding boxes, z-order, spacing;
-- layout fidelity to sketch/template;
-- theme/master/template preservation;
-- speaker notes, alt text, metadata;
-- collateral damage to non-target slides.
-
-#### DOCX
-
-Potential properties:
-
-- headings and paragraph structure;
-- text content and semantic coverage;
-- tables, images, captions;
-- lists, references/citations;
-- headers/footers, page breaks;
-- style consistency and document layout;
-- preservation of non-target sections;
-- export to PDF if needed.
-
-#### XLSX
-
-Potential properties:
-
-- cell values and formulas;
-- named ranges and sheets;
-- table formatting and conditional formatting;
-- charts and pivot tables;
-- filters, sorting, freeze panes, data validation;
-- exact source-data preservation;
-- consistency with downstream PPTX/DOCX artifacts.
+## Initial benchmark scope
 
-## Evaluation framework
+### PoC
 
-### Requirement-tree scoring
+Use PPTX-first tasks because they best expose layout/template issues and the current evaluator already supports structured PPTX checks.
 
-Each task should be represented as a tree or DAG of requirements:
-
-```yaml
-score:
-  total: 20
-  requirements:
-    - id: content_correct
-      points: 5
-      evaluator: deterministic_text_or_llm_rubric
-    - id: layout_matches_sketch
-      points: 4
-      evaluator: rendered_vlm_or_layout_geometry
-    - id: chart_data_correct
-      points: 4
-      evaluator: xlsx_or_ppt_chart_data_check
-    - id: turn2_revision_preserved_prior_work
-      points: 3
-      evaluator: per_turn_artifact_diff
-    - id: no_collateral_damage
-      points: 4
-      evaluator: non_target_region_or_file_diff
-```
+Flagship tasks:
 
-Each requirement should declare:
+1. `incident_response_annotated_deck` — annotated screenshot editing plus protected-slide preservation.
+2. `renewable_power_briefing_deck` — XLSX/source-data to native PPTX chart plus layout/style checks.
+3. `transformer_paper_review_deck` — PDF/source-figure grounding, formula inclusion, annotated layout revision, and seminar style preservation.
 
-- applicable turn;
-- artifact path;
-- evaluator type;
-- dependencies, if any;
-- points;
-- failure explanation.
+Smoke/dev tasks:
 
-### Dependent vs parallel constraints
+- `toy_pptx_layout` for evaluator smoke testing.
+- `launch_readiness_deck` and `aurora_paper_review_deck` as additional development tasks unless strengthened.
 
-- **Parallel constraints** can receive independent points: title size, body alignment, chart color, text content.
-- **Dependent constraints** should specify prerequisites: if the agent fails to import the required image, image-cropping and image-layout checks may be marked failed or not applicable depending on rubric design.
+### Pilot benchmark
 
-Recommended default:
+Target 30--50 curated tasks from 5--8 template families.
 
-- if a prerequisite is required for a downstream property, downstream points are lost;
-- still report downstream checks as “blocked by prerequisite” for diagnosis.
+A good pilot mix:
 
-### Turn-level evaluation
+- 40% PPTX layout/template/editing tasks;
+- 25% XLSX-to-PPTX or XLSX-native chart/table tasks;
+- 20% DOCX/DOCX-to-PPTX report or memo tasks;
+- 15% cross-file/export/preservation tasks.
 
-CUIF should score every user turn.
+### Paper benchmark
 
-For each turn:
+Target 200--300 evaluation tasks if template-family generation works reliably. Hold out entire template families, visual styles, source domains, and layout generators for test splits.
 
-- run checks added by that turn;
-- rerun preservation checks for previous turns;
-- optionally compare against a turn-specific gold artifact;
-- log which requirements became satisfied, broken, or regressed.
+## Scalable data generation strategy
 
-Avoid overcomplicating the first version with intra-turn micro-evaluation unless there is a clear trajectory requirement. Most PoC tasks can evaluate at turn boundaries.
+The scaling problem should not be solved by writing every task by hand. The key is to move human effort to **template-family design**.
 
-### Evaluator types
+### Stage 1: human-authored template families
 
-1. **Rule-based structured checks**
-   - OOXML/object extraction;
-   - exact text/value/formula checks;
-   - layout bounding boxes and geometry;
-   - file existence/export checks;
-   - chart/table/sheet metadata.
+A human defines a workflow family:
 
-2. **Rendered visual checks**
-   - render slides/pages/sheets to images;
-   - compare image regions;
-   - use SSIM/perceptual similarity for exact visual targets;
-   - use VLM judge for sketch/template adherence.
+- scenario and user goal;
+- seed artifact structure;
+- protected regions and invariants;
+- allowed transformations;
+- visual instruction types;
+- scoring leaves and weights;
+- difficulty knobs.
 
-3. **LLM/VLM-as-judge**
-   - semantic text summary correctness;
-   - visual content or design quality;
-   - “does this chart reflect the source table?” when deterministic extraction is hard;
-   - final professional quality rubric.
+Example families:
 
-4. **Trajectory checks**
-   - whether the agent asked for clarification when required;
-   - whether the agent used/loaded required source files;
-   - whether the agent avoided forbidden shortcuts in GUI-only track;
-   - action count/cost/time.
+- incident response deck repair;
+- renewable-energy briefing from workbook;
+- research paper review deck;
+- public-sector report template;
+- board KPI update;
+- grant pitch one-pager;
+- formatted memo with tables and figures.
 
-## Dataset generation strategy
+### Stage 2: executable instantiation
 
-### Stage 1: handmade high-quality PoC
+For each family, scripts sample:
 
-Create 2--3 tasks by hand, with gold artifacts and evaluator specs.
+- data values and labels;
+- layout variants;
+- colors, fonts, and style references;
+- source figures/tables;
+- protected regions;
+- turn order and revision type;
+- distractor content.
 
-Goal: validate task schema, artifact rendering, partial-credit scoring, and agent smoke tests.
+The same scripts generate:
 
-### Stage 2: template-driven data generation
+- seed artifacts;
+- visual inputs such as sketches, screenshots, and annotation overlays;
+- gold artifacts for each turn;
+- evaluator leaves with selectors, regions, expected values, and dependencies.
 
-For each seed workflow:
+### Stage 3: baseline filtering
 
-1. choose artifact family and task type;
-2. sample `k` evaluation properties from a property bank;
-3. generate source files and visual constraints;
-4. apply deterministic transformations to produce gold artifacts;
-5. write or synthesize natural-language multi-turn instructions;
-6. derive evaluator leaves from generation metadata;
-7. manually inspect a subset for quality.
+Run strong agents and filter instances:
 
-### Stage 3: scale and split
+- too easy: solved with high partial score by all frontier baselines;
+- too brittle: failed due to evaluator ambiguity rather than agent capability;
+- useful: differentiates GUI-only, open-tool, and hybrid agents across capability buckets.
 
-Possible scale targets:
+### Stage 4: sampled human review
 
-- **PoC:** 2--3 handmade tasks;
-- **pilot benchmark:** 30--50 high-quality tasks;
-- **paper benchmark:** 200--300 high-quality test tasks;
-- **training/large-scale set:** 1,000--2,000+ tasks if generation and validation are reliable.
+Review every template family and a sampled subset of instances. Hidden-test families should receive stronger human inspection. This avoids needing full manual annotation for every generated instance.
 
-Hold out template families, source domains, and visual styles to prevent leakage.
+## Evaluation design
 
-## Roadmap toward August
+### Score representation
 
-### Late April: literature and positioning
+Each task should produce:
 
-- Finish literature review.
-- Identify benchmark gap and novelty claim.
-- Decide PoC scope and artifact family focus.
+- total score;
+- per-turn score;
+- per-bucket score;
+- list of satisfied, failed, blocked, and regressed requirements;
+- artifact previews;
+- structured JSON report;
+- concise human-readable report.
 
-Status: mostly complete in `literature_review/`.
+### Dependency policy
 
-### By May 3: benchmark spec
+If a prerequisite fails, downstream checks should usually be marked failed or blocked according to the manifest:
 
-Deliverables:
+- If the chart is missing, chart layout checks are blocked.
+- If the source figure is wrong, crop/placement checks may fail or be blocked.
+- If the file is missing, all artifact checks are blocked.
 
-- task schema draft;
-- evaluator schema draft;
-- property bank for PPTX-first tasks;
-- PoC task list and expected artifacts;
-- decision on GUI-only vs open-tool tracks.
+Blocked checks should still appear in reports to show what could not be evaluated.
 
-### Early May: PoC benchmark
+### Preservation policy
 
-Deliverables:
+Preservation should be a first-class score component, not an optional penalty.
 
-- 2--3 handmade tasks;
-- one PPTX create task from visual sketch/template;
-- one PPTX edit task from seed deck + visual/text constraints;
-- optional XLSX→PPTX or DOCX/PDF→PPTX cross-file task;
-- renderer and evaluator smoke tests;
-- baseline agent run on at least one simple agent.
+Examples:
 
-### Mid/Late May: evaluation pipeline
+- protected slide exact text unchanged;
+- non-target object bounding boxes within tolerance;
+- source workbook unchanged;
+- prior-turn chart data preserved;
+- notes/metadata retained when specified;
+- no flattening of editable objects unless allowed.
 
-Deliverables:
+## Experiments
 
-- requirement-tree evaluator;
-- structured PPTX checks;
-- rendered image checks;
-- LLM/VLM judge wrapper with cached outputs;
-- per-turn score report;
-- collateral-damage checks.
+### Baselines
 
-### June: dataset generation pipeline
+Evaluate at least these settings:
 
-Deliverables:
+1. **Frontier open-tool agent**
+   - Full access to Python, OOXML, parsers, renderers, and file system.
 
-- property bank;
-- seed workflow templates;
-- automatic gold artifact generation;
-- automatic evaluator leaf generation;
-- manual review workflow;
-- pilot set of 30--50 tasks.
+2. **GUI-only CUA agent**
+   - Must use office application GUI through screenshot and mouse/keyboard actions.
 
-### July: scale benchmark
+3. **Hybrid office agent**
+   - Structured edits plus rendered self-checks and optional GUI actions.
 
-Deliverables:
+4. **Specialized office/PPTX agent if available**
+   - Useful for comparing against general-purpose agents.
 
-- 200--300 high-quality evaluation tasks if feasible;
-- multimodal input packaging;
-- train/dev/eval split plan;
-- benchmark runner and baseline documentation.
+### Ablations
 
-### August: model evaluation and paper draft
+- No visual instruction input.
+- No turn history.
+- No rendered self-check.
+- No code/OOXML access.
+- Allow flattened screenshot outputs vs require native editability.
+- Remove preservation checks from prompt/scaffold to see over-editing.
 
-Deliverables:
+### Metrics
 
-- evaluate office-specific, GUI, and code/OOXML agents;
-- ablate visual input, per-turn memory, self-check, and interface type;
-- produce diagnostic tables and qualitative failure analysis;
-- write paper draft around benchmark + evaluator + agent analysis.
+Report:
 
-## Key research questions
+- final binary success if needed for comparability;
+- total partial-credit score;
+- per-turn score;
+- content/source score;
+- layout/template score;
+- native editability score;
+- preservation/regression score;
+- cost/time/action count;
+- failure taxonomy by capability and action space.
 
-1. Do current office/computer-use agents fail more on visual constraints, multi-turn revision, or artifact preservation?
-2. Does per-turn partial credit reveal failures hidden by final-only evaluation?
-3. Are GUI agents or structured-code agents better for multimodal office artifact tasks?
-4. Can visual instructions such as sketches/templates be evaluated reliably enough for a benchmark?
-5. Can task/evaluator generation scale without sacrificing benchmark validity?
+## Localized artifact direction
+
+Localized office artifacts are promising but should not be the main paper pivot unless tooling becomes reliable.
+
+A weak version would be "multilingual office tasks." A stronger future direction is **jurisdiction-localized document compliance**:
+
+- Korean HWP/HWPX public-sector forms and report templates;
+- Chinese OFD-style fixed-layout administrative or financial documents;
+- Japanese Ichitaro/JTD-style business/administrative templates;
+- locale-specific date/number/address conventions, typography, stamps/seals, tables, and boilerplate.
+
+This direction is practical and underexplored, but risky for the current CUIF core because parsers, renderers, licensing, public templates, and evaluator support are much harder than PPTX/DOCX/XLSX. Treat it as an appendix split or follow-up benchmark unless a reliable toolchain is available.
+
+## Risks and mitigations
+
+### Risk 1: The benchmark looks too narrow
+
+**Mitigation:** Frame it as narrow but deep. CUA-World covers breadth; CUIF covers high-resolution office artifact fidelity. Include cross-file tasks and at least two artifact families in the pilot.
+
+### Risk 2: Frontier agents already solve synthetic tasks
+
+**Mitigation:** Increase difficulty through native editability, preservation, source-data consistency, adversarial distractors, held-out templates, and baseline filtering. Avoid claiming that familiar semantic topics such as Transformer paper review are hard because of content understanding.
+
+### Risk 3: VLM judges are unreliable
+
+**Mitigation:** Use VLMs only where deterministic checks are insufficient. Keep structured checks as the backbone and cache all judge calls. Report judge agreement on a sampled human-reviewed subset.
+
+### Risk 4: Task generation creates template leakage
+
+**Mitigation:** Hold out template families, layout generators, source domains, style palettes, and instruction paraphrase families.
+
+### Risk 5: GUI-only evaluation becomes too expensive
+
+**Mitigation:** Keep GUI-only as one track. The primary artifact evaluator is interface-agnostic, so open-tool and hybrid tracks can still be evaluated at scale.
 
 ## Expected paper story
 
-A strong paper story:
+A strong paper narrative:
 
-1. Existing office benchmarks are too simple, final-only, single-turn, and text-heavy.
-2. CUIF introduces a practical benchmark for multi-turn multimodal office artifact production.
-3. CUIF uses requirement-tree partial credit with hybrid structured/rendered/semantic evaluation.
-4. Current agents show distinct failure modes: visual grounding, preservation, revision, cross-file consistency, and layout fidelity.
-5. This opens a path toward training office-task-focused computer-use agents.
+1. Real office work is iterative production of editable visual artifacts under evolving textual and visual constraints.
+2. Existing benchmarks are strong on broad CUA coverage, real-work deliverables, office workflows, PPTX editing, or spreadsheet manipulation, but do not jointly provide fine-grained per-turn evaluation of layout/template-constrained office artifacts.
+3. CUIF introduces a benchmark schema and evaluator for multimodal office constraints, native editability, structured/rendered checks, and preservation/regression scoring.
+4. Experiments compare GUI-only, open-tool, and hybrid agents on the same tasks, showing distinct failure modes.
+5. A template-family generation pipeline provides a credible path from high-quality PoC tasks to a larger benchmark and training data.
 
 ## Immediate TODOs
 
-- [ ] Finalize PoC task schema.
-- [ ] Select exact 2--3 PoC tasks.
-- [ ] Choose rendering stack for PPTX/DOCX/XLSX artifacts.
-- [ ] Implement minimum evaluator interface.
-- [ ] Build first PPTX visual-layout task.
-- [ ] Build first PPTX edit-from-seed task.
-- [ ] Run a smoke-test baseline.
-- [ ] Decide initial benchmark track policy: GUI-only, open-tool, or both.
+- [ ] Keep `poc/tasks/incident_response_annotated_deck`, `renewable_power_briefing_deck`, and `transformer_paper_review_deck` as flagship PoC tasks.
+- [ ] Ensure each flagship task has clear capability buckets in the report.
+- [ ] Validate all flagship manifests and mock runs.
+- [ ] Add explicit native-editability requirements where missing.
+- [ ] Strengthen preservation checks for non-target objects, notes, metadata, or source files.
+- [ ] Run at least one open-tool frontier baseline and one GUI-style baseline if available.
+- [ ] Build one template-family generator that creates seed/gold/visual-input/evaluator metadata together.
+- [ ] Decide whether the pilot benchmark includes DOCX outputs or keeps DOCX as source-only context.

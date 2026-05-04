@@ -1,24 +1,44 @@
-# CUIF PoC Documentation
+# CUIF PoC documentation
 
 ## PoC objective
 
-Build the smallest convincing proof-of-concept for CUIF: a mini benchmark with 2--3 office-family tasks that demonstrates **multi-turn, multimodal, partial-credit office artifact evaluation**.
+Build the smallest convincing proof-of-concept for CUIF as a benchmark for **layout/template-constrained editable office artifacts**.
 
-The PoC should prove that CUIF is not just “harder OfficeBench.” It should show a working evaluator that can grade:
-
-- visual task constraints;
-- structured office artifact properties;
-- per-turn progress;
-- partial credit;
-- preservation / collateral damage.
+The PoC should show that CUIF can grade whether an agent can turn textual and visual requirements into a correct PPTX deliverable, revise it across user turns, and avoid damaging prior work or protected regions. The point is not to prove that agents lack visual perception in the abstract. The point is to evaluate whether agents can ground visual and textual constraints into the **structured, editable objects** that real office work requires.
 
 ## PoC thesis
 
-A useful PoC does not need hundreds of tasks. It needs to show that the benchmark idea is technically feasible and diagnostically valuable.
+A useful PoC does not need hundreds of tasks. It needs to make one claim undeniable:
 
-The desired PoC result:
+> Given a small set of multimodal office tasks, CUIF can produce per-turn partial-credit reports that identify content correctness, layout/template fidelity, native editability, source-data use, prior-turn regression, and collateral damage.
 
-> Given a small set of multimodal office tasks, CUIF can produce clear partial-credit reports showing which constraints an agent satisfied, missed, broke across turns, or damaged outside the target region.
+This is the differentiator from broad CUA benchmarks and one-shot office benchmarks. The PoC should be a diagnostic evaluator, not just a task bundle.
+
+## What the PoC should prove
+
+The PoC is successful if it demonstrates all of the following:
+
+1. **Visual constraints become graded artifact requirements**
+   - Examples: follow a sketch, match an annotated screenshot, place a figure in a requested region, or apply a style reference.
+   - The visual input is not merely an observation; it defines a requirement that is checked in the output file.
+
+2. **Office files are evaluated as both structure and rendering**
+   - Structured checks inspect PPTX text, object names, charts, formulas, images, styles, and slide preservation.
+   - Rendered checks produce slide previews for layout review, visual rubrics, and human/debug inspection.
+
+3. **Multi-turn revision is scored at turn boundaries**
+   - Each turn adds, revises, or preserves requirements.
+   - Later turns are checked for regression against earlier turn requirements.
+
+4. **Partial credit exposes failure modes**
+   - A model can get content correct but fail layout.
+   - It can follow layout but flatten a native chart/image incorrectly.
+   - It can satisfy a new revision while damaging a protected slide.
+
+5. **GUI and open-tool tracks can be compared on the same tasks**
+   - GUI-only agents operate through the office GUI.
+   - Open-tool agents may use code, OOXML libraries, renderers, file parsers, or a hybrid workflow.
+   - CUIF reports action-space-specific failures rather than assuming one interface is the benchmark target.
 
 ## PoC scope
 
@@ -26,396 +46,252 @@ The desired PoC result:
 
 Start with **PPTX-first** tasks.
 
-Reason:
+Reasons:
 
-- PowerPoint is visually rich, making multimodal constraints natural.
-- PPTX has structured OOXML properties and rendered-slide appearance.
-- Existing work has PPTC and PPTArena, making comparison easy.
-- PPTX tasks can later incorporate XLSX/DOCX/PDF inputs.
+- PowerPoint is visually rich, so layout/template/style constraints are natural.
+- PPTX exposes structured OOXML properties as well as rendered-slide appearance.
+- Existing PowerPoint work such as PPTC/PPTC-R and PPTArena makes comparison easy.
+- PPTX tasks can incorporate XLSX, PDF, DOCX, PNG/SVG, and text inputs without needing full evaluator support for every output family in the first PoC.
 
-Stretch goal: include one cross-file task, preferably XLSX→PPTX or PDF/paper→PPTX.
+Stretch scope: include cross-file inputs such as XLSX-to-PPTX chart creation or PDF-to-PPTX figure extraction, but keep the evaluated output PPTX until the DOCX/XLSX evaluators mature.
 
 ### In scope
 
-- 2--3 handmade tasks.
+- 3 flagship PoC tasks selected from the current task packages.
 - 2--3 user turns per task.
-- Visual input such as sketch/template/screenshot.
-- PPTX output artifacts.
-- Requirement-tree evaluator.
-- Turn-level score report.
+- Visual inputs: sketch, style reference, source figure, rendered screenshot, or annotated screenshot.
+- PPTX output artifacts with native editable objects where applicable.
+- Requirement-tree partial scoring.
+- Per-turn score reports.
 - Structured PPTX checks.
-- Rendered slide image checks.
-- Optional LLM/VLM judge for semantic or visual rubric checks.
+- Rendered slide previews and optional VLM layout/style rubrics.
+- Collateral-damage and turn-regression checks.
 
-### Out of scope for PoC
+### Out of scope for this PoC
 
-- Large dataset generation.
-- Full agent training.
-- Human evaluation pipeline.
-- Full DOCX/XLSX property coverage.
-- Complex GUI automation infrastructure unless trivial to reuse.
-- Intra-turn micro-trajectory scoring.
+- Claiming broad occupational coverage.
+- Full training-scale data generation.
+- Full human expert grading pipeline.
+- Full DOCX/HWP/OFD/JTD support.
+- Intra-turn mouse/keyboard micro-trajectory scoring.
+- Treating multilingual/localized formats as the central paper claim.
 
-## PoC task candidates
+## Flagship PoC tasks
 
-### Task 1. PPT creation from handwritten layout draft
+Use the existing packages as a curated demonstration set rather than presenting every toy/smoke task as benchmark-quality.
 
-**Goal:** create a slide or short deck from a visual layout draft plus textual content constraints.
+### 1. `incident_response_annotated_deck`
 
-Inputs:
+**Scenario:** Revise a Nimbus reliability operations deck from an annotated screenshot.
 
-- blank or minimal PPTX template;
-- handwritten or sketch-like image showing layout;
-- text instruction;
-- optional source text such as paper title/abstract.
+**Why it matters:** This is the cleanest layout/template constraint example. The agent must edit only the target slide, follow spatial annotations, keep prior content, and preserve non-target slides.
 
-Possible turns:
+**Core capability tested:** annotated visual instruction grounding plus collateral-damage-free editing.
 
-1. Create a one-slide paper-review summary following the sketch.
-2. Revise title/body hierarchy and add a source figure.
-3. Apply brand colors while preserving the layout.
+**Key checks:**
 
-Evaluated properties:
+- slide count and required text;
+- metric tiles in the top row;
+- incident trend panel enlarged into the requested region;
+- risk callout moved to the lower-right region;
+- protected slides 1, 3, and 4 preserved;
+- final-turn style/caption additions do not regress turn-1 layout.
 
-- required text present;
-- title/body/figure placed in correct regions;
-- visual similarity to sketch layout;
-- font hierarchy;
-- no unintended extra objects;
-- final slide readable and visually coherent.
+### 2. `renewable_power_briefing_deck`
 
-Evaluator types:
+**Scenario:** Create a renewable-electricity briefing deck from a source workbook and visual layout/style references.
 
-- PPTX text/object extraction;
-- bounding-box checks;
-- rendered-slide VLM or image-region check;
-- optional LLM judge for semantic summary quality.
+**Why it matters:** This tests cross-file source grounding and native chart creation, not just text placement. The correct answer must preserve values, labels, chart type, and slide layout.
 
-### Task 2. PPT edit from seed deck with annotated screenshot
+**Core capability tested:** XLSX/source-data fidelity plus editable PPTX chart layout.
 
-**Goal:** revise an existing deck based on visual annotations while preserving non-target content.
+**Key checks:**
 
-Implemented PoC package:
+- chart categories and series match workbook values;
+- chart is a native clustered column chart, not a screenshot fallback;
+- chart and title occupy expected regions;
+- audit slide contains exact source values;
+- protected invariant slide is preserved;
+- final style/revision constraints preserve chart data.
 
-- `poc/tasks/incident_response_annotated_deck`
-- Scenario: revise a Nimbus reliability operations seed deck from an annotated slide screenshot.
-- Turn 1 tests targeted layout repair on slide 2 plus preservation of non-target slides.
-- Final turn tests incremental styling, caption/owner additions, turn-1 layout preservation, and collateral-damage checks.
+### 3. `transformer_paper_review_deck`
 
-Inputs:
+**Scenario:** Build and revise a reading-group review deck for *Attention Is All You Need* from a source paper PDF, figure crops, annotated slide layout, and seminar style reference.
 
-- seed PPTX;
-- screenshot of target slide with handwritten annotation, e.g. arrow/text saying “move this to pixel/area,” “make this chart larger,” or “align with this edge”;
-- text instruction describing the intended edit.
+**Why it matters:** The semantic topic is familiar to frontier models, so the task should not be sold as a hard paper-understanding challenge. Its value is that it combines source figure extraction, formula inclusion, visual layout revision, editable text, and preservation.
 
-Possible turns:
+**Core capability tested:** PDF/source-figure grounding plus multi-turn figure/formula/layout preservation.
 
-1. Move/resize a figure or chart according to annotation.
-2. Change title style and add a short caption.
-3. Fix spacing without changing other slides.
+**Key checks:**
 
-Evaluated properties:
+- required review text and exact formula string;
+- Figure 1 and attention mechanism figure visually match reference crops;
+- formula appears as editable text and image crop where required;
+- annotated slide-2 layout constraints are satisfied;
+- protected logistics slide is preserved;
+- final seminar styling does not damage prior figure/formula requirements.
 
-- correct slide selected;
-- target object changed as requested;
-- non-target objects preserved;
-- non-target slides preserved;
-- annotation-following layout check;
-- caption/text content correct.
+### Support/smoke tasks
 
-Evaluator types:
+- `toy_pptx_layout`: keep as evaluator smoke test only.
+- `launch_readiness_deck` and `aurora_paper_review_deck`: use as additional examples or dev tasks, not as the central novelty evidence unless they are strengthened with native-object, template, or cross-file constraints.
 
-- object matching and bounding-box geometry;
-- non-target slide diff;
-- rendered visual comparison;
-- exact/semantic text check.
+## PoC task design rules
 
-### Mixed Task. Paper PDF to review deck with annotated revision
+Every flagship task should include these elements:
 
-**Goal:** combine Task 1's visual layout-following paper-review creation with Task 2's annotated screenshot revision and preservation checks.
+1. **A realistic office scenario**
+   - Examples: incident review, policy briefing, research seminar, executive update.
+   - Avoid single-command formatting tasks unless they are embedded in a larger workflow.
 
-Implemented PoC package:
+2. **At least one visual requirement**
+   - Sketch, annotated screenshot, style reference, source figure, template preview, or rendered target.
 
-- `poc/tasks/transformer_paper_review_deck`
-- Scenario: create and revise a SNUPI reading-group review deck for *Attention Is All You Need* from the source paper PDF.
-- Turn 1 tests PDF-to-PPTX creation, paper figure extraction/embedding, formula inclusion, and protected logistics-slide preservation.
-- Turn 2 tests annotated slide-2 layout repair, enlarged Figure 1 placement, right-rail callouts, and formula/slide preservation.
-- Final turn tests seminar styling, prior-turn figure/formula preservation, final critique text, and a live VLM rubric over rendered slide previews.
+3. **At least one structured artifact requirement**
+   - Native chart/table/text box, editable formula/text, object name, chart data, slide master/theme, or image crop match.
 
-Inputs:
+4. **At least one preservation requirement**
+   - Protected slide/page/sheet, source file unchanged, non-target region stable, speaker notes/metadata retained, or previous-turn layout preserved.
 
-- seed seminar PPTX template;
-- source paper PDF;
-- extracted reference crops for paper figures/formula;
-- annotated screenshot for the slide-2 layout revision;
-- seminar style reference.
+5. **At least two turns**
+   - Turn 1 creates or repairs the artifact.
+   - Final turn revises a local constraint and tests regression/preservation.
 
-Evaluated properties:
+6. **Partial-credit checks**
+   - Content/source correctness.
+   - Layout/region correctness.
+   - Style/template correctness.
+   - Native editability.
+   - Preservation/regression.
 
-- required review text present;
-- embedded paper figures visually match PDF reference crops;
-- attention formula appears as editable text and as a PDF-derived formula crop;
-- annotated screenshot layout is followed;
-- protected non-target slide is preserved;
-- VLM judge verifies figure/formula visibility on rendered previews.
+## Evaluation schema
 
-### Task 3. XLSX/PDF/source-data to PPT chart slide (stretch)
-
-**Goal:** create or update a slide using external source data.
-
-Inputs:
-
-- XLSX with table data, or PDF/paper table;
-- PPTX template;
-- visual layout reference for chart placement.
-
-Possible turns:
-
-1. Build a chart from the specified data and place it in the slide.
-2. Add a one-sentence insight below the chart.
-3. Adjust chart style to match template and preserve source data.
-
-Evaluated properties:
-
-- correct source data used;
-- chart type correct;
-- chart values/labels correct;
-- chart positioned according to layout reference;
-- insight text semantically reflects the data;
-- source XLSX unchanged if preservation required.
-
-Evaluator types:
-
-- XLSX value/range check;
-- PPT chart data extraction if feasible;
-- rendered chart VLM check;
-- LLM judge for insight correctness;
-- file preservation check.
-
-## PoC evaluation schema
-
-Each task should have a machine-readable evaluator spec.
-
-Example:
+The task manifest should encode requirements as a weighted DAG of checks. A simplified pattern:
 
 ```yaml
-id: poc_ppt_sketch_001
-artifacts:
-  package:
-    seed: {path: seed.pptx, type: pptx, role: seed}
-    sketch: {path: sketch.png, type: png, role: instruction_input}
-    source: {path: source.txt, type: txt, role: source_input}
-    source_figure: {path: source_figure.png, type: png, role: instruction_input}
-  expected_outputs:
-    turn1:
-      result: {path: result.pptx, type: pptx}
-    turn2:
-      result: {path: result.pptx, type: pptx}
 turns:
   - id: turn1
-    new_inputs:
-      textual:
-        - package.source
-      visual:
-        - package.sketch
-    instruction: "Create the slide following the sketch."
+    instruction: "Create or repair the deck from source inputs and visual references."
     checks:
-      - id: required_title
+      - id: file_exists
+        evaluator: file_exists
+        points: 1
+      - id: required_content
         evaluator: pptx_text_contains
-        points: 2
-      - id: layout_regions
-        evaluator: pptx_bbox_regions
         points: 4
-      - id: sketch_similarity
-        evaluator: rendered_vlm_layout
+      - id: native_chart_data
+        evaluator: pptx_chart_data
+        points: 5
+      - id: visual_layout_region
+        evaluator: pptx_bbox_region
         points: 4
-  - id: turn2
-    new_inputs:
-      textual: []
-      visual:
-        - package.source_figure
-    instruction: "Apply the brand style and add the source figure."
+      - id: protected_slide_preserved
+        evaluator: pptx_preservation_diff
+        points: 4
+  - id: final
+    instruction: "Apply a revision while preserving turn-1 work."
     checks:
-      - id: brand_colors
+      - id: revised_style
         evaluator: pptx_style_check
         points: 3
-      - id: figure_present
-        evaluator: rendered_or_image_match
-        points: 3
       - id: prior_layout_preserved
-        evaluator: turn_diff_preservation
-        points: 4
-score:
-  aggregation: weighted_sum
-  total_points: 20
+        evaluator: pptx_preservation_diff
+        points: 3
+      - id: rendered_layout_review
+        evaluator: vlm_layout_rubric
+        points: 0
+        optional: true
+        diagnostic: true
 ```
 
-## Minimum evaluator components
+### Required evaluator families
 
-### 1. Artifact loader
+1. **File and schema checks**
+   - `file_exists`, slide count, output naming, artifact references.
 
-Responsibilities:
+2. **Structured PPTX checks**
+   - text containment;
+   - object names/selectors;
+   - bounding boxes and regions;
+   - font/style checks;
+   - image similarity against source/reference crops;
+   - chart type/data extraction;
+   - formula/text presence;
+   - preservation diffs for protected slides and selected objects.
 
-- locate input/output artifacts;
-- validate expected files exist;
-- normalize paths by task/turn;
-- record metadata for score reports.
+3. **Rendered checks**
+   - render deck to PNG previews;
+   - attach previews to reports;
+   - optionally run VLM layout/style rubrics with cached outputs.
 
-### 2. PPTX structured extractor
+4. **Turn-regression checks**
+   - compare final output against turn-1 output for selected objects or regions;
+   - mark requirements as satisfied, failed, blocked, or regressed.
 
-Minimum fields:
+## Report expectations
 
-- slides;
-- shapes;
-- text runs;
-- images;
-- tables/charts if easy;
-- bounding boxes;
-- font size/color/family where accessible.
+Every run report should include:
 
-Useful libraries/tools:
+- total score and per-turn score;
+- score by capability bucket: content/source, layout, style/template, native editability, preservation/regression;
+- failed checks with concrete selector/region evidence;
+- blocked checks when dependencies fail;
+- rendered slide previews for visual debugging;
+- optional LLM/VLM judge outputs with cache keys and model metadata;
+- a concise natural-language summary of the agent's failure modes.
 
-- `python-pptx` for structured extraction and simple edits;
-- OOXML inspection for properties not exposed by `python-pptx`;
-- LibreOffice or similar renderer for slide images.
+## Baseline experiment design
 
-### 3. Renderer
+The PoC should be run on at least three agent/interface settings when feasible:
 
-Responsibilities:
+1. **Open-tool frontier agent**
+   - May use Python, OOXML, file parsers, and renderers.
+   - Expected to be strong on structured edits but still fail visual layout or preservation.
 
-- render PPTX to slide images;
-- optionally crop regions;
-- store deterministic file names for judge/cache use.
+2. **GUI-only CUA agent**
+   - Uses screenshot observation and mouse/keyboard actions.
+   - Expected to reveal spatial manipulation cost and precision failures.
 
-### 4. Check functions
+3. **Hybrid or office-specific agent**
+   - Uses structured edits plus rendered self-checks.
+   - Useful as an aspirational baseline and for ablations.
 
-Initial checks:
+Useful ablations:
 
-- `file_exists`;
-- `pptx_text_contains`;
-- `pptx_slide_count`;
-- `pptx_bbox_region`;
-- `pptx_font_size_relation`;
-- `pptx_color_match`;
-- `pptx_non_target_slide_unchanged`;
-- `rendered_image_similarity`;
-- `llm_text_rubric`;
-- `vlm_layout_rubric`.
+- remove visual input;
+- remove turn history;
+- disallow code/OOXML;
+- disallow rendered self-check;
+- require native editability instead of allowing flattened screenshots.
 
-### 5. Score aggregator
+## Scaling path after PoC
 
-Responsibilities:
+The PoC should lead directly into a template-family generation pipeline.
 
-- run checks by turn;
-- compute points earned / total;
-- show blocked checks if dependencies failed;
-- report regressions from previous turns;
-- emit JSON and markdown score reports.
+1. **Human designs workflow families**
+   - Example families: incident review deck, public reporting template, KPI briefing, research paper deck, grant pitch, board update.
 
-## Partial-credit policy
+2. **Scripts instantiate variants**
+   - Vary data, labels, source documents, colors, layouts, protected regions, and turn order.
 
-### Default scoring
+3. **Gold and evaluator leaves are generated together**
+   - The same metadata that places objects in gold artifacts should generate bbox/style/chart/text checks.
 
-- Each check has points.
-- Task score is sum of passed points divided by total points.
-- Turn score is sum over checks assigned to that turn.
-- Final score includes final checks plus accumulated preservation checks.
+4. **Visual instructions are generated from artifacts**
+   - Render seed/gold slides.
+   - Add arrows, callouts, region boxes, or sketch-like SVGs.
 
-### Dependencies
+5. **Strong-agent filtering controls difficulty**
+   - Keep benchmark tasks where strong agents do not saturate.
+   - Reserve easy tasks for smoke/dev/train splits.
 
-If a check depends on another object existing:
+## Immediate PoC success criteria
 
-- prerequisite failure should mark dependent checks as failed or blocked;
-- blocked checks still count as lost points unless explicitly marked diagnostic-only;
-- report should explain the dependency.
+Before claiming PoC completion, verify:
 
-### Preservation
-
-Every multi-turn task should include preservation checks:
-
-- previous-turn requirements still satisfied;
-- non-target slides/pages/sheets unchanged;
-- source files unchanged when required;
-- no unexpected extra/deleted objects.
-
-## Baselines for PoC
-
-Minimum:
-
-- one LLM/code-agent baseline that can manipulate PPTX using Python libraries;
-- one manual/gold run to validate evaluator behavior.
-
-Preferred if time allows:
-
-- a GUI agent or general computer-use baseline;
-- a structured open-tool baseline;
-- compare GUI-only vs open-tool track on at least one task.
-
-The PoC does not need to prove final SOTA. It only needs to show that CUIF scoring reveals meaningful differences.
-
-## PoC success criteria
-
-The PoC is successful if it demonstrates all of the following:
-
-1. **Task feasibility**
-   - 2--3 tasks can be packaged with inputs, turns, expected outputs, and evaluator specs.
-
-2. **Evaluation feasibility**
-   - evaluator produces a partial-credit JSON/markdown report;
-   - checks include both structured PPTX checks and rendered visual checks;
-   - per-turn scores are visible.
-
-3. **Diagnostic value**
-   - at least one baseline gets partial credit rather than only pass/fail;
-   - report identifies concrete failures such as wrong layout, missing content, broken preservation, or visual mismatch.
-
-4. **Novelty signal**
-   - tasks clearly include multimodal constraints;
-   - tasks require multi-turn revision or preservation;
-   - evaluation would not be captured by OfficeBench-style final keyword/file checks alone.
-
-## Immediate implementation TODOs
-
-### Spec and task design
-
-- [ ] Define task directory structure under `poc/tasks/`.
-- [ ] Define evaluator YAML/JSON schema.
-- [ ] Pick final 2--3 PoC task concepts.
-- [ ] Create or collect seed PPTX templates.
-- [ ] Create visual inputs: sketch, annotated screenshot, template image.
-- [ ] Write turn-by-turn user instructions.
-- [ ] Create gold artifacts manually or via script.
-
-### Evaluation pipeline
-
-- [ ] Implement PPTX structured extraction.
-- [ ] Implement PPTX rendering to images.
-- [ ] Implement first deterministic checks.
-- [ ] Implement score aggregation.
-- [ ] Implement markdown/JSON result report.
-- [ ] Add optional VLM/LLM judge wrapper with caching.
-- [ ] Add preservation/collateral-damage checks.
-
-### Smoke tests
-
-- [ ] Run evaluator on gold artifact and expect near/full score.
-- [ ] Run evaluator on intentionally broken artifacts and check failures are caught.
-- [ ] Run at least one baseline agent or scripted solver.
-- [ ] Compare final-only score vs partial/per-turn report.
-
-### Documentation
-
-- [ ] Document task authoring workflow.
-- [ ] Document evaluator leaf types.
-- [ ] Document how to add a new check.
-- [ ] Record known limitations and false positives/negatives.
-
-## Expected PoC outcome
-
-A compelling PoC result should look like:
-
-- a small gallery of multimodal office tasks;
-- a score report that breaks down each turn and requirement;
-- examples where an agent gets content right but layout wrong, or handles turn 1 but breaks it after turn 2;
-- evidence that CUIF captures failures hidden by final-only evaluation;
-- a concrete path from handmade tasks to generated benchmark tasks.
+- all flagship manifests validate;
+- mock runs pass deterministic checks;
+- reports include per-turn partial credit and rendered previews;
+- at least one task exercises each of: visual layout, native chart/data, source figure/image matching, preservation, final-turn regression;
+- `toy_pptx_layout` remains a smoke task, not a flagship novelty claim;
+- the documentation consistently frames CUIF as layout/template-constrained editable artifact evaluation rather than generic visual perception.
