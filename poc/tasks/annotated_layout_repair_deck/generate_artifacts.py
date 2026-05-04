@@ -133,11 +133,11 @@ def add_repaired_dashboard(prs: Presentation, *, final: bool = False) -> None:
     add_box(slide, "Alert fatigue 18%\nDuplicate pages", 6.95, 1.05, 2.60, 0.90, fill=RGBColor(0xFF, 0xF7, 0xED), line=COLORS["amber"], size=15, bold=True, name="fatigue_metric_tile")
     trend = add_box(slide, "Service health trend\nEditable trend panel: incidents fell after owner routing was restored.", 0.50, 2.25, 5.90, 3.25, fill=COLORS["pale"], line=COLORS["blue"], size=16, bold=True, name="service_health_trend_panel")
     trend.line.width = Pt(1.75)
-    add_line(slide, 0.95, 4.95, 1.7, 4.55, color=COLORS["teal"], width=2.5)
-    add_line(slide, 1.7, 4.55, 2.5, 4.75, color=COLORS["teal"], width=2.5)
-    add_line(slide, 2.5, 4.75, 3.3, 4.30, color=COLORS["teal"], width=2.5)
-    add_line(slide, 3.3, 4.30, 4.2, 4.55, color=COLORS["teal"], width=2.5)
-    add_line(slide, 4.2, 4.55, 5.65, 4.05, color=COLORS["teal"], width=2.5)
+    add_line(slide, 0.95, 5.15, 1.7, 4.85, color=COLORS["teal"], width=2.5)
+    add_line(slide, 1.7, 4.85, 2.5, 5.05, color=COLORS["teal"], width=2.5)
+    add_line(slide, 2.5, 5.05, 3.3, 4.65, color=COLORS["teal"], width=2.5)
+    add_line(slide, 3.3, 4.65, 4.2, 4.90, color=COLORS["teal"], width=2.5)
+    add_line(slide, 4.2, 4.90, 5.65, 4.55, color=COLORS["teal"], width=2.5)
     if final:
         add_box(slide, "Action owners\nSRE: Priya\nSupport: Marcus\nComms: Lina", 6.65, 2.40, 2.90, 1.55, fill=COLORS["white"], line=COLORS["teal"], size=15, bold=True, name="action_owners")
         add_textbox(slide, "Caption: checkout latency risk is concentrated in owner-routing gaps.", 0.65, 5.60, 5.60, 0.50, size=13, color=COLORS["gray"], name="trend_caption")
@@ -200,7 +200,7 @@ def write_reference_svg() -> None:
   <text x='720' y='155' font-family='Arial' font-size='24' fill='#172033'>Alert fatigue metric</text>
   <rect x='50' y='225' width='590' height='325' fill='#FFFFFF' stroke='#1F4E79' stroke-width='5'/>
   <text x='80' y='275' font-family='Arial' font-size='27' font-weight='700' fill='#172033'>Service health trend panel goes here</text>
-  <polyline points='95,495 170,455 250,475 330,430 420,455 565,405' fill='none' stroke='#2A9D8F' stroke-width='8'/>
+  <polyline points='95,515 170,485 250,505 330,465 420,490 565,455' fill='none' stroke='#2A9D8F' stroke-width='8'/>
   <rect x='665' y='475' width='290' height='165' fill='#FFF2EC' stroke='#E76F51' stroke-width='5'/>
   <text x='690' y='535' font-family='Arial' font-size='25' font-weight='700' fill='#172033'>Lower-right risk callout</text>
   <path d='M445 675 C540 700 690 690 790 640' fill='none' stroke='#E76F51' stroke-width='5' stroke-dasharray='12 9'/>
