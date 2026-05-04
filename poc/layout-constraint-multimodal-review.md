@@ -8,7 +8,7 @@ Scope: Task 5, mandatory multimodal/VLM critique of new A/B/C visual inputs, see
 
 | Package | Archetype | Verdict | Revision request |
 |---|---|---|---|
-| `poc/tasks/annotated_layout_repair_deck` | Task A — annotated screenshot layout repair | **FAIL** | Fix trend-line/text overlap on slide 2 in turn 1 and final gold decks. |
+| `poc/tasks/annotated_layout_repair_deck` | Task A — annotated screenshot layout repair | **PASS after revision** | Initial trend-line/text overlap fixed and re-rendered. |
 | `poc/tasks/public_template_compliance_deck` | Task B — strict template/style compliance | **PASS** | None from multimodal review. |
 | `poc/tasks/native_chart_style_deck` | Task C — cross-file native chart style deck | **PASS** | None from multimodal review. |
 
@@ -53,22 +53,26 @@ Excluding `file_exists`, `pptx_slide_count`, and diagnostic-only `rendered_layou
 | `public_template_compliance_deck` | 54 | 44 | 81.5% |
 | `native_chart_style_deck` | 67 | 52 | 77.6% |
 
-All packages satisfy the PRD/test-spec threshold by point distribution, but Task A still needs the visual overlap fix before final multimodal acceptance.
+All packages satisfy the PRD/test-spec threshold by point distribution. Task A initially failed visual review, then passed after the trend-line/text-overlap revision and regenerated contact-sheet inspection.
 
 ## Multimodal findings
 
 ### Task A — annotated layout repair
 
-Pass:
+Initial review:
 
-- Annotated visual reference and seed screenshot are concrete and instruction-relevant.
-- Gold decks visibly implement top-row metric alignment, expanded trend panel, lower-right hotspot, final caption, and action-owner rail.
-- Protected slides are visually stable.
+- Annotated visual reference and seed screenshot were concrete and instruction-relevant.
+- Gold decks visibly implemented top-row metric alignment, expanded trend panel, lower-right hotspot, final caption, and action-owner rail.
+- Protected slides were visually stable.
+- Initial fail: the slide 2 trend-line graphic crossed the `Service health trend` title/body text in both turn 1 and final gold previews.
 
-Fail / revision request:
+Revision / final review:
 
-- The slide 2 trend-line graphic crosses the `Service health trend` title/body text in both turn 1 and final gold previews. This is an obvious visual overlap in the core edited region.
-- Request: move the line lower or move the title/body copy so the chart stroke no longer intersects text, then regenerate gold previews and preserve all current deterministic check targets.
+- The repaired dashboard trend polyline was lowered in `generate_artifacts.py` and the annotated reference SVG.
+- Task A seed/gold/mock PPTXs and multimodal contact sheets were regenerated.
+- Leader multimodal inspection of `gold_turn1_montage.png` and `gold_final_montage.png` confirmed the trend line no longer crosses label text while preserving top-row metrics, lower-right hotspot, final caption, owner rail, and protected slides.
+
+Final verdict: **PASS after revision**.
 
 ### Task B — public template compliance
 

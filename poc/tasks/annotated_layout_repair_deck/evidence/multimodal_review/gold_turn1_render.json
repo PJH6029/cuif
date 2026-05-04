@@ -1,0 +1,18 @@
+{
+  "status": "rendered",
+  "renderer": "/usr/bin/soffice",
+  "page_renderer": "/usr/bin/pdftoppm",
+  "summary": "poc/tasks/annotated_layout_repair_deck/evidence/multimodal_review/rendered/gold_turn1/summary.json",
+  "html": "poc/tasks/annotated_layout_repair_deck/evidence/multimodal_review/rendered/gold_turn1/summary.html",
+  "images": [
+    "poc/tasks/annotated_layout_repair_deck/evidence/multimodal_review/rendered/gold_turn1/slide-1.png",
+    "poc/tasks/annotated_layout_repair_deck/evidence/multimodal_review/rendered/gold_turn1/slide-2.png",
+    "poc/tasks/annotated_layout_repair_deck/evidence/multimodal_review/rendered/gold_turn1/slide-3.png",
+    "poc/tasks/annotated_layout_repair_deck/evidence/multimodal_review/rendered/gold_turn1/slide-4.png"
+  ],
+  "stdout": "convert /home/top321902/code/snupi/cuif/poc/tasks/annotated_layout_repair_deck/artifacts/gold/turn1.pptx as a Impress document -> /home/top321902/code/snupi/cuif/poc/tasks/annotated_layout_repair_deck/evidence/multimodal_review/rendered/gold_turn1/turn1.pdf using filter : impress_pdf_Export\n",
+  "stderr": "",
+  "libreoffice_profile": "isolated_temp",
+  "pdftoppm_stdout": "",
+  "pdftoppm_stderr": ""
+}

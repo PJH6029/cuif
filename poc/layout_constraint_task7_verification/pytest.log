@@ -1,0 +1,18 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-9.0.3, pluggy-1.6.0
+rootdir: /home/top321902/code/snupi/cuif
+configfile: pyproject.toml
+testpaths: tests
+collected 54 items
+
+tests/test_artifacts.py ....                                             [  7%]
+tests/test_bundles.py .......                                            [ 20%]
+tests/test_judge_client.py .......                                       [ 33%]
+tests/test_pptx_checks.py ......                                         [ 44%]
+tests/test_rendering.py ...                                              [ 50%]
+tests/test_reports.py .....                                              [ 59%]
+tests/test_runner_mock.py .........                                      [ 75%]
+tests/test_schema.py ..........                                          [ 94%]
+tests/test_scoring.py ...                                                [100%]
+
+============================== 54 passed in 4.16s ==============================

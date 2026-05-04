@@ -34,6 +34,19 @@ Fresh evidence logs from this rerun:
 - `poc/tasks/public_template_compliance_deck/evidence/worker1_codex_baseline_20260504.log`
 - `poc/tasks/native_chart_style_deck/evidence/worker1_codex_baseline_20260504.log`
 
+## Task 7 leader visual revision evidence
+
+Task A initially failed mandatory multimodal review because the repaired slide-2 trend line crossed the `Service health trend` label/body text. The leader completed the stalled task-7 fix by lowering the trend polyline, regenerating Task A seed/gold/mock PPTXs, re-rendering contact sheets, and inspecting the revised turn-1/final gold sheets with the multimodal image tool.
+
+Evidence:
+
+- `poc/tasks/annotated_layout_repair_deck/evidence/task7_leader_regenerate_20260504.log`
+- `poc/tasks/annotated_layout_repair_deck/evidence/multimodal_review/gold_turn1_montage.png`
+- `poc/tasks/annotated_layout_repair_deck/evidence/multimodal_review/gold_final_montage.png`
+- `poc/tasks/annotated_layout_repair_deck/evidence/multimodal_review/review.md`
+
+Final visual verdict: **PASS after revision**; no chart stroke crosses trend-panel label text in revised gold turn 1 or final previews.
+
 ## Final deterministic validation
 
 Run from repo root:
