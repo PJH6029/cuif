@@ -1,6 +1,0 @@
-$ uv run cuif-eval run --task poc/tasks/native_chart_style_deck --adapter mock --out output/runs/ralph_native_chart_style_deck_judge_public --judge-base-url http://127.0.0.1:10561/v1 --judge-model gpt-5.4 --judge-image-url-base https://calm-beans-matter.loca.lt --refresh-judge-cache
-Run directory: /home/top321902/code/snupi/cuif/output/runs/ralph_native_chart_style_deck_judge_public
-Adapter status: succeeded
-Final score: 71.00/71.00 (100.0%)
-
-exit_code=0

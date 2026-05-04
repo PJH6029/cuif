@@ -1,3 +1,0 @@
-===== public_template_compliance_deck codex baseline bounded attempt =====
-$ timeout 90s uv run cuif-eval run-and-evaluate --task poc/tasks/public_template_compliance_deck --bundle output/bundles/public_template_compliance_deck_codex_bounded --run output/runs/public_template_compliance_deck_codex_bounded --agent codex-exec --overwrite-bundle --skip-judges
-exit_code=124

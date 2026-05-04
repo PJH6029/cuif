@@ -66,6 +66,9 @@ uv run cuif-eval run \
 
 ## Evidence organization
 
-Task packages live under `poc/tasks/<task_id>/`. Repo-level layout-constraint
-rerun logs and summaries live under `poc/tasks/_layout_constraint_evidence/`
-so the `poc/` root stays limited to stable PoC documentation.
+Task packages live under `poc/tasks/<task_id>/` and should contain only
+package-authored materials: `manifest.yaml`, `artifacts/`, `mock_outputs/`,
+task cards/README files, and reproducible generation scripts. Runtime evidence
+from Ralph/team runs, live judge attempts, Codex baselines, rendered previews,
+and other logs should stay in ignored runtime locations such as `output/` or
+`.omx/`, not inside task package directories.

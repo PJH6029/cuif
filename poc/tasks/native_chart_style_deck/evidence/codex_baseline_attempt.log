@@ -1,1 +1,0 @@
-$ timeout 180s uv run cuif-eval run-and-evaluate --task poc/tasks/native_chart_style_deck --bundle output/bundles/native_chart_style_deck --run output/runs/native_chart_style_deck_codex --agent codex-exec --overwrite-bundle --skip-judges

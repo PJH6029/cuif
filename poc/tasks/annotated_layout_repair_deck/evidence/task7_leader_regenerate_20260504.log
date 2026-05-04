@@ -1,3 +1,0 @@
-===== Task A task-7 leader artifact regeneration 2026-05-04T20:50:55+09:00 =====
-$ uv run python poc/tasks/annotated_layout_repair_deck/generate_artifacts.py
-exit_code=0

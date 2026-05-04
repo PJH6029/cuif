@@ -1,3 +1,0 @@
-===== native_chart_style_deck codex baseline bounded attempt =====
-$ timeout 90s uv run cuif-eval run-and-evaluate --task poc/tasks/native_chart_style_deck --bundle output/bundles/native_chart_style_deck_codex_bounded --run output/runs/native_chart_style_deck_codex_bounded --agent codex-exec --overwrite-bundle --skip-judges
-exit_code=124
